@@ -1,0 +1,37 @@
+{
+  "name": "fcoo-metoc-model-domain",
+  "version": "0.0.2",
+  "homepage": "https://github.com/FCOO/fcoo-metoc-model-domain",
+  "authors": [
+    "Niels Holt"
+  ],
+  "description": "",
+  "main": [
+    "dist/fcoo-metoc-model-domain.js",
+    "dist/fcoo-metoc-model-domain.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/fcoo-metoc-model-domain.git"
+  },
+  "dependencies": {
+    "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^9.0.0",
+    "intervals": "fcoo/intervals.js#^1.1.6"
+  },
+  "devDependencies": {
+    "bourbon": "latest",
+    "modernizr-mixin": "latest",
+    "mathsass": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "es6"
+  ]
+}

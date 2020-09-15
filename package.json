@@ -1,0 +1,16 @@
+{
+  "name": "fcoo-metoc-model-domain",
+  "version": "0.0.2",
+  "homepage": "https://github.com/FCOO/fcoo-metoc-model-domain",
+  "author": "Niels Holt nho@fcoo.dk",
+  "description": "package.json is only use for building the package. see bower.json for more info",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/fcoo-metoc-model-domain.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-fcoo-grunt-plugin": "^5.0.0"
+  },
+  "license": "MIT"
+}

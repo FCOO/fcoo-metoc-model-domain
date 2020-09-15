@@ -1,0 +1,49 @@
+[{
+    "id": "met_model",
+    "modelId" : "IFS",
+    "domainId": "DXD",
+    "subdomains"  : [{
+        "modelId" : "HARMONIE",
+        "domainId": "NEA",
+        "priority": 10
+    },{
+        "modelId" : "HARMONIE",
+        "domainId": "IGB",
+        "priority": 1
+    }]
+
+},{
+    "id": "met_model2",
+    "subdomains": [{
+        "modelId" : "IFS",
+        "domainId": "DXD",
+        "subdomains"  : [{
+            "modelId" : "HARMONIE",
+            "domainId": "NEA",
+            "priority": 1
+        },{
+            "modelId" : "HARMONIE",
+            "domainId": "IGB",
+            "priority": 10
+        }]
+
+    }]
+
+},{
+
+    "id": "wave_model",
+    "subdomains": [{
+        "modelId" : "SWAN",
+        "domainId": "DXP",
+        "subdomains"  : [{
+            "modelId" : "WW3",
+            "domainId": "NSBALT",
+            "subdomains"  : [{
+                "modelId" : "WW3",
+                "domainId": "WW3_INNER_DK"
+            }]
+        }]
+    }]
+}
+]
+
