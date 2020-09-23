@@ -959,6 +959,21 @@
 
             var content = [];
 
+            if (!this.ageOk)
+                content.push({
+                    type     : 'textarea',
+                    center   : true,
+                    icon     : 'far fa-eye-slash',
+                    iconClass: 'font-weight-bold text-danger',
+                    text     : [
+                        {da: 'VISES IKKE', en: 'NOT SHOWN'},
+                        '<br>',
+                        {da:'Forklaring mangler', en:'Missing explanation'}
+                    ],
+                    textClass: ['font-weight-bold text-danger', '', '']
+                });
+
+
             content.push(momentAsText({da: 'Opdateret', en:'Updated'}, this.lastModified, true));
 
             var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
