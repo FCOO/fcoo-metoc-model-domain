@@ -1,5 +1,5 @@
 /***********************************************
-	fcoo-metoc-model-domain.scss, 
+	fcoo-metoc-model-domain.scss,
 
 	(c) 2020, FCOO
 
@@ -16,4 +16,42 @@
 
 //MATHSASS - https://github.com/terkel/mathsass
 @import "../bower_components/mathsass/dist/math";
+
+
+//Create class for color of different domains
+//$color-list: /*#e6194B, */ #3cb44b, #ffe119, #4363d8, #f58231, #42d4f4, #f032e6, /*#fabed4,*/ #469990, /*#dcbeff,*/ #9A6324;//, #fffac8, #800000, #aaffc3, #000075, #a9a9a9;
+//$index: 0;
+//@each $color in $color-list {
+//    .domain-group-map-#{$index}{
+//        border-color : $color !important;
+//    }
+//    .domain-group-item-color-#{$index}{
+//        color : $color;
+//        stroke: $color;
+//    }
+//    $index: $index + 1;
+//}
+
+//Create class for color of different domains
+$color-list:
+            "pink",
+            "purple",
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "cyan",
+            "blue",
+            "brown",
+            "white",
+            "grey",
+            "black",
+            "darkblue";
+
+@each $color-name in $color-list {
+    .text-#{$color-name}{
+        color : #{$color-name} !important;
+    }
+}
+
 

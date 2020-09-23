@@ -27,16 +27,10 @@
         };
     }
 
-
-    var roundEpochMomentTo = 15, //minutes
-        maxAbsoluteAge     = 48, //Max age (=now - epoch) for a domain
-        maxParentAge       = 10, //Max age-different between a children-domain and its parent-domain
-        maxSiblingAge      =  8; //Max age-different between domains on same level with differnet priority
+    var roundEpochMomentTo = 15; //minutes
 
     /****************************************************************************
-    *****************************************************************************
     ModelList
-    *****************************************************************************
     ****************************************************************************/
     function ModelList(options) {
         this.options = $.extend({
@@ -48,13 +42,10 @@
         this.options.metaDataFileName = this.options.metaDataPath + this.options.metaDataFileName;
         this.list   = [];
         this.models = {};
+        this.onResolve = []; //[]FUNCTION(modelList) to be called every time meta-data are resolved/read
     }
-
-
-    // expose access to the constructor
     nsModel.ModelList = ModelList;
 
-    //Extend the prototype
     nsModel.ModelList.prototype = {
         /*********************************************
         getDomain
@@ -70,7 +61,6 @@
             return result;
         },
 
-
         /*********************************************
         resolve - create all models and domains
         *********************************************/
@@ -84,7 +74,6 @@
             });
 
             //Create Interval to read metadata for all domains every X minutes
-//TEST: intervals.options.durationUnit = 'seconds';
             window.intervals.addInterval({
                 duration: this.options.metaDataDuration,
                 fileName: this.options.metaDataFileName,
@@ -92,15 +81,12 @@
                 resolve : nsModel.ModelList.prototype.resolveMetaData,
                 reject  : nsModel.ModelList.prototype.reject
             });
-
         },
 
         /*********************************************
         resolveMetaData - reading json-file with all metadata
         *********************************************/
         resolveMetaData: function(data, interval){
-//HERconsole.log('************** RESOLVE METADATA *******************');
-
             //Update all domains in all models. model.resolve return the lowest duration to next epoch or expected ready for its domains
             var lowestDurationToNextReload = 0;
             $.each(this.list, function(index, model){
@@ -109,15 +95,15 @@
             });
 
             if (lowestDurationToNextReload > 0){
-//HERconsole.log('WAIT for', moment.duration(lowestDurationToNextReload).as(interval.options.durationUnit)/60, 'hours');
                 //Convert from millisec to the duration unit used by the Interval
                 interval.paus( moment.duration(lowestDurationToNextReload).as(interval.options.durationUnit) );
             }
-            else
-//HERconsole.log('RELOAD in', interval.options.duration, 'minutes');
 
-window.afterLoad();
-
+            //Call onResolve
+            var _this = this;
+            $.each(this.onResolve, function(index, func){
+                func(_this);
+            });
         },
 
         /*********************************************
@@ -126,13 +112,24 @@ window.afterLoad();
         reject: function(/*error, interval*/){
             //Retry to read nc-file 3 times with 1 minutes interval MANGLER
 
+        },
+
+        /*********************************************
+        visitAllDomains( domainFunc )
+        domainFunc = FUNCTION(domain)
+        *********************************************/
+        visitAllDomains: function(domainFunc){
+            $.each(this.list, function(index, model){
+                $.each(model.domainList, function(index2, domain){
+                    domainFunc(domain);
+                });
+            });
         }
+
     };
 
     /****************************************************************************
-    *****************************************************************************
     Model
-    *****************************************************************************
     ****************************************************************************/
     function Model(options, modelList) {
         var _this = this;
@@ -146,11 +143,8 @@ window.afterLoad();
             _this.domains[newDomain.options.id] = newDomain;
         });
     }
-
-    // expose access to the constructor
     nsModel.Model = Model;
 
-    //Extend the prototype
     nsModel.Model.prototype = {
 
         /*********************************************
@@ -183,35 +177,31 @@ window.afterLoad();
 
 
     /****************************************************************************
-    *****************************************************************************
     Domain
-    *****************************************************************************
     ****************************************************************************/
     function Domain(options, model) {
         this.model = model;
         this.options = $.extend({
+            type          : model.options.type || 'met',
             owner         : this.model.options.domainOwner || '',
-            global        : false,
+            area          : "regional",
             resolution    : "1nm",
             period        : model.domainPeriod || 6,
-            epochOffset   : 0,
-            maxAbsoluteAge: maxAbsoluteAge, //Max age (=now - epoch) for a domain
-            maxParentAge  : maxParentAge,   //Max age-different between a children-domain and its parent-domain
-            maxSiblingAge : maxSiblingAge   //Max age-different between domains on same level with differnet priority
+            process       : 3*60,
+            epochOffset   : 0
         }, options);
-
         this.options.abbr = this.options.abbr || this.options.id;
         this.options.name = this.options.name || this.options.abbr;
+        switch (this.options.area){
+            case "global": this.options.areaName = {da:'Global',   en:'Global'  }; break;
+            case "local" : this.options.areaName = {da:'Lokal',    en:'Local'   }; break;
+            default      : this.options.areaName = {da:'Regional', en:'Regional'}; break;
+        }
         this.options.ncFileName = this.model.modelList.options.metaDataPath + options.nc;
-
-window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDetailContent, this)});
-
+        this.isGlobal = (options.area == 'global');
     }
-
-    // expose access to the constructor
     nsModel.Domain = Domain;
 
-    //Extend the prototype
     nsModel.Domain.prototype = {
         /*********************************************
         fullName
@@ -235,8 +225,9 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
             var result = '';
             $.each([this.options.owner, this.model.options.id, this.options.abbr], function(index, text){
                 if (text)
-                    result = result + (result ? '/'/*'&nbsp;/&nbsp;'*/ : '') + text.toUpperCase();
+                    result = result + (result ? '&nbsp;/&nbsp;' : '') + text.toUpperCase();
             });
+            result = result + '&nbsp;(' + i18next.s(this.options.areaName) + ')';
             return result;
         },
 
@@ -258,7 +249,7 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
 
         resolveData: function(data){
             var _this = this;
-//NOT USED            var durationToNextEpoch = null;
+            //NOT USED var durationToNextEpoch = null;
             this.lastModified = moment(data.last_modified);
             var newEpoch = data.epoch ? moment(data.epoch) : moment(this.lastModified.utc()).floor(this.options.period, 'hours').add(2, 'hours'); //FORKERT AUTOMATISK BEREGNING AF EPOCH. NÅR EPOCH KOMMER MED I NC-FILERNE FJERNES DET HER
 
@@ -268,11 +259,18 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
                 this.nextEpoch = moment( this.epoch ).add(this.options.period, 'hours');
 
                 //Calc expected next update
+                /* OLD VERSION
                 this.expectedNextUpdate =
                     moment( this.lastModified )
                         .add(this.options.period, 'hours')
                         .add(roundEpochMomentTo, 'minutes')
                         .ceil(roundEpochMomentTo, 'minutes');
+                */
+                this.expectedNextUpdate =
+                    moment( this.nextEpoch )
+                        .add(this.options.process, 'minutes')
+                        .ceil(roundEpochMomentTo, 'minutes');
+
 
                 //Find first and last forecast time
                 $.each(data, function(id, paramOptions){
@@ -291,7 +289,7 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
 
             return this.nextEpoch.diff( now  );
 
-/*NOT USED:
+            /*NOT USED:
             var durationToNextUpdate = this.expectedNextUpdate.diff( now  );
             //It both next ecpoh and next update are in the past => return 0 => just wait for next interval (15 min)
             if ((durationToNextEpoch <= 0) || (durationToNextUpdate <= 0)) return 0;
@@ -299,7 +297,7 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
             else if ((durationToNextEpoch <= 0) && (durationToNextUpdate > 0)) return durationToNextUpdate;
             else if ((durationToNextEpoch > 0) && (durationToNextUpdate <= 0)) return durationToNextEpoch;
             else return Math.min(durationToNextEpoch, durationToNextUpdate);
-*/
+            */
         },
 
         /*********************************************
@@ -310,30 +308,15 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
         },
 
         /*********************************************
-        _statusAsString - Return this.status as a string
-        *********************************************/
-        _statusAsString: function(){
-            if (this.status)
-                return (this.status.epoch ? this.status.epoch.format() : '') + this.status.delayed + this.status.visible + this.status.age;
-            return '';
-        },
-
-        /*********************************************
         update - update info on the domain in this.status
         *********************************************/
         update: function(){
-            var lastStatusAsString = this._statusAsString(),
-                nowHour = moment().floor(1, 'hours');
-
+            var nowHour = moment().floor(1, 'hours');
             this.status = {
                 epoch: moment(this.epoch),
-                age  : nowHour.diff(this.epoch, 'hours')
+                age  : Math.max(0, nowHour.diff(this.epoch, 'hours'))
             };
-
             this.status.delayed = this.expectedNextUpdate.isBefore( moment() );
-
-            //Set needToUpdateStatus. It is set to false when "someone" has updated the status
-            this.needToUpdateStatus = this.needToUpdateStatus || (lastStatusAsString != this._statusAsString());
         },
 
         /*********************************************
@@ -341,7 +324,7 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
         *********************************************/
         createDetailContent: function( $container ){
             //*****************************************************
-            function abbrAndName( id, name, link, label ){
+            function abbrAndName( id, name, link, label, prefix, postfix ){
                 var idLower    = id.toLowerCase(),
                     abbr       = i18next.exists('name:abbr') ? i18next.t('name:abbr') : id.toUpperCase();
 
@@ -349,16 +332,25 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
                         i18next.t('name:'+idLower) :
                         ($.isPlainObject(name) ? i18next.s(name) : name) || abbr;
 
-                var textList = [name];
+                var textList = prefix ? [prefix] : [],
+                    linkList = prefix ? [''] : [];
+
+                if (link || i18next.exists('link:'+idLower))
+                    linkList.push(link || 'link:'+idLower);
+
+                textList.push(name);
                 if (name && (name.toUpperCase() !== abbr.toUpperCase()))
                     textList.push('(' + abbr + ')');
+
+                if (postfix)
+                    textList.push(postfix);
 
                 return {
                     type     : 'textarea',
                     label    : label,
                     text     : textList,
                     textClass:'text-center',
-                    link     : [link || (i18next.exists('link:'+idLower) ? 'link:'+idLower : '')],
+                    link     : linkList,
                     center   : true
                 };
             }
@@ -366,7 +358,7 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
             function momentAsText( label, m, inclRelative ){
                 var text =
                     $('<span/>')
-                        .vfFormat('datetime')
+                        .vfFormat('datetime_format', {dateFormat: {weekday:'None', month:'Short', year:'Short'}})
                         .vfValue(m)
                         .text();
 
@@ -399,21 +391,21 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
                         if (roundDiff == 0){
                             //Special case: less that one hour from/to the moment
                             relText = diff > 0 ?
-                                      {da: "(Lige om lidt)",   en: "(Shortly)"  } :
-                                      {da: "(For lidt siden)", en: "(Recently)" };
+                                      {da: "(lige om lidt)",   en: "(shortly)"  } :
+                                      {da: "(for lidt siden)", en: "(recently)" };
                         }
                         else {
                             var absDiff = Math.abs(roundDiff),
                                 sing    = absDiff == 1;
                             if (diff > 0)
                                 relText = {
-                                    da: '(Om ca. '+absDiff + (sing ? ' time':' timer')+')',
-                                    en: '(In app. '+absDiff + (sing ? ' hour':' hours')+')'
+                                    da: '(om ca. '+absDiff + (sing ? ' time':' timer')+')',
+                                    en: '(in app. '+absDiff + (sing ? ' hour':' hours')+')'
                                 };
                             else
                                 relText = {
-                                    da: '(For ca. '+absDiff + (sing ? ' time':' timer')+' siden)',
-                                    en: '(App. '+absDiff + (sing ? ' hour':' hours')+' ago)'
+                                    da: '(for ca. '+absDiff + (sing ? ' time':' timer')+' siden)',
+                                    en: '(app. '+absDiff + (sing ? ' hour':' hours')+' ago)'
                                 };
                         }
                     }
@@ -432,17 +424,17 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
             var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
             if (this.status.delayed)
                 content.push({
-                    label: label, type: 'textarea', center: true, textClass: 'font-weight-bold text-danger', text: {da: 'FORSINKET', en: 'DELAYED'}
+                    label: label, type: 'textarea', center: true, textClass: 'font-weight-bold text-warning', text: {da: 'FORSINKET', en: 'DELAYED'}
                 });
             else
                 content.push( momentAsText(label, this.expectedNextUpdate, true));
 
-            content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast end at'}, this.LastTime, 'EXACT'));
+            content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast ends at'}, this.LastTime, 'EXACT'));
 
 
             content.push( abbrAndName( this.options.owner,    null,              null,              {da:'Ejer/Distributør', en: 'Owner/Distributor' } ));
             content.push( abbrAndName( this.model.options.id, null,              null,              {da:'Model',            en: 'Model'             } ));
-            content.push( abbrAndName( this.options.abbr,     this.options.name, this.options.link, {da:'Område/Opsætning', en: 'Domain/Setting'    } ));
+            content.push( abbrAndName( this.options.abbr,     this.options.name, this.options.link, {da:'Område/Opsætning', en: 'Domain/Setting'    }, i18next.s(this.options.areaName)+' =' ));
 
 
             content.push({
@@ -450,42 +442,14 @@ window.test.push({header:this.fullNameSimple(), content: $.proxy(this.createDeta
                 label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
                 text      : {
                     da: 'Prognosen opdateres hver ' + this.options.period +'. time<br>Den horisontale opløsning i prognosen er '+ this.options.resolution,
-                    en: 'The forecast is updated every ' + this.options.period +'th hours<br>The horizontal resolution is '+ this.options.resolution
+                    en: 'The forecast is updated every ' + this.options.period +' hours<br>The horizontal resolution is '+ this.options.resolution
                 },
                 textClass : 'text-center',
                 //lineBefore: true,
                 center    : true
             });
 
-
-
-
-
             $container._bsAppendContent(content);
-/*
-
-Forventes opdateret Expected update
-Ejer / distributør Owner / Distributor
-Model
-Område / Opsætning  Domain /Setting
-Prognose frem til   Forecast until
-
-*/
-
-
         }
-
-
     };
-
-    /******************************************
-    Initialize/ready
-    *******************************************/
-    $(function() {
-
-    });
-    //******************************************
-
-
-
 }(jQuery, this.i18next, this.moment, this, document));
