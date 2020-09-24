@@ -463,6 +463,7 @@
 
             this.age   = domain.status.age;
             this.ageOk = (this.age < this.options.maxAbsoluteAge);
+            this.domain.ageOk = this.ageOk;
             if (this.ageOk){
                 //Check against all parent
                 var parent = this.parent;
