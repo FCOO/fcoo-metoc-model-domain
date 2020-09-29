@@ -1,49 +1,64 @@
-[{
-    "id": "met_model",
-    "modelId" : "IFS",
-    "domainId": "DXD",
-    "subdomains"  : [{
-        "modelId" : "HARMONIE",
-        "domainId": "NEA",
-        "priority": 10
+{
+    options: {
+    },
+    list: [{
+        "id": "met_model",
+        "name": {"da": " Meteorologiske prognoser", "en":" Meteorological Forecasts"},
+        "subdomains": [{
+            "modelId" : "IFS",
+            "domainId": "DYSD",
+            "subdomains"  : [{
+                "modelId" : "HARMONIE",
+                "domainId": "NEA",
+                "priority": 10,
+            },{
+                "modelId" : "HARMONIE",
+                "domainId": "IGB",
+                "priority": 1
+            }]
+        }]
     },{
-        "modelId" : "HARMONIE",
-        "domainId": "IGB",
-        "priority": 1
-    }]
-
-},{
-    "id": "met_model2",
-    "subdomains": [{
-        "modelId" : "IFS",
-        "domainId": "DXD",
+        "id": "met_model_dmi",
+        "name": {"da": " Meteorologiske prognoser - KUN DMI", "en":" Meteorological Forecasts - ONLY DMI"},
         "subdomains"  : [{
             "modelId" : "HARMONIE",
             "domainId": "NEA",
-            "priority": 1
+            "priority": 10
         },{
             "modelId" : "HARMONIE",
             "domainId": "IGB",
-            "priority": 10
+            "priority": 1
         }]
-
-    }]
-
-},{
-
-    "id": "wave_model",
-    "subdomains": [{
-        "modelId" : "SWAN",
-        "domainId": "DXP",
-        "subdomains"  : [{
-            "modelId" : "WW3",
-            "domainId": "NSBALT",
+    },{
+        "id": "wave_model",
+        "name": {"da": "Bølge prognoser", "en":"Wave Forecasts"},
+        "subdomains": [{
+            "modelId" : "WAM",
+            "domainId": "DYQP",
             "subdomains"  : [{
                 "modelId" : "WW3",
-                "domainId": "WW3_INNER_DK"
+                "domainId": "NSBALTIC",
+                "subdomains"  : [{
+                    "modelId" : "WW3",
+                    "domainId": "INNER_DK"
+                }]
             }]
+        }]
+    },{
+        "id": "ocean_model",
+        "name": {"da": "Ocean prognoser", "en":"Ocean Forecasts"},
+        "subdomains"  : [{
+            "modelId" : "GETM",
+            "domainId": "NSBALTIC",
+            "subdomains"  : [{
+                "modelId" : "GETM",
+                "domainId": "INNER_DK"
+            }]
+        },{
+            "modelId" : "HYCOM",
+            "domainId": "RTOFS",
+            "maxAbsoluteAge": 12
         }]
     }]
 }
-]
 

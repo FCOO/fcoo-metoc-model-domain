@@ -324,6 +324,10 @@
         *********************************************/
         createDetailContent: function( $container ){
             //*****************************************************
+            function replaceSpace( text ){
+                return text.replace(/ /g, '&nbsp;');
+            }
+            //*****************************************************
             function abbrAndName( id, name, link, label, prefix, postfix ){
                 var idLower    = id.toLowerCase(),
                     abbr       = i18next.exists('name:abbr') ? i18next.t('name:abbr') : id.toUpperCase();
@@ -347,6 +351,7 @@
 
                 return {
                     type     : 'textarea',
+                    class    : 'info-box',
                     label    : label,
                     text     : textList,
                     textClass:'text-center',
@@ -355,6 +360,7 @@
                 };
             }
             //*****************************************************
+
             function momentAsText( label, m, inclRelative ){
                 var text =
                     $('<span/>')
@@ -409,9 +415,15 @@
                                 };
                         }
                     }
-                    text = text + ' '+ i18next.sentence(relText);
+                    text = replaceSpace(text) + (ns._mmd.onlyExtraWidth ? '<br>' : ' ') + replaceSpace(i18next.sentence(relText));
                 }
-                return {label: label, type: 'textarea', text: text, center: true};
+                return {
+                    label : label,
+                    class : 'info-box',
+                    type  : 'textarea',
+                    text  : text,
+                    center: true
+                };
             }
             //*****************************************************
 
@@ -426,11 +438,10 @@
                     icon     : 'far fa-eye-slash',
                     iconClass: 'font-weight-bold text-danger',
                     text     : [
-                        {da: 'VISES IKKE', en: 'NOT SHOWN'},
-                        '<br>',
-                        {da:'Forklaring mangler', en:'Missing explanation'}
+                        {da: replaceSpace('VISES IKKE'), en: replaceSpace('NOT SHOWN')},
+                        {da: replaceSpace('Prognosen er ikke tilgængelig'), en: replaceSpace('The forecast is not available')}
                     ],
-                    textClass: ['font-weight-bold text-danger', '', '']
+                    textClass: ['font-weight-bold text-danger', 'text-danger']
                 });
 
 
@@ -439,7 +450,12 @@
             var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
             if (this.status.delayed)
                 content.push({
-                    label: label, type: 'textarea', center: true, textClass: 'font-weight-bold text-warning', text: {da: 'FORSINKET', en: 'DELAYED'}
+                    label : label,
+                    class : 'info-box',
+                    type  : 'textarea',
+                    center: true,
+                    textClass: 'font-weight-bold text-warning',
+                    text: {da: 'FORSINKET', en: 'DELAYED'}
                 });
             else
                 content.push( momentAsText(label, this.expectedNextUpdate, true));
@@ -456,8 +472,8 @@
                 type      : 'textarea',
                 label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
                 text      : {
-                    da: 'Prognosen opdateres hver ' + this.options.period +'. time<br>Den horisontale opløsning i prognosen er '+ this.options.resolution,
-                    en: 'The forecast is updated every ' + this.options.period +' hours<br>The horizontal resolution is '+ this.options.resolution
+                    da: 'Prognosen opdateres hver '      + this.options.period +'. time og den horisontale opløsning i prognosen er ' + this.options.resolution,
+                    en: 'The forecast is updated every ' + this.options.period +' hours and the horizontal resolution is '             + this.options.resolution
                 },
                 textClass : 'text-center',
                 //lineBefore: true,

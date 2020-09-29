@@ -46,3 +46,18 @@
 
 .text-darkblue {
   color: darkblue !important; }
+
+.mdg-extra-width .card-block .card-block, .mdg-mega-width .card-block .card-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .mdg-extra-width .card-block .card-block .form-group, .mdg-mega-width .card-block .card-block .form-group {
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%; }
+    .mdg-extra-width .card-block .card-block .form-group.info-box, .mdg-mega-width .card-block .card-block .form-group.info-box {
+      width: 33%; }
+
+.mdg-extra-width .card-block .card-block .form-group.info-box .container-icon-and-text {
+  height: 4em !important; }

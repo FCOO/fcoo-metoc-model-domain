@@ -8,7 +8,7 @@
 
 ****************************************************************************/
 
-(function ($, L, i18next, moment, window/*, document, undefined*/) {
+(function ($, L, i18next, moment, window, document, undefined) {
     "use strict";
 
     //Create fcoo-namespace
@@ -16,10 +16,44 @@
         nsModel = ns.model = ns.model || {};
 
 
+    /****************************************************************************
+    fcoo.model.createDomainGroupList(fileName, options)
+    Load and create fcoo.model.domainGroupList
+    options = {
+        updateDuration   : 5,                  //Interval between updating the info (minutes)
+        maxAbsoluteAge   : 48,                 //Max age (=now - epoch) for a domain
+        maxParentAge     : 10,                 //Max age-different between a children-domain and its parent-domain
+        maxSiblingAge    :  8,                 //Max age-different between domains on same level with differnet priority
+        mapOptions       : defaultMapOptions,
+        mapContainerStyle: {},                  //Extra styles for the map-container
+        mapLayers        : []Leflet-layer to be added to the map. Eq. Open Street Map
+        modelList        : instance of ModelList
+        helpId           : ''
+
+
+    ****************************************************************************/
+    nsModel.createDomainGroupList = function(options){
+        nsModel.domainGroupList = new DomainGroupList(options);
+    };
+
+    /****************************************************************************
+    fcoo.model.showDomainGroup(id, header, mapCenter, mapZoom)
+    ****************************************************************************/
+    nsModel.showDomainGroup = function(id, header, mapCenter, mapZoom){
+        var domainGroup = nsModel.domainGroupList.groups[id];
+        if (domainGroup)
+            domainGroup.asModal(header, mapCenter, mapZoom);
+    };
+
+
+
+    /****************************************************************************
+    DomainGroupList
+    ****************************************************************************/
     var warningIcon = ['fas fa-circle _back text-warning', 'far fa-exclamation-circle'],
         infoIcon    = $.bsHeaderIcons.info;
 
-    var mapOptions = {
+    var defaultMapOptions = {
             zoomControl         : false,
             attributionControl  : false,    //Use bsAttributionControl instead of default attribution-control
             bsAttributionControl: true,
@@ -40,18 +74,40 @@
     var colorNameList = ["red", "green", "orange", "cyan", "purple", "brown", "black", "grey", "pink", "yellow", "blue", "white"],
         globalColorName = "darkblue";
 
+    //ns._mmd = record with current object used in displaying the status of the domain-groups and there domains
+    ns._mmd = {
+            current : null,     //The current DomainGroup being shown in domainGroup.modal
+            modal   : null,     //bsModal to show status for a DomainGroup
+            header  : '',       //The latest header used
+
+            //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
+            map          : null,
+            $mapContainer: null,
+            $accordion   : null,
+
+            layerGroup   : null, //The leaflet.layerGroup with all mpolygons
+
+            //Detect device and screen-size and set
+            extraWidth   : window.fcoo.modernizrDevice.isDesktop || window.fcoo.modernizrDevice.isTablet
+        };
+        ns._mmd.megaWidth  = ns._mmd.extraWidth && (Math.min(ns.modernizrMediaquery.screen_height, ns.modernizrMediaquery.screen_width) >= 920);
+        ns._mmd.onlyExtraWidth = ns._mmd.extraWidth && !ns._mmd.megaWidth;
+
+
 
     /****************************************************************************
     DomainGroupList
     ****************************************************************************/
     function DomainGroupList(options, list) {
-        this.options = $.extend({
+        this.options = $.extend(true, {
             updateDuration: 5,      //Interval between updating the info (minutes)
 
-            maxAbsoluteAge : 48, //Max age (=now - epoch) for a domain
-            maxParentAge   : 10, //Max age-different between a children-domain and its parent-domain
-            maxSiblingAge  :  8, //Max age-different between domains on same level with differnet priority
+            maxAbsoluteAge: 48, //Max age (=now - epoch) for a domain
+            maxParentAge  : 10, //Max age-different between a children-domain and its parent-domain
+            maxSiblingAge :  8, //Max age-different between domains on same level with differnet priority
 
+            mapOptions    : defaultMapOptions,
+            mapLayers     : []  //Leaflet-layer = layers to be added to the map
         }, options);
 
         this.list = [];
@@ -59,23 +115,42 @@
         this.modelList = options.modelList;
         this.modelList.onResolve.push( $.proxy(this.updateAll, this) );
 
-        var _this = this;
-        $.each(list || [], function(index, domainGroupOptions){
-            _this.addDomainGroup(domainGroupOptions);
-        });
+        if (list)
+            this.resolve(list);
 
-        //Update all domainGroups every updateDuration minutes, but wait for first updateAll called by this.modelList.onResolve
-        this.waitingForModelList = true;
-        window.intervals.addInterval({
-            duration: this.options.updateDuration,
-            data    : {checkForWaiting: true},
-            context : this,
-            resolve : nsModel.DomainGroupList.prototype.updateAll
-        });
     }
     nsModel.DomainGroupList = DomainGroupList;
 
     nsModel.DomainGroupList.prototype = {
+        /*********************************************
+        resolve
+        *********************************************/
+        resolve: function(data){
+            var _this = this;
+
+            //data = []DomainGroup-options or {options, list}
+            var list = [];
+            if ($.isPlainObject(data)){
+                this.options = $.extend(true, this.options, data.options || {});
+                list = data.list || [];
+            }
+            else
+                list = data;
+
+            $.each(list || [], function(index, domainGroupOptions){
+                _this.addDomainGroup(domainGroupOptions);
+            });
+
+            //Update all domainGroups every updateDuration minutes, but wait for first updateAll called by this.modelList.onResolve
+            this.waitingForModelList = true;
+            window.intervals.addInterval({
+                duration: this.options.updateDuration,
+                data    : {checkForWaiting: true},
+                context : this,
+                resolve : nsModel.DomainGroupList.prototype.updateAll
+            });
+        },
+
         /*********************************************
         addDomainGroup
         *********************************************/
@@ -119,19 +194,6 @@
         });
     }
     nsModel.DomainGroup = DomainGroup;
-
-    var domainGroup = {
-            current : null,     //The current DomainGroup being shown in domainGroup.modal
-            modal   : null,     //bsModal to show status for a DomainGroup
-            header  : '',       //The latest header used
-
-            //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
-            map          : null,
-            $mapContainer: null,
-            $accordion   : null,
-
-            layerGroup   : null, //The leaflet.layerGroup with all mpolygons
-        };
 
     nsModel.DomainGroup.prototype = {
         /*********************************************
@@ -200,8 +262,8 @@
 
 
             //If this is the domainGroup displayed in modal => update content of the modal
-            if (domainGroup.current == this)
-                this.asModal(domainGroup.header);
+            if (ns._mmd.current == this)
+                this.asModal(ns._mmd.header);
 
             $.each(this.onUpdate, function(index, func){ func(_this); });
         },
@@ -209,23 +271,29 @@
         /*********************************************
         asModal - Show status for all domains in the group
         *********************************************/
-        asModal: function(header){
-            domainGroup.header = header;
-            if (domainGroup.modal){
-                domainGroup.modal.update(
+        asModal: function(header, mapCenter, mapZoom){
+            ns._mmd.header = header;
+            if (ns._mmd.modal){
+                ns._mmd.modal.update(
                     this._modalContent(
                         header,
-                        domainGroup.current == this ? domainGroup.$accordion.bsAccordionStatus() : null
+                        ns._mmd.current == this ? ns._mmd.$accordion.bsAccordionStatus() : null
                     )
                 );
             }
             else
-                domainGroup.modal = $.bsModal(this._modalContent(header));
+                ns._mmd.modal = $.bsModal(this._modalContent(header));
 
-            domainGroup.$accordion = domainGroup.modal.bsModal.$body.find('.BSACCORDION');
-            domainGroup.current = this;
-            domainGroup.modal.show();
-            domainGroup.map.invalidateSize();
+            ns._mmd.$accordion = ns._mmd.modal.bsModal.$body.find('.BSACCORDION');
+            ns._mmd.current = this;
+
+            if (mapCenter != undefined)
+                ns._mmd.map.setView(mapCenter);
+            if (mapZoom != undefined)
+                ns._mmd.map.setZoom(mapZoom);
+
+            ns._mmd.modal.show();
+            ns._mmd.map.invalidateSize();
         },
 
         /*********************************************
@@ -254,21 +322,21 @@
 
                 if (selected){
                     this.doNotUpdateMap = true;
-                    domainGroup.$accordion.bsOpenCard(index);
+                    ns._mmd.$accordion.bsOpenCard(index);
                 }
 
                 if (item.isGlobal && !item.ageOk) return;
 
                 if (item.isGlobal){
-                    domainGroup.$mapContainer.css('box-shadow', selected ? '0 0 6px 1px ' + item.colorName : 'none');
+                    ns._mmd.$mapContainer.css('box-shadow', selected ? '0 0 6px 1px ' + item.colorName : 'none');
                     if (selected)
-                        domainGroup.map.setZoom( domainGroup.map.getMinZoom(), {animate: false} );
+                        ns._mmd.map.setZoom( ns._mmd.map.getMinZoom(), {animate: false} );
                 }
 
                 if (item.polygon){
                     item.polygon.setStyle({transparent: !selected});
                     if (selected)
-                        domainGroup.map.fitBounds(item.polygon.getBounds(), {_maxZoom: domainGroup.map.getZoom()});
+                        ns._mmd.map.fitBounds(item.polygon.getBounds(), {_maxZoom: ns._mmd.map.getZoom()});
                 }
             });
         },
@@ -286,68 +354,52 @@
                 domainAccordionStatus = accordionStatus[1];
             }
 
+            //Detect device and screen-size and set
+            var mapHeight = 300 + (ns._mmd.extraWidth ? 100 : 0) + (ns._mmd.megaWidth ? 100 : 0);
+
             //Create common map-element
-            if (domainGroup.$mapContainer)
-                domainGroup.$mapContainer.detach();
+            if (ns._mmd.$mapContainer)
+                ns._mmd.$mapContainer.detach();
             else {
                 //Create the info-map. NB: Hard-coded color for the sea!!!
-                domainGroup.$mapContainer =
+                ns._mmd.$mapContainer =
                     $('<div/>')
                         .css({
-                            'height'          : '300px',
-                            'width'           : '100%',
-                            'background-color': '#C9E9F7',
-                            'border'          : '3px solid transparent'
-                        });
+                            'height': mapHeight + 'px',
+                            'width' : '100%',
+                            'border': '3px solid transparent'
+                        }).
+                        css(this.domainGroupList.options.mapContainerStyle || {});
 
-                domainGroup.map = L.map(domainGroup.$mapContainer.get(0), mapOptions);
+                var mapOptions = this.domainGroupList.options.mapOptions;
+                ns._mmd.map = L.map(ns._mmd.$mapContainer.get(0), mapOptions);
 
-                domainGroup.map.setView([56.2, 11.5], 6);
+                ns._mmd.$mapContainer.resize( function(){
+                    ns._mmd.map.invalidateSize();
+                });
 
-                L.tileLayer.wms('https://{s}.fcoo.dk/mapproxy/service', {
-                    layers: "land-iho_latest",
-                    styles: "",
-                    errorTileUrl: "https://tiles.fcoo.dk/tiles/empty_512.png",
-                    format: "image/png",
-                    subdomains: ["wms01", "wms02", "wms03", "wms04"],
-                    tileSize: 512,
-                    transparent: true,
-                    zIndex: 800,
+                ns._mmd.map.setView([56.2, 11.5], 6);
 
-                    minZoom: mapOptions.minZoom,
-                    maxZoom: mapOptions.maxZoom
-                }).addTo(domainGroup.map);
-
-
-                // Top layer (coastline + place names)
-                L.tileLayer.wms('https://{s}.fcoo.dk/mapproxy/service', {
-                    layers: 'top-dark_latest',
-                    styles: "",
-                    errorTileUrl: "https://tiles.fcoo.dk/tiles/empty_512.png",
-                    format: "image/png",
-                    subdomains: ["wms01", "wms02", "wms03", "wms04"],
-                    tileSize: 512,
-                    transparent: true,
-                    zIndex: 1000,
-                    minZoom: mapOptions.minZoom,
-                    maxZoom: mapOptions.maxZoom
-                }).addTo(domainGroup.map);
+                var layerList = this.domainGroupList.options.mapLayers;
+                $.each( $.isArray(layerList) ? layerList : [layerList], function(index, layer){
+                    layer.addTo(ns._mmd.map);
+                });
 
                 //Create layerGroup to hole all polygons
-                domainGroup.layerGroup = L.layerGroup().addTo(domainGroup.map);
+                ns._mmd.layerGroup = L.layerGroup().addTo(ns._mmd.map);
 
                 //Create new pan with zIndex < the map to hole all polygons fra ocean-domains
-                var ocnPane = domainGroup.map.createPane('oceanPane');
+                var ocnPane = ns._mmd.map.createPane('oceanPane');
                 $(ocnPane).css('zIndex', 1);
 
             }
 
             //Clean the layer with polygons and add the one from this
-            domainGroup.$mapContainer.css({
+            ns._mmd.$mapContainer.css({
                 'border-color': 'transparent',
                 'box-shadow'  : 'none'
             });
-            domainGroup.layerGroup.clearLayers();
+            ns._mmd.layerGroup.clearLayers();
 
             //Add each domainGroupItem to the list
             $.each(this.list, function(index, domainGroupItem){
@@ -366,7 +418,7 @@
                 if (!ageOk)
                     icons.push('far fa-eye-slash');
                 else
-                    icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full YTtext-dark']);
+                    icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full']);
 
                 accordionItems.push({
                     id     : 'index_'+index,
@@ -395,34 +447,37 @@
             });
 
             var result = {
-                flexWidth: true,
-                header   : {
-                    icon: this.warning ? [warningIcon] : infoIcon,
-                    text: header || this.options.name
-                },
-                onClose  : function(){ domainGroup.current = null; return true; },
-                content  : {
-                    type     : 'accordion',
-                    onChange : $.proxy(this._accordion_onChange, this),
-                    multiOpen: true,
-                    allOpen  : !mainAccordionStatus,
-                    items: [{
-                        header : {da: 'Oversigtskort', en:'Overview Map'},
-                        isOpen : mainAccordionStatus && mainAccordionStatus[0],
+                    flexWidth : true,
+                    extraWidth: ns._mmd.extraWidth,
+                    megaWidth : ns._mmd.megaWidth,
+                    modalContentClassName: ns._mmd.megaWidth ? 'mdg-mega-width' : ns._mmd.extraWidth ? 'mdg-extra-width' : '',
+                    header   : {
+                        icon: this.warning ? [warningIcon] : infoIcon,
+                        text: header || this.options.name
+                    },
+                    onClose  : function(){ ns._mmd.current = null; return true; },
+                    content  : {
+                        type     : 'accordion',
+                        onChange : $.proxy(this._accordion_onChange, this),
+                        multiOpen: true,
+                        allOpen  : !mainAccordionStatus,
+                        items: [{
+                            header : {da: 'Oversigtskort', en:'Overview Map'},
+                            isOpen : mainAccordionStatus && mainAccordionStatus[0],
 
-                        content: domainGroup.$mapContainer
-                    }, {
-                        header : {da:'Prognoser', en:'Forecasts'},
-                        isOpen : mainAccordionStatus && mainAccordionStatus[1],
-                        content: {
-                            type: 'accordion',
-                            items: accordionItems
-                        }
-                    }]
-                },
-                helpId    : this.options.helpId,
-                helpButton: true
-            };
+                            content: ns._mmd.$mapContainer
+                        }, {
+                            header : {da:'Prognoser', en:'Forecasts'},
+                            isOpen : mainAccordionStatus && mainAccordionStatus[1],
+                            content: {
+                                type: 'accordion',
+                                items: accordionItems
+                            }
+                        }]
+                    },
+                    helpId    : this.options.helpId,
+                    helpButton: true
+                };
             return result;
         }
     };
@@ -483,7 +538,7 @@
             if (this.isGlobal && !this.ageOk) return;
 
             if (this.isGlobal){
-                domainGroup.$mapContainer.css('border-color', this.colorName);
+                ns._mmd.$mapContainer.css('border-color', this.colorName);
                 return;
             }
 
@@ -522,7 +577,7 @@
                 hover           : true,
                 interactive     : true,
                 pane            : isOcean ? 'oceanPane' : 'overlayPane',
-            }).addTo(domainGroup.layerGroup);
+            }).addTo(ns._mmd.layerGroup);
 
             this.polygon
                 .on('click', $.proxy(this._polygon_onClick, this) )

@@ -6,6 +6,10 @@
 
 Format and javascript code to manage and display status for multi-model/virtual-netCDF
 
+Used internaly at FCOO. 
+
+See source code for documentation
+
 ## Installation
 ### bower
 `bower install https://github.com/FCOO/fcoo-metoc-model-domain.git --save`
@@ -39,6 +43,3 @@ Copyright (c) 2020 [FCOO](https://github.com/FCOO)
 ## Contact information
 
 Niels Holt nho@fcoo.dk
-
-
-## Credits and acknowledgements

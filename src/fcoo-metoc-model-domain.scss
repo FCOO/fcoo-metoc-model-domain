@@ -55,3 +55,26 @@ $color-list:
 }
 
 
+//Create style for content in accordion when the modal-box is extra or mega width
+
+.mdg-extra-width, .mdg-mega-width {
+    .card-block .card-block {
+        display        : flex;
+        flex-wrap      : wrap;
+        justify-content: space-between;
+        .form-group {
+            display    : inline-block;
+            flex-grow  : 0;
+            flex-shrink: 0;
+            width      : 100%;
+            &.info-box {
+                width: 33%;
+            }
+        }
+    }
+}
+
+.mdg-extra-width .card-block .card-block .form-group.info-box .container-icon-and-text {
+    height: 4em !important;
+}
+

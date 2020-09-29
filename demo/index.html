@@ -23,7 +23,7 @@
         window.bsIsTouch = window.bsIsTouch || (window.location.search =='?touch');
 
         i18next.init();
-        i18next.changeLanguage('en');
+        i18next.changeLanguage('da');
         i18next.options.fallbackLng = i18next.language == 'da' ? 'en' : 'da';
 
 moment.sfSetFormat({ time: 12, timezone:'utc' } );
@@ -32,77 +32,52 @@ var modal = null;
 
 //TEST:intervals.options.durationUnit = 'seconds';
 
-window.fcoo.model.modelList = new window.fcoo.model.ModelList();
+var modelList = window.fcoo.model.modelList = new window.fcoo.model.ModelList();
+
+window.fcoo.model.createDomainGroupList({
+    modelList: window.fcoo.model.modelList,
+    helpId   : 'Davs med dig',
+    mapLayers: [
+        L.tileLayer.wms('https://{s}.fcoo.dk/mapproxy/service', {
+            layers: "land-iho_latest",
+            styles: "",
+            errorTileUrl: "https://tiles.fcoo.dk/tiles/empty_512.png",
+            format: "image/png",
+            subdomains: ["wms01", "wms02", "wms03", "wms04"],
+            tileSize: 512,
+            transparent: true,
+            zIndex: 800
+        }),
+
+        // Top layer (coastline + place names)
+        L.tileLayer.wms('https://{s}.fcoo.dk/mapproxy/service', {
+            layers: 'top-dark_latest',
+            styles: "",
+            errorTileUrl: "https://tiles.fcoo.dk/tiles/empty_512.png",
+            format: "image/png",
+            subdomains: ["wms01", "wms02", "wms03", "wms04"],
+            tileSize: 512,
+            transparent: true,
+            zIndex: 1000
+        })
+    ],
+    mapOptions: {
+        //zoomControl: true
+    },
+    mapContainerStyle: {
+        'background-color': '#C9E9F7',
+    }
+});
+
 window.Promise.getJSON(window.fcoo.dataFilePath({subDir:'model-domain', fileName:'fcoo_model_domain.json'}), {}, function(data){
     window.fcoo.model.modelList.resolve(data);
-    window.fcoo.model.domainGroupList = new window.fcoo.model.DomainGroupList({
-        modelList: window.fcoo.model.modelList,
-        helpId: 'Davs med dig'
-    }, [
-{
-    "id": "met_model",
-    "name": {"da": " Meteorologiske prognoser", "en":" Meteorological Forecasts"},
-    "subdomains": [{
-        "modelId" : "IFS",
-        "domainId": "DYSD",
-        "subdomains"  : [{
-            "modelId" : "HARMONIE",
-            "domainId": "NEA",
-            "priority": 10,
-        },{
-            "modelId" : "HARMONIE",
-            "domainId": "IGB",
-            "priority": 1
-        }]
-    }]
-},{
-    "id": "met_model_dmi",
-    "name": {"da": " Meteorologiske prognoser - KUN DMI", "en":" Meteorological Forecasts - ONLY DMI"},
-    "subdomains"  : [{
-        "modelId" : "HARMONIE",
-        "domainId": "NEA",
-        "priority": 10
-    },{
-        "modelId" : "HARMONIE",
-        "domainId": "IGB",
-        "priority": 1
-    }]
-},{
-    "id": "wave_model",
-    "name": {"da": "Bølge prognoser", "en":"Wave Forecasts"},
-    "subdomains": [{
-        "modelId" : "WAM",
-        "domainId": "DYQP",
-        "subdomains"  : [{
-            "modelId" : "WW3",
-            "domainId": "NSBALTIC",
-            "subdomains"  : [{
-                "modelId" : "WW3",
-                "domainId": "INNER_DK"
-            }]
-        }]
-    }]
-},{
-    "id": "ocean_model",
-    "name": {"da": "Ocean prognoser", "en":"Ocean Forecasts"},
-    "subdomains"  : [{
-        "modelId" : "GETM",
-        "domainId": "NSBALTIC",
-        "subdomains"  : [{
-            "modelId" : "GETM",
-            "domainId": "INNER_DK"
-        }]
-    },{
-        "modelId" : "HYCOM",
-        "domainId": "RTOFS",
-        "maxAbsoluteAge": 12
-    }]
-}]);
 
+    window.Promise.getJSON(window.fcoo.dataFilePath({subDir:'model-domain', fileName:'fcoo_model_domain_group.json'}), {},
+        $.proxy(window.fcoo.model.domainGroupList.resolve, window.fcoo.model.domainGroupList));
 });
 
 window.openModal = function(groupId){
-    window.fcoo.model.domainGroupList.groups[groupId].asModal(groupId);
+    window.fcoo.model.domainGroupList.groups[groupId].asModal('Header='+groupId/*, [50,50], 3*/);
 }
 </script>
 
