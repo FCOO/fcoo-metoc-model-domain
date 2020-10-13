@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="da" style="font-size: 100%">
 <head>
-	<title>fcoo.dk - fcoo-metoc-model-domain - Demo</title>
+	<title>fcoo.dk - fcoo-metoc-parameter-model-domain - Demo</title>
 	<meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta http-equiv='x-dns-prefetch-control' content='on'>
@@ -10,13 +10,15 @@
 	<meta name='owner' content='FCOO'>
 
   <link  href="bower_components.css" rel="stylesheet">
-  <link  href="../src/fcoo-metoc-model-domain.css" rel="stylesheet">
+  <link  href="../src/fcoo-metoc-parameter-model-domain.css" rel="stylesheet">
 </head>
 
 <body style="padding:30px">
 	<script src="bower_components.js"></script>
 	<script src="../src/fcoo-metoc-model-domain.js"></script>
 	<script src="../src/fcoo-metoc-model-domain-group.js"></script>
+	<script src="../src/fcoo-metoc-unit-parameter.js"></script>
+	<script src="../src/fcoo-metoc-load.js"></script>
 	<script>
 //        window.fcoo.LOCAL_DATA = true;
 
@@ -30,12 +32,18 @@ moment.sfSetFormat({ time: 12, timezone:'utc' } );
 
 var modal = null;
 
+Promise.defaultErrorHandler = function(error){ console.log(error)};
+
 //TEST:intervals.options.durationUnit = 'seconds';
 
-var modelList = window.fcoo.model.modelList = new window.fcoo.model.ModelList();
+fcoo.model.options.includeModel = true;
 
-window.fcoo.model.createDomainGroupList({
-    modelList: window.fcoo.model.modelList,
+if (window.location.search =='?test')
+    fcoo.model.options.staticMode = true;
+
+
+
+fcoo.model.options.domainGroupList = $.extend(true, fcoo.model.options.domainGroupList, {
     helpId   : 'Davs med dig',
     mapLayers: [
         L.tileLayer.wms('https://{s}.fcoo.dk/mapproxy/service', {
@@ -62,29 +70,25 @@ window.fcoo.model.createDomainGroupList({
         })
     ],
     mapOptions: {
-        //zoomControl: true
     },
     mapContainerStyle: {
         'background-color': '#C9E9F7',
     }
 });
 
-window.Promise.getJSON(window.fcoo.dataFilePath({subDir:'model-domain', fileName:'fcoo_model_domain.json'}), {}, function(data){
-    window.fcoo.model.modelList.resolve(data);
+fcoo.promiseList_getAll();
 
-    window.Promise.getJSON(window.fcoo.dataFilePath({subDir:'model-domain', fileName:'fcoo_model_domain_group.json'}), {},
-        $.proxy(window.fcoo.model.domainGroupList.resolve, window.fcoo.model.domainGroupList));
-});
 
-window.openModal = function(groupId){
-    window.fcoo.model.domainGroupList.groups[groupId].asModal('Header='+groupId/*, [50,50], 3*/);
+window.openModal = function(paramId){
+    window.fcoo.parameter.getParameter(paramId).domainGroupAsModal(/* [50,50], 3*/);
 }
 </script>
 
-<a href="javascript:openModal('met_model')">MET: ALLE</a><br>
-<a href="javascript:openModal('met_model_dmi')">MET: Kun DMI</a><br>
-<a href="javascript:openModal('wave_model')">WAVE</a><br>
-<a href="javascript:openModal('ocean_model')">CURRENT</a><br>
+<a href="javascript:openModal('sea_ice_speed')">sea_ice_speed</a><br>
+<a href="javascript:openModal('sea_surface_wave_significant_height')">sea_surface_wave_significant_height (uden navn)</a><br>
+<a href="javascript:openModal('sea_water_density')">sea_water_density</a><br>
+<a href="javascript:openModal('direction_of_sea_water_velocity')">direction_of_sea_water_velocity</a><br>
+<a href="javascript:openModal('wind_from_direction')">wind_from_direction</a><br>
 
 </body>
 </html>

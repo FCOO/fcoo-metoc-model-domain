@@ -1,21 +1,21 @@
 {
-  "name": "fcoo-metoc-model-domain",
-  "version": "2.0.0",
-  "homepage": "https://github.com/FCOO/fcoo-metoc-model-domain",
+  "name": "fcoo-metoc-parameter-model-domain",
+  "version": "3.0.0",
+  "homepage": "https://github.com/FCOO/fcoo-metoc-parameter-model-domain",
   "authors": [
     "Niels Holt"
   ],
   "description": "",
   "main": [
-    "dist/fcoo-metoc-model-domain.js",
-    "dist/fcoo-metoc-model-domain.css"
+    "dist/fcoo-metoc-parameter-model-domain.js",
+    "dist/fcoo-metoc-parameter-model-domain.css"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/FCOO/fcoo-metoc-model-domain.git"
+    "url": "git://github.com/FCOO/fcoo-metoc-parameter-model-domain.git"
   },
   "dependencies": {
-    "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^10.0.0",
+    "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^11.0.0",
     "intervals": "fcoo/intervals.js#^1.1.6",
     "leaflet": "latest",
     "leaflet-polyline": "fcoo/leaflet-polyline#^2.5.1"
@@ -26,6 +26,66 @@
         "dist/leaflet-src.js",
         "dist/leaflet.css"
       ]
+    },
+    "modernizr-mouse-events": {
+      "dependencies": {
+        "fcoo-modernizr-mediaquery-device": "latest"
+      }
+    },
+    "offline": {
+      "main": [
+        "offline.js"
+      ]
+    },
+    "bootstrap-select": {
+      "main": [
+        "dist/js/bootstrap-select.js"
+      ]
+    },
+    "jquery.scrollbar": {
+      "main": [
+        "jquery.scrollbar.js"
+      ]
+    },
+    "bootstrap": {
+      "dependencies": {
+        "jquery": "3.4.1"
+      },
+      "main": [
+        "dist/js/bootstrap.bundle.js"
+      ]
+    },
+    "inputmask": {
+      "main": [
+        "dist/jquery.inputmask.bundle.js"
+      ]
+    },
+    "js-url": {
+      "main": [
+        "dist/url.min.js"
+      ]
+    },
+    "perfect-scrollbar": {
+      "main": [
+        "dist/perfect-scrollbar.js",
+        "css/perfect-scrollbar.css"
+      ]
+    },
+    "moment": {
+      "main": [
+        "moment.js",
+        "locale/da.js",
+        "locale/de.js",
+        "locale/sv.js",
+        "locale/nb.js",
+        "locale/fo.js"
+      ]
+    },
+    "Leaflet.GeometryUtil": {
+      "main": "src/leaflet.geometryutil.js",
+      "dependencies": {
+        "leaflet": "latest"
+      }
     }
   },
   "devDependencies": {
@@ -43,5 +103,10 @@
   ],
   "moduleType": [
     "es6"
-  ]
+  ],
+  "resolutions": {
+    "fcoo-settings": "^3.0.0",
+    "bootstrap": "^4.0.0",
+    "jquery": "~3.4.0"
+  }
 }

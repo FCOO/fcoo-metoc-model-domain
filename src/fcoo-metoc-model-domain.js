@@ -1,45 +1,40 @@
 /****************************************************************************
-    fcoo-metoc-model-domain.js,
+fcoo-metoc-model-domain.js,
 
-    (c) 2020, FCOO
-
-    https://github.com/FCOO/fcoo-metoc-model-domain
-    https://github.com/FCOO
-
+Objects and methods to create and manage list of models
 ****************************************************************************/
-
 (function ($, i18next, moment, window/*, document, undefined*/) {
     "use strict";
 
     //Create fcoo-namespace
     var ns = window.fcoo = window.fcoo || {},
-        nsModel = ns.model = ns.model || {};
+        nsModel = ns.model = ns.model || {},
+        nsModelOptions = nsModel.options = nsModel.options || {};
 
-    function getShortName(id){
-        var idLower = id.toLowerCase(),
-            nameExists = i18next.exists('name:'+idLower),
-            linkExists = i18next.exists('link:'+idLower);
+    nsModelOptions = $.extend(true, nsModelOptions, {
+        includeModel: true,     //If true all models and domain-groups are loeaded and created
+        staticMode  : false,    //If true no metadata from nc-filer are loaded and no dynamic info in modal-window
+        model: {
+            roundEpochMomentTo  : 15 //minutes
+        },
+        modelList: {
+            metaDataDuration : 15,  //Minuts between reload of metadata
 
-        return {
-            text : id.toUpperCase(),
-            title: nameExists ? 'name:'+idLower : null,
-            link : linkExists ? 'link:'+idLower : null
-        };
-    }
+            //data located in file under sub-dir 'static' contains all the groups
+            dataSubDir       : 'model-domain',
+            dataFileName     : 'model-domain.json',
 
-    var roundEpochMomentTo = 15; //minutes
+            //metadata located in file under sub-dir 'dynamic' contains info on the different netCDF-files associated with each model-domain
+            metaDataSubDir   : 'model-domain',
+            metaDataFileName : 'model-domain-metadata.json'
+        }
+    });
 
     /****************************************************************************
     ModelList
     ****************************************************************************/
     function ModelList(options) {
-        this.options = $.extend({
-            metaDataDuration: 15,
-            metaDataPath    : 'https://app.fcoo.dk/dynamic/',
-            metaDataFileName: 'metadata.json'
-        }, options);
-
-        this.options.metaDataFileName = this.options.metaDataPath + this.options.metaDataFileName;
+        this.options = $.extend(true, {}, nsModelOptions.modelList, options || {});
         this.list   = [];
         this.models = {};
         this.onResolve = []; //[]FUNCTION(modelList) to be called every time meta-data are resolved/read
@@ -66,27 +61,28 @@
         *********************************************/
         resolve: function(data){
             var _this = this;
-
             $.each(data, function(index, modelOpt){
                 var newModel = new Model(modelOpt, _this);
                 _this.list.push( newModel );
                 _this.models[newModel.options.id] = newModel;
             });
-
-            //Create Interval to read metadata for all domains every X minutes
-            window.intervals.addInterval({
-                duration: this.options.metaDataDuration,
-                fileName: this.options.metaDataFileName,
-                context : this,
-                resolve : nsModel.ModelList.prototype.resolveMetaData,
-                reject  : nsModel.ModelList.prototype.reject
-            });
+            if (!nsModelOptions.staticMode)
+                //Create Interval to read metadata for all domains every X minutes
+                window.intervals.addInterval({
+                    duration: this.options.metaDataDuration,
+                    fileName: {mainDir: true, subDir: nsModelOptions.modelList.metaDataSubDir, fileName: nsModelOptions.modelList.metaDataFileName},
+                    context : this,
+                    resolve : nsModel.ModelList.prototype.resolveMetaData,
+                    reject  : nsModel.ModelList.prototype.reject
+                });
         },
 
         /*********************************************
         resolveMetaData - reading json-file with all metadata
         *********************************************/
         resolveMetaData: function(data, interval){
+            var _this = this;
+
             //Update all domains in all models. model.resolve return the lowest duration to next epoch or expected ready for its domains
             var lowestDurationToNextReload = 0;
             $.each(this.list, function(index, model){
@@ -100,7 +96,6 @@
             }
 
             //Call onResolve
-            var _this = this;
             $.each(this.onResolve, function(index, func){
                 func(_this);
             });
@@ -111,7 +106,6 @@
         *********************************************/
         reject: function(/*error, interval*/){
             //Retry to read nc-file 3 times with 1 minutes interval MANGLER
-
         },
 
         /*********************************************
@@ -125,7 +119,6 @@
                 });
             });
         }
-
     };
 
     /****************************************************************************
@@ -133,7 +126,7 @@
     ****************************************************************************/
     function Model(options, modelList) {
         var _this = this;
-        this.options = options;
+        this.options = $.extend(true, {}, nsModelOptions.model, options || {});
         this.modelList = modelList;
         this.domainList = [];
         this.domains = {};
@@ -175,20 +168,20 @@
         }
     };
 
-
     /****************************************************************************
     Domain
     ****************************************************************************/
     function Domain(options, model) {
         this.model = model;
         this.options = $.extend({
-            type          : model.options.type || 'met',
-            owner         : this.model.options.domainOwner || '',
-            area          : "regional",
-            resolution    : "1nm",
-            period        : model.domainPeriod || 6,
-            process       : 3*60,
-            epochOffset   : 0
+            type                : this.model.options.type || 'met',
+            owner               : this.model.options.domainOwner || '',
+            area                : "regional",
+            resolution          : "1nm",
+            period              : model.domainPeriod || 6,
+            process             : 3*60,
+            epochOffset         : 0,
+            roundEpochMomentTo  : this.model.options.roundEpochMomentTo
         }, options);
         this.options.abbr = this.options.abbr || this.options.id;
         this.options.name = this.options.name || this.options.abbr;
@@ -197,7 +190,6 @@
             case "local" : this.options.areaName = {da:'Lokal',    en:'Local'   }; break;
             default      : this.options.areaName = {da:'Regional', en:'Regional'}; break;
         }
-        this.options.ncFileName = this.model.modelList.options.metaDataPath + options.nc;
         this.isGlobal = (options.area == 'global');
     }
     nsModel.Domain = Domain;
@@ -207,6 +199,18 @@
         fullName
         *********************************************/
         fullName: function(){
+            //**************************************
+            function getShortName(id){
+                var idLower = id.toLowerCase(),
+                    nameExists = i18next.exists('name:'+idLower),
+                    linkExists = i18next.exists('link:'+idLower);
+                return {
+                    text : id.toUpperCase(),
+                    title: nameExists ? 'name:'+idLower : null,
+                    link : linkExists ? 'link:'+idLower : null
+                };
+            }
+            //**************************************
             var result = [];
             if (this.options.owner)
                 result.push(
@@ -251,7 +255,9 @@
             var _this = this;
             //NOT USED var durationToNextEpoch = null;
             this.lastModified = moment(data.last_modified);
-            var newEpoch = data.epoch ? moment(data.epoch) : moment(this.lastModified.utc()).floor(this.options.period, 'hours').add(2, 'hours'); //FORKERT AUTOMATISK BEREGNING AF EPOCH. NÅR EPOCH KOMMER MED I NC-FILERNE FJERNES DET HER
+            var newEpoch = moment(data.epoch);
+            if (!newEpoch.isValid())
+                newEpoch = moment(this.lastModified.utc()).floor(this.options.period, 'hours').add(2, 'hours'); //FORKERT AUTOMATISK BEREGNING AF EPOCH. NÅR EPOCH KOMMER MED I NC-FILERNE FJERNES DET HER
 
             if (!this.epoch || !this.epoch.isSame(newEpoch)){
                 //It is a new epoch
@@ -263,13 +269,13 @@
                 this.expectedNextUpdate =
                     moment( this.lastModified )
                         .add(this.options.period, 'hours')
-                        .add(roundEpochMomentTo, 'minutes')
-                        .ceil(roundEpochMomentTo, 'minutes');
+                        .add(this.options.roundEpochMomentTo, 'minutes')
+                        .ceil(this.options.roundEpochMomentTo, 'minutes');
                 */
                 this.expectedNextUpdate =
                     moment( this.nextEpoch )
                         .add(this.options.process, 'minutes')
-                        .ceil(roundEpochMomentTo, 'minutes');
+                        .ceil(this.options.roundEpochMomentTo, 'minutes');
 
 
                 //Find first and last forecast time
@@ -287,7 +293,7 @@
             //Calc duration until next epoch or expected update in milliseconds
             var now = moment.utc().startOf('minute');
 
-            return this.nextEpoch.diff( now  );
+            return this.nextEpoch.diff( now );
 
             /*NOT USED:
             var durationToNextUpdate = this.expectedNextUpdate.diff( now  );
@@ -360,7 +366,6 @@
                 };
             }
             //*****************************************************
-
             function momentAsText( label, m, inclRelative ){
                 var text =
                     $('<span/>')
@@ -431,54 +436,64 @@
 
             var content = [];
 
-            if (!this.ageOk)
-                content.push({
-                    type     : 'textarea',
-                    center   : true,
-                    icon     : 'far fa-eye-slash',
-                    iconClass: 'font-weight-bold text-danger',
-                    text     : [
-                        {da: replaceSpace('VISES IKKE'), en: replaceSpace('NOT SHOWN')},
-                        {da: replaceSpace('Prognosen er ikke tilgængelig'), en: replaceSpace('The forecast is not available')}
-                    ],
-                    textClass: ['font-weight-bold text-danger', 'text-danger']
-                });
+            if (!nsModelOptions.staticMode){
+                if (!this.ageOk)
+                    content.push({
+                        type     : 'textarea',
+                        center   : true,
+                        icon     : 'far fa-eye-slash',
+                        iconClass: 'font-weight-bold text-danger',
+                        text     : [
+                            {da: replaceSpace('VISES IKKE'), en: replaceSpace('NOT SHOWN')},
+                            {da: replaceSpace('Prognosen er ikke tilgængelig'), en: replaceSpace('The forecast is not available')}
+                        ],
+                        textClass: ['font-weight-bold text-danger', 'text-danger']
+                    });
 
+                content.push(momentAsText({da: 'Opdateret', en:'Updated'}, this.lastModified, true));
 
-            content.push(momentAsText({da: 'Opdateret', en:'Updated'}, this.lastModified, true));
+                var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
+                if (this.status.delayed)
+                    content.push({
+                        label : label,
+                        class : 'info-box',
+                        type  : 'textarea',
+                        center: true,
+                        textClass: 'font-weight-bold text-warning',
+                        text: {da: 'FORSINKET', en: 'DELAYED'}
+                    });
+                else
+                    content.push( momentAsText(label, this.expectedNextUpdate, true));
 
-            var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
-            if (this.status.delayed)
-                content.push({
-                    label : label,
-                    class : 'info-box',
-                    type  : 'textarea',
-                    center: true,
-                    textClass: 'font-weight-bold text-warning',
-                    text: {da: 'FORSINKET', en: 'DELAYED'}
-                });
-            else
-                content.push( momentAsText(label, this.expectedNextUpdate, true));
-
-            content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast ends at'}, this.LastTime, 'EXACT'));
-
+                content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast ends at'}, this.LastTime, 'EXACT'));
+            }
 
             content.push( abbrAndName( this.options.owner,    null,              null,              {da:'Ejer/Distributør', en: 'Owner/Distributor' } ));
             content.push( abbrAndName( this.model.options.id, null,              null,              {da:'Model',            en: 'Model'             } ));
             content.push( abbrAndName( this.options.abbr,     this.options.name, this.options.link, {da:'Område/Opsætning', en: 'Domain/Setting'    }, i18next.s(this.options.areaName)+' =' ));
 
-
-            content.push({
-                type      : 'textarea',
-                label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
-                text      : {
-                    da: 'Prognosen opdateres hver '      + this.options.period +'. time og den horisontale opløsning i prognosen er ' + this.options.resolution,
-                    en: 'The forecast is updated every ' + this.options.period +' hours and the horizontal resolution is '             + this.options.resolution
-                },
-                textClass : 'text-center',
-                //lineBefore: true,
-                center    : true
-            });
+            if (nsModelOptions.staticMode)
+                content.push({
+                    type      : 'textarea',
+                    label     : {da: 'Opløsning', en:'Resolution'},
+                    text      : {
+                        da: 'Den horisontale opløsning i prognosen er ' + this.options.resolution,
+                        en: 'The horizontal resolution is '             + this.options.resolution
+                    },
+                    textClass : 'text-center',
+                    center    : true
+                });
+            else
+                content.push({
+                    type      : 'textarea',
+                    label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
+                    text      : {
+                        da: 'Prognosen opdateres hver '      + this.options.period +'. time og den horisontale opløsning i prognosen er ' + this.options.resolution,
+                        en: 'The forecast is updated every ' + this.options.period +' hours and the horizontal resolution is '             + this.options.resolution
+                    },
+                    textClass : 'text-center',
+                    center    : true
+                });
 
             $container._bsAppendContent(content);
         }

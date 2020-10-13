@@ -1,4 +1,55 @@
 /****************************************************************************
+fcoo-metoc-load.js,
+
+Method to load all data regarding models, domains, domain-groups
+****************************************************************************/
+(function ($, window/*, document, undefined*/) {
+    "use strict";
+
+    //Create fcoo-namespace
+    var ns = window.fcoo = window.fcoo || {},
+        nsModel = ns.model = ns.model || {},
+        nsParameter = ns.parameter = ns.parameter || {},
+        nsModelOptions = nsModel.options = nsModel.options || {};
+
+    /****************************************************************************
+    Adding a 'empty' promise to fcoo.promiseList to detect if models and
+    domain-groups should be loaded
+    ****************************************************************************/
+    ns.promiseList.appendFirst({
+        data: {},
+        resolve: function(){
+            if (nsModelOptions.includeModel){
+                //Create and load modelList
+                nsModel.modelList = new nsModel.ModelList();
+                ns.promiseList.append({
+                    fileName: {subDir: nsModelOptions.modelList.dataSubDir, fileName: nsModelOptions.modelList.dataFileName},
+                    resolve : $.proxy(nsModel.ModelList.prototype.resolve, nsModel.modelList)
+                });
+
+                //Create and load domainGroupList
+                nsModel.domainGroupList = nsModel.domainGroupList || new window.fcoo.model.DomainGroupList();
+                ns.promiseList.append({
+                    fileName: {subDir: nsModelOptions.domainGroupList.dataSubDir, fileName: nsModelOptions.domainGroupList.dataFileName},
+                    resolve : $.proxy(nsModel.DomainGroupList.prototype.resolve, nsModel.domainGroupList)
+                });
+
+                //Load and update relations between parameters and domainGroups
+                ns.promiseList.append({
+                    fileName: {subDir: nsModelOptions.domainGroupList.dataSubDir, fileName: nsModelOptions.domainGroupList.parameterFileName},
+                    resolve : function( data ){
+                        $.each(nsParameter.list, function(index, parameter){
+                            parameter._getDomainGroup(data);
+                        });
+                    }
+                });
+            }
+        }
+    });
+
+}(jQuery, this, document));
+;
+/****************************************************************************
     fcoo-metoc-model-domain-group.js
 
     (c) 2020, FCOO
@@ -13,46 +64,13 @@
 
     //Create fcoo-namespace
     var ns = window.fcoo = window.fcoo || {},
-        nsModel = ns.model = ns.model || {};
-
-
-    /****************************************************************************
-    fcoo.model.createDomainGroupList(fileName, options)
-    Load and create fcoo.model.domainGroupList
-    options = {
-        updateDuration   : 5,                  //Interval between updating the info (minutes)
-        maxAbsoluteAge   : 48,                 //Max age (=now - epoch) for a domain
-        maxParentAge     : 10,                 //Max age-different between a children-domain and its parent-domain
-        maxSiblingAge    :  8,                 //Max age-different between domains on same level with differnet priority
-        mapOptions       : defaultMapOptions,
-        mapContainerStyle: {},                  //Extra styles for the map-container
-        mapLayers        : []Leflet-layer to be added to the map. Eq. Open Street Map
-        modelList        : instance of ModelList
-        helpId           : ''
-
-
-    ****************************************************************************/
-    nsModel.createDomainGroupList = function(options){
-        nsModel.domainGroupList = new DomainGroupList(options);
-    };
+        nsModel = ns.model = ns.model || {},
+        nsModelOptions = nsModel.options = nsModel.options || {};
 
     /****************************************************************************
-    fcoo.model.showDomainGroup(id, header, mapCenter, mapZoom)
+    fcoo.model.options.domainGroupList
+    default options for fcoo.model.modelDomainGroupList
     ****************************************************************************/
-    nsModel.showDomainGroup = function(id, header, mapCenter, mapZoom){
-        var domainGroup = nsModel.domainGroupList.groups[id];
-        if (domainGroup)
-            domainGroup.asModal(header, mapCenter, mapZoom);
-    };
-
-
-
-    /****************************************************************************
-    DomainGroupList
-    ****************************************************************************/
-    var warningIcon = ['fas fa-circle _back text-warning', 'far fa-exclamation-circle'],
-        infoIcon    = $.bsHeaderIcons.info;
-
     var defaultMapOptions = {
             zoomControl         : false,
             attributionControl  : false,    //Use bsAttributionControl instead of default attribution-control
@@ -67,8 +85,32 @@
             trackResize         : false,	//true	Whether the map automatically handles browser window resize to update itself.
             minZoom             : 2,        //Minimum zoom level of the map. If not specified and at least one GridLayer or TileLayer is in the map, the lowest of their minZoom options will be used instead.
             maxZoom	            : 7        //Maximum zoom level of the map. If not specified and at least one GridLayer or TileLayer is in the map, the highest of their maxZoom options will be used instead.
-
         };
+
+    nsModelOptions = $.extend(true, nsModelOptions, {
+        domainGroupList: {
+            updateDuration   :  5,                  //Interval between updating the info (minutes)
+            maxAbsoluteAge   : 48,                  //Max age (=now - epoch) for a domain
+            maxParentAge     : 10,                  //Max age-different between a children-domain and its parent-domain
+            maxSiblingAge    :  8,                  //Max age-different between domains on same level with differnet priority
+            mapOptions       : defaultMapOptions,
+            mapContainerStyle: {},                  //Extra styles for the map-container
+            mapLayers        : [],                   //Leflet-layer to be added to the map. Eq. Open Street Map
+            modelList        : null,                //instance of ModelList
+            helpId           : '',
+
+            //data located in file under sub-dir 'static' contains all the groups
+            dataSubDir       : 'model-domain',
+            dataFileName     : 'model-domain-group.json',
+            parameterFileName: 'model-domain-group-parameter.json'
+        }
+    });
+
+    /****************************************************************************
+    Common variables for all domain-groups
+    ****************************************************************************/
+    var warningIcon = ['fas fa-circle _back text-warning', 'far fa-exclamation-circle'],
+        infoIcon    = $.bsHeaderIcons.info;
 
     //colorNameList = []COLORNAME = different colors for domains
     var colorNameList = ["red", "green", "orange", "cyan", "purple", "brown", "black", "grey", "pink", "yellow", "blue", "white"],
@@ -76,48 +118,42 @@
 
     //ns._mmd = record with current object used in displaying the status of the domain-groups and there domains
     ns._mmd = {
-            current : null,     //The current DomainGroup being shown in domainGroup.modal
-            modal   : null,     //bsModal to show status for a DomainGroup
-            header  : '',       //The latest header used
+        current : null,     //The current DomainGroup being shown in domainGroup.modal
+        modal   : null,     //bsModal to show status for a DomainGroup
+        header  : '',       //The latest header used
 
-            //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
-            map          : null,
-            $mapContainer: null,
-            $accordion   : null,
+        //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
+        map          : null,
+        $mapContainer: null,
+        $accordion   : null,
 
-            layerGroup   : null, //The leaflet.layerGroup with all mpolygons
+        layerGroup   : null, //The leaflet.layerGroup with all mpolygons
 
-            //Detect device and screen-size and set
-            extraWidth   : window.fcoo.modernizrDevice.isDesktop || window.fcoo.modernizrDevice.isTablet
-        };
-        ns._mmd.megaWidth  = ns._mmd.extraWidth && (Math.min(ns.modernizrMediaquery.screen_height, ns.modernizrMediaquery.screen_width) >= 920);
-        ns._mmd.onlyExtraWidth = ns._mmd.extraWidth && !ns._mmd.megaWidth;
+        //Detect device and screen-size and set
+        extraWidth   : window.fcoo.modernizrDevice.isDesktop || window.fcoo.modernizrDevice.isTablet
+    };
+    ns._mmd.megaWidth  = ns._mmd.extraWidth && (Math.min(ns.modernizrMediaquery.screen_height, ns.modernizrMediaquery.screen_width) >= 920);
+    ns._mmd.onlyExtraWidth = ns._mmd.extraWidth && !ns._mmd.megaWidth;
 
-
+    /****************************************************************************
+    fcoo.model.showDomainGroup(id, header, mapCenter, mapZoom)
+    Show modal with info and map for specific model-group
+    ****************************************************************************/
+    nsModel.showDomainGroup = function(id, header, mapCenter, mapZoom){
+        var domainGroup = nsModel.domainGroupList.groups[id];
+        if (domainGroup)
+            domainGroup.asModal(header, mapCenter, mapZoom);
+    };
 
     /****************************************************************************
     DomainGroupList
     ****************************************************************************/
-    function DomainGroupList(options, list) {
-        this.options = $.extend(true, {
-            updateDuration: 5,      //Interval between updating the info (minutes)
-
-            maxAbsoluteAge: 48, //Max age (=now - epoch) for a domain
-            maxParentAge  : 10, //Max age-different between a children-domain and its parent-domain
-            maxSiblingAge :  8, //Max age-different between domains on same level with differnet priority
-
-            mapOptions    : defaultMapOptions,
-            mapLayers     : []  //Leaflet-layer = layers to be added to the map
-        }, options);
-
-        this.list = [];
-        this.groups = {};
-        this.modelList = options.modelList;
-        this.modelList.onResolve.push( $.proxy(this.updateAll, this) );
-
-        if (list)
-            this.resolve(list);
-
+    function DomainGroupList(options) {
+        this.options = $.extend(true, {}, nsModelOptions.domainGroupList, options || {});
+        this.list      = [];
+        this.groups    = {};
+        this.modelList = [];
+        this.onResolve = []; //[]FUNCTION(domainGroupList) to be called every time meta-data are resolved/read
     }
     nsModel.DomainGroupList = DomainGroupList;
 
@@ -127,28 +163,26 @@
         *********************************************/
         resolve: function(data){
             var _this = this;
-
             //data = []DomainGroup-options or {options, list}
-            var list = [];
+            var dataList = [];
             if ($.isPlainObject(data)){
                 this.options = $.extend(true, this.options, data.options || {});
-                list = data.list || [];
+                dataList = data.list || [];
             }
             else
-                list = data;
+                dataList = data;
 
-            $.each(list || [], function(index, domainGroupOptions){
+            this.modelList = nsModel.modelList;
+            $.each(dataList, function(index, domainGroupOptions){
                 _this.addDomainGroup(domainGroupOptions);
             });
 
-            //Update all domainGroups every updateDuration minutes, but wait for first updateAll called by this.modelList.onResolve
-            this.waitingForModelList = true;
-            window.intervals.addInterval({
-                duration: this.options.updateDuration,
-                data    : {checkForWaiting: true},
-                context : this,
-                resolve : nsModel.DomainGroupList.prototype.updateAll
-            });
+            if (nsModelOptions.staticMode)
+                this.updateAll();
+            else
+                nsModel.modelList.onResolve.push(
+                    $.proxy(nsModel.DomainGroupList.prototype.updateAll, this)
+                );
         },
 
         /*********************************************
@@ -163,11 +197,28 @@
         /*********************************************
         updateAll
         *********************************************/
-        updateAll: function(options){
-            if (options && options.checkForWaiting && this.waitingForModelList)
-                return;
-            this.waitingForModelList = false;
-            $.each(this.list, function(index, domainGroup){ domainGroup.update(); });
+        updateAll: function(){
+            var _this = this;
+
+            $.each(this.list, function(index, domainGroup){
+                domainGroup.update();
+            });
+
+            //Call onResolve
+            $.each(this.onResolve, function(index, func){
+                func(_this);
+            });
+
+            //If it is the firste time => add interval to update all domainGroups every updateDuration minutes
+            if (!nsModelOptions.staticMode && !this.intervalAdded){
+                this.intervalAdded = true;
+                window.intervals.addInterval({
+                    duration: this.options.updateDuration,
+                    data    : {},
+                    context : this,
+                    resolve : nsModel.DomainGroupList.prototype.updateAll
+                });
+            }
         },
     };
 
@@ -225,47 +276,51 @@
                     item.colorName = item.isGlobal ? globalColorName : colorNameList[nextColorNameIndex++ % colorNameList.length];
                 });
 
-            //Check all domains if they are to old compared with there parent
-            $.each(this.list, function(index, dommainGroupItem){
-                dommainGroupItem.setAgeOk();
-                _this.warning = _this.warning || !dommainGroupItem.ageOk || dommainGroupItem.domain.status.delayed;
-            });
+            //If not static-mode => update age and sort by it
+            if (!nsModelOptions.staticMode){
+                //Check all domains if they are to old compared with there parent
+                $.each(this.list, function(index, dommainGroupItem){
+                    dommainGroupItem.setAgeOk();
+                    _this.warning = _this.warning || !dommainGroupItem.ageOk || dommainGroupItem.domain.status.delayed;
+                });
 
+                //For each level: Check all domains if they are to old compared with there siblings
+                $.each(this.list, function(index, dommainGroupItem){
+                    dommainGroupItem.currentPriority = dommainGroupItem.options.priority*1000; //*1000 => make room between siblings
+                });
 
-            //For each level: Check all domains if they are to old compared with there siblings
-            $.each(this.list, function(index, dommainGroupItem){
-                dommainGroupItem.currentPriority = dommainGroupItem.options.priority*1000; //*1000 => make room between siblings
-            });
-            $.each(this.list, function(index, dommainGroupItem){
-                if (dommainGroupItem.ageOk)
-                    $.each(_this.list, function(index, sibling){
-                        if (
-                            (sibling !== dommainGroupItem) &&               //It is another item,..
-                            (sibling.level == dommainGroupItem.level) &&    //.. at same level
-                            (sibling.ageOk ) &&                             //..witch is not to old
-                            ((dommainGroupItem.age - sibling.age) > dommainGroupItem.options.maxSiblingAge) //..and this is to old compare to sibling
-                        )
-                            dommainGroupItem.currentPriority =              //Set priority below sibling
-                                Math.min(
-                                    dommainGroupItem.currentPriority,
-                                    sibling.currentPriority - 500 + dommainGroupItem.options.priority
-                                );
-                    });
-                else
-                    dommainGroupItem.currentPriority = dommainGroupItem.options.priority; //Moving the domainItem last within the level
-            });
+                $.each(this.list, function(index, dommainGroupItem){
+                    if (dommainGroupItem.ageOk)
+                        $.each(_this.list, function(index, sibling){
+                            if (
+                                (sibling !== dommainGroupItem) &&               //It is another item,..
+                                (sibling.level == dommainGroupItem.level) &&    //.. at same level
+                                (sibling.ageOk ) &&                             //..witch is not to old
+                                ((dommainGroupItem.age - sibling.age) > dommainGroupItem.options.maxSiblingAge) //..and this is to old compare to sibling
+                            )
+                                dommainGroupItem.currentPriority =              //Set priority below sibling
+                                    Math.min(
+                                        dommainGroupItem.currentPriority,
+                                        sibling.currentPriority - 500 + dommainGroupItem.options.priority
+                                    );
+                        });
+                    else
+                        dommainGroupItem.currentPriority = dommainGroupItem.options.priority; //Moving the domainItem last within the level
+                });
 
-            //Sort by level and current priority
-            this.list.sort(function(item1, item2){
-                return (item1.level - item2.level) || (item2.currentPriority - item1.currentPriority);
-            });
-
+                //Sort by level and current priority
+                this.list.sort(function(item1, item2){
+                    return (item1.level - item2.level) || (item2.currentPriority - item1.currentPriority);
+                });
+            }
 
             //If this is the domainGroup displayed in modal => update content of the modal
             if (ns._mmd.current == this)
                 this.asModal(ns._mmd.header);
 
-            $.each(this.onUpdate, function(index, func){ func(_this); });
+            $.each(this.onUpdate, function(index, func){
+                func(_this);
+            });
         },
 
         /*********************************************
@@ -334,7 +389,13 @@
                 }
 
                 if (item.polygon){
-                    item.polygon.setStyle({transparent: !selected});
+                    //Set style of selected/not-selected polygon
+                    var isOcean = this.type == 'ocean';
+                    item.polygon.setStyle({
+                        transparent    : !selected || !isOcean,
+                        weight         : selected && !isOcean ? 3 : 1,
+                        borderColorName: (selected && !isOcean) || !this.ageOk ? 'black' : this.colorName,
+                    });
                     if (selected)
                         ns._mmd.map.fitBounds(item.polygon.getBounds(), {_maxZoom: ns._mmd.map.getZoom()});
                 }
@@ -407,18 +468,23 @@
                     icons = [], //1. Status, 2. color on info-map or not-shown
                     ageOk = this.ageOk;
 
-                if (!ageOk)
-                    icons.push(['fas fa-circle text-danger', 'far fa-exclamation-circle']);
-                else
-                    if (domain.status.delayed)
-                        icons.push(warningIcon);
+                if (!nsModelOptions.staticMode){
+                    if (!ageOk)
+                        icons.push(['fas fa-circle text-danger', 'far fa-exclamation-circle']);
                     else
-                        icons.push('far fa-check-circle');
-
-                if (!ageOk)
-                    icons.push('far fa-eye-slash');
+                        if (domain.status.delayed)
+                            icons.push(warningIcon);
+                        else
+                            icons.push('far fa-check-circle');
+                }
+                if (ageOk){
+                    if (this.errorLoadingMask)
+                        icons.push(['far fa-square fa-sm', 'far fa-slash']);
+                    else
+                        icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full']);
+                }
                 else
-                    icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full']);
+                    icons.push('far fa-eye-slash');
 
                 accordionItems.push({
                     id     : 'index_'+index,
@@ -502,7 +568,11 @@
         this.domain      = domainGroup.modelList.getDomain(options.modelId, options.domainId);
         this.type        = options.type || this.domain.options.type;
         this.isGlobal    = (options.area == 'global') || this.domain.isGlobal;
+        this.ageOk       = true;
         this.mask        = this.isGlobal ? '' : options.mask || this.domain.options.mask;
+        this.errorLoadingMask = false;
+
+
         $.each(options.subdomains || [], function(index, domainItemOptions){
             domainGroup.addItem(domainItemOptions, _this, domainGroup);
         });
@@ -515,7 +585,6 @@
         *********************************************/
         setAgeOk: function(){
             var domain = this.domain;
-
             this.age   = domain.status.age;
             this.ageOk = (this.age < this.options.maxAbsoluteAge);
             this.domain.ageOk = this.ageOk;
@@ -545,8 +614,14 @@
             if (this.latLngs)
                 this.addPolygon();
             else
-                //Load polygons from json-file
-                Promise.getJSON( ns.dataFilePath({subDir:'model-domain', fileName:this.domain.options.mask}), {resolve: $.proxy(this.addPolygon, this)});
+                if (!this.errorLoadingMask)
+                    //Load polygons from json-file
+                    Promise.getJSON(
+                        ns.dataFilePath({subDir:'model-domain', fileName:this.domain.options.mask}), {
+                        useDefaultErrorHandler: false,
+                        resolve: $.proxy(this.addPolygon, this),
+                        reject : $.proxy(this.rejectPolygon, this)
+                    });
         },
 
         /*********************************************
@@ -570,7 +645,7 @@
             var isOcean = this.type == 'ocean';
             this.polygon = L.polygon(this.latLngs, {
                 borderColorName : this.ageOk ? this.colorName : 'black',
-                colorName       : this.ageOk ? this.colorName : 'white',
+                colorName       : this.ageOk ? this.colorName : 'gray',//'white',
                 transparent     : true,
                 addInteractive  : true,
                 border          : true,
@@ -584,6 +659,15 @@
                 .bindTooltip(this.domain.fullNameSimple(), {sticky: true});
         },
 
+        rejectPolygon: function(){
+            this.errorLoadingMask = true;
+            //Reload the modal if this is part of current domain-group
+            if (ns._mmd.current == this.domainGroup)
+                this.domainGroup.asModal(ns._mmd.header);
+
+        },
+
+
         /*********************************************
         _polygon_onClick
         *********************************************/
@@ -595,47 +679,42 @@
 }(jQuery, L, this.i18next, this.moment, this, document));
 ;
 /****************************************************************************
-    fcoo-metoc-model-domain.js,
+fcoo-metoc-model-domain.js,
 
-    (c) 2020, FCOO
-
-    https://github.com/FCOO/fcoo-metoc-model-domain
-    https://github.com/FCOO
-
+Objects and methods to create and manage list of models
 ****************************************************************************/
-
 (function ($, i18next, moment, window/*, document, undefined*/) {
     "use strict";
 
     //Create fcoo-namespace
     var ns = window.fcoo = window.fcoo || {},
-        nsModel = ns.model = ns.model || {};
+        nsModel = ns.model = ns.model || {},
+        nsModelOptions = nsModel.options = nsModel.options || {};
 
-    function getShortName(id){
-        var idLower = id.toLowerCase(),
-            nameExists = i18next.exists('name:'+idLower),
-            linkExists = i18next.exists('link:'+idLower);
+    nsModelOptions = $.extend(true, nsModelOptions, {
+        includeModel: true,     //If true all models and domain-groups are loeaded and created
+        staticMode  : false,    //If true no metadata from nc-filer are loaded and no dynamic info in modal-window
+        model: {
+            roundEpochMomentTo  : 15 //minutes
+        },
+        modelList: {
+            metaDataDuration : 15,  //Minuts between reload of metadata
 
-        return {
-            text : id.toUpperCase(),
-            title: nameExists ? 'name:'+idLower : null,
-            link : linkExists ? 'link:'+idLower : null
-        };
-    }
+            //data located in file under sub-dir 'static' contains all the groups
+            dataSubDir       : 'model-domain',
+            dataFileName     : 'model-domain.json',
 
-    var roundEpochMomentTo = 15; //minutes
+            //metadata located in file under sub-dir 'dynamic' contains info on the different netCDF-files associated with each model-domain
+            metaDataSubDir   : 'model-domain',
+            metaDataFileName : 'model-domain-metadata.json'
+        }
+    });
 
     /****************************************************************************
     ModelList
     ****************************************************************************/
     function ModelList(options) {
-        this.options = $.extend({
-            metaDataDuration: 15,
-            metaDataPath    : 'https://app.fcoo.dk/dynamic/',
-            metaDataFileName: 'metadata.json'
-        }, options);
-
-        this.options.metaDataFileName = this.options.metaDataPath + this.options.metaDataFileName;
+        this.options = $.extend(true, {}, nsModelOptions.modelList, options || {});
         this.list   = [];
         this.models = {};
         this.onResolve = []; //[]FUNCTION(modelList) to be called every time meta-data are resolved/read
@@ -662,27 +741,28 @@
         *********************************************/
         resolve: function(data){
             var _this = this;
-
             $.each(data, function(index, modelOpt){
                 var newModel = new Model(modelOpt, _this);
                 _this.list.push( newModel );
                 _this.models[newModel.options.id] = newModel;
             });
-
-            //Create Interval to read metadata for all domains every X minutes
-            window.intervals.addInterval({
-                duration: this.options.metaDataDuration,
-                fileName: this.options.metaDataFileName,
-                context : this,
-                resolve : nsModel.ModelList.prototype.resolveMetaData,
-                reject  : nsModel.ModelList.prototype.reject
-            });
+            if (!nsModelOptions.staticMode)
+                //Create Interval to read metadata for all domains every X minutes
+                window.intervals.addInterval({
+                    duration: this.options.metaDataDuration,
+                    fileName: {mainDir: true, subDir: nsModelOptions.modelList.metaDataSubDir, fileName: nsModelOptions.modelList.metaDataFileName},
+                    context : this,
+                    resolve : nsModel.ModelList.prototype.resolveMetaData,
+                    reject  : nsModel.ModelList.prototype.reject
+                });
         },
 
         /*********************************************
         resolveMetaData - reading json-file with all metadata
         *********************************************/
         resolveMetaData: function(data, interval){
+            var _this = this;
+
             //Update all domains in all models. model.resolve return the lowest duration to next epoch or expected ready for its domains
             var lowestDurationToNextReload = 0;
             $.each(this.list, function(index, model){
@@ -696,7 +776,6 @@
             }
 
             //Call onResolve
-            var _this = this;
             $.each(this.onResolve, function(index, func){
                 func(_this);
             });
@@ -707,7 +786,6 @@
         *********************************************/
         reject: function(/*error, interval*/){
             //Retry to read nc-file 3 times with 1 minutes interval MANGLER
-
         },
 
         /*********************************************
@@ -721,7 +799,6 @@
                 });
             });
         }
-
     };
 
     /****************************************************************************
@@ -729,7 +806,7 @@
     ****************************************************************************/
     function Model(options, modelList) {
         var _this = this;
-        this.options = options;
+        this.options = $.extend(true, {}, nsModelOptions.model, options || {});
         this.modelList = modelList;
         this.domainList = [];
         this.domains = {};
@@ -771,20 +848,20 @@
         }
     };
 
-
     /****************************************************************************
     Domain
     ****************************************************************************/
     function Domain(options, model) {
         this.model = model;
         this.options = $.extend({
-            type          : model.options.type || 'met',
-            owner         : this.model.options.domainOwner || '',
-            area          : "regional",
-            resolution    : "1nm",
-            period        : model.domainPeriod || 6,
-            process       : 3*60,
-            epochOffset   : 0
+            type                : this.model.options.type || 'met',
+            owner               : this.model.options.domainOwner || '',
+            area                : "regional",
+            resolution          : "1nm",
+            period              : model.domainPeriod || 6,
+            process             : 3*60,
+            epochOffset         : 0,
+            roundEpochMomentTo  : this.model.options.roundEpochMomentTo
         }, options);
         this.options.abbr = this.options.abbr || this.options.id;
         this.options.name = this.options.name || this.options.abbr;
@@ -793,7 +870,6 @@
             case "local" : this.options.areaName = {da:'Lokal',    en:'Local'   }; break;
             default      : this.options.areaName = {da:'Regional', en:'Regional'}; break;
         }
-        this.options.ncFileName = this.model.modelList.options.metaDataPath + options.nc;
         this.isGlobal = (options.area == 'global');
     }
     nsModel.Domain = Domain;
@@ -803,6 +879,18 @@
         fullName
         *********************************************/
         fullName: function(){
+            //**************************************
+            function getShortName(id){
+                var idLower = id.toLowerCase(),
+                    nameExists = i18next.exists('name:'+idLower),
+                    linkExists = i18next.exists('link:'+idLower);
+                return {
+                    text : id.toUpperCase(),
+                    title: nameExists ? 'name:'+idLower : null,
+                    link : linkExists ? 'link:'+idLower : null
+                };
+            }
+            //**************************************
             var result = [];
             if (this.options.owner)
                 result.push(
@@ -847,7 +935,9 @@
             var _this = this;
             //NOT USED var durationToNextEpoch = null;
             this.lastModified = moment(data.last_modified);
-            var newEpoch = data.epoch ? moment(data.epoch) : moment(this.lastModified.utc()).floor(this.options.period, 'hours').add(2, 'hours'); //FORKERT AUTOMATISK BEREGNING AF EPOCH. NÅR EPOCH KOMMER MED I NC-FILERNE FJERNES DET HER
+            var newEpoch = moment(data.epoch);
+            if (!newEpoch.isValid())
+                newEpoch = moment(this.lastModified.utc()).floor(this.options.period, 'hours').add(2, 'hours'); //FORKERT AUTOMATISK BEREGNING AF EPOCH. NÅR EPOCH KOMMER MED I NC-FILERNE FJERNES DET HER
 
             if (!this.epoch || !this.epoch.isSame(newEpoch)){
                 //It is a new epoch
@@ -859,13 +949,13 @@
                 this.expectedNextUpdate =
                     moment( this.lastModified )
                         .add(this.options.period, 'hours')
-                        .add(roundEpochMomentTo, 'minutes')
-                        .ceil(roundEpochMomentTo, 'minutes');
+                        .add(this.options.roundEpochMomentTo, 'minutes')
+                        .ceil(this.options.roundEpochMomentTo, 'minutes');
                 */
                 this.expectedNextUpdate =
                     moment( this.nextEpoch )
                         .add(this.options.process, 'minutes')
-                        .ceil(roundEpochMomentTo, 'minutes');
+                        .ceil(this.options.roundEpochMomentTo, 'minutes');
 
 
                 //Find first and last forecast time
@@ -883,7 +973,7 @@
             //Calc duration until next epoch or expected update in milliseconds
             var now = moment.utc().startOf('minute');
 
-            return this.nextEpoch.diff( now  );
+            return this.nextEpoch.diff( now );
 
             /*NOT USED:
             var durationToNextUpdate = this.expectedNextUpdate.diff( now  );
@@ -956,7 +1046,6 @@
                 };
             }
             //*****************************************************
-
             function momentAsText( label, m, inclRelative ){
                 var text =
                     $('<span/>')
@@ -1027,56 +1116,302 @@
 
             var content = [];
 
-            if (!this.ageOk)
-                content.push({
-                    type     : 'textarea',
-                    center   : true,
-                    icon     : 'far fa-eye-slash',
-                    iconClass: 'font-weight-bold text-danger',
-                    text     : [
-                        {da: replaceSpace('VISES IKKE'), en: replaceSpace('NOT SHOWN')},
-                        {da: replaceSpace('Prognosen er ikke tilgængelig'), en: replaceSpace('The forecast is not available')}
-                    ],
-                    textClass: ['font-weight-bold text-danger', 'text-danger']
-                });
+            if (!nsModelOptions.staticMode){
+                if (!this.ageOk)
+                    content.push({
+                        type     : 'textarea',
+                        center   : true,
+                        icon     : 'far fa-eye-slash',
+                        iconClass: 'font-weight-bold text-danger',
+                        text     : [
+                            {da: replaceSpace('VISES IKKE'), en: replaceSpace('NOT SHOWN')},
+                            {da: replaceSpace('Prognosen er ikke tilgængelig'), en: replaceSpace('The forecast is not available')}
+                        ],
+                        textClass: ['font-weight-bold text-danger', 'text-danger']
+                    });
 
+                content.push(momentAsText({da: 'Opdateret', en:'Updated'}, this.lastModified, true));
 
-            content.push(momentAsText({da: 'Opdateret', en:'Updated'}, this.lastModified, true));
+                var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
+                if (this.status.delayed)
+                    content.push({
+                        label : label,
+                        class : 'info-box',
+                        type  : 'textarea',
+                        center: true,
+                        textClass: 'font-weight-bold text-warning',
+                        text: {da: 'FORSINKET', en: 'DELAYED'}
+                    });
+                else
+                    content.push( momentAsText(label, this.expectedNextUpdate, true));
 
-            var label = {da: 'Forventet næste opdatering', en:'Expected next update'};
-            if (this.status.delayed)
-                content.push({
-                    label : label,
-                    class : 'info-box',
-                    type  : 'textarea',
-                    center: true,
-                    textClass: 'font-weight-bold text-warning',
-                    text: {da: 'FORSINKET', en: 'DELAYED'}
-                });
-            else
-                content.push( momentAsText(label, this.expectedNextUpdate, true));
-
-            content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast ends at'}, this.LastTime, 'EXACT'));
-
+                content.push(momentAsText({da: 'Prognosen går frem til', en:'The forecast ends at'}, this.LastTime, 'EXACT'));
+            }
 
             content.push( abbrAndName( this.options.owner,    null,              null,              {da:'Ejer/Distributør', en: 'Owner/Distributor' } ));
             content.push( abbrAndName( this.model.options.id, null,              null,              {da:'Model',            en: 'Model'             } ));
             content.push( abbrAndName( this.options.abbr,     this.options.name, this.options.link, {da:'Område/Opsætning', en: 'Domain/Setting'    }, i18next.s(this.options.areaName)+' =' ));
 
-
-            content.push({
-                type      : 'textarea',
-                label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
-                text      : {
-                    da: 'Prognosen opdateres hver '      + this.options.period +'. time og den horisontale opløsning i prognosen er ' + this.options.resolution,
-                    en: 'The forecast is updated every ' + this.options.period +' hours and the horizontal resolution is '             + this.options.resolution
-                },
-                textClass : 'text-center',
-                //lineBefore: true,
-                center    : true
-            });
+            if (nsModelOptions.staticMode)
+                content.push({
+                    type      : 'textarea',
+                    label     : {da: 'Opløsning', en:'Resolution'},
+                    text      : {
+                        da: 'Den horisontale opløsning i prognosen er ' + this.options.resolution,
+                        en: 'The horizontal resolution is '             + this.options.resolution
+                    },
+                    textClass : 'text-center',
+                    center    : true
+                });
+            else
+                content.push({
+                    type      : 'textarea',
+                    label     : {da: 'Opdatering og Opløsning', en:'Updating and Resolution'},
+                    text      : {
+                        da: 'Prognosen opdateres hver '      + this.options.period +'. time og den horisontale opløsning i prognosen er ' + this.options.resolution,
+                        en: 'The forecast is updated every ' + this.options.period +' hours and the horizontal resolution is '             + this.options.resolution
+                    },
+                    textClass : 'text-center',
+                    center    : true
+                });
 
             $container._bsAppendContent(content);
         }
     };
+}(jQuery, this.i18next, this.moment, this, document));
+;
+/****************************************************************************
+fcoo-metoc-parameter.js
+
+See http://www.nco.ncep.noaa.gov/pmb/docs/on388/table2.html for more parameter
+
+****************************************************************************/
+
+(function ($, i18next, moment, window/*, document, undefined*/) {
+    "use strict";
+
+    //Create fcoo-namespace
+    var ns = window.fcoo = window.fcoo || {},
+        nsUnit = ns.unit = ns.unit || {},
+        nsParameter = ns.parameter = ns.parameter || {},
+        nsModel = ns.model = ns.model || {};
+
+    /****************************************************************************
+    UNIT
+    Extended namespace fcoo.unit from fcoo/fcoo-unit with list of all units and
+    general conversion-methods
+    Read all units from file with format =
+    []{
+        WMO_unit: STRING.
+        CF_unit : STRING,
+        da      : STRING,
+        en      : STRING,
+        name    : STRING,
+        SI_offset: NUMBER, //default = 0
+        SI_factor: NUMBER, //default = 1
+    }
+    only one of en, da, name are needed
+
+    ****************************************************************************/
+    function Unit(options){
+        this.options = $.extend(true, {
+            SI_offset: 0,
+            SI_factor: 1
+        }, options);
+
+        this.name = {
+            da: options.da || options.en || options.name,
+            en: options.en || options.da || options.name
+        };
+    }
+    nsUnit.Unit = Unit;
+    nsUnit.Unit.prototype = {
+    };
+
+    //Create list and methods direct in namespace
+    nsUnit.list = [];
+    nsUnit.getUnit = function(id){
+        var result = null;
+        $.each(nsUnit.list, function(index, unit){
+            if ((unit.options.WMO_unit == id) || (unit.options.CF_unit == id)){
+                result = unit;
+                return false;
+            }
+        });
+        return result;
+    };
+
+    nsUnit.convert = function(value, fromUnitId, toUnitId){
+        var fromUnit = nsUnit.getUnit(fromUnitId),
+            toUnit   = nsUnit.getUnit(toUnitId);
+        if (fromUnit && toUnit){
+            var SI_value = fromUnit.options.SI_offset + fromUnit.options.SI_factor * value;
+            return (SI_value - toUnit.options.SI_offset) / toUnit.options.SI_factor;
+        }
+        else
+            return null;
+    };
+
+
+    //Allways load units
+    ns.promiseList.append({
+        fileName: {subDir: 'parameter-unit', fileName: 'unit.json'},
+        resolve : function(data){
+            $.each(data, function(index, options){
+                nsUnit.list.push(new nsUnit.Unit(options));
+            });
+        }
+    });
+
+    /****************************************************************************
+    PARAMETER
+    If fcoo.model.options.includeModel is set to true all models and domain-groups
+    are loaded and each parameter is linked to a domain-group via setup in the parameter_domainGroup list
+        {
+            "WMO_id"  : "031",
+            "group"   : "WIND",
+            "WMO_name": "Wind direction (from which blowing)",
+            "WMO_unit": "deg true",
+            "WMO_abbr": "WDIR",
+            "CF_SN"   : "wind_from_direction",
+            "da"      : "Vindretning",
+            "en"      : "Wind direction"
+        },
+
+    ****************************************************************************/
+    nsParameter.options = {
+    };
+
+
+    nsParameter.list = [];
+    nsParameter.getParameter = function(id){
+        var result = null;
+        $.each(nsParameter.list, function(index, parameter){
+            if ((parameter.options.WMO_id == id) ||
+                (parameter.options.WMO_abbr == id) ||
+                (parameter.options.CF_SN == id)){
+                result = parameter;
+                return false;
+            }
+        });
+        return result;
+    };
+
+    /****************************************************************************
+    Parameter
+    ****************************************************************************/
+    function Parameter(options) {
+        this.options = $.extend(true, {}, nsParameter.options, options);
+        this.name = {
+            da: options.da || options.en || options.name,
+            en: options.en || options.da || options.name
+        };
+        /*
+        Create translation of paramter-names with Namespace parameter and WMO-abbr and/or CF Standard Name as key
+        E.g.
+        parameter:wind = {da:"vindhastighed", en:"wind speed"}
+        parameter:wdir = {da:"vindretning", en:"wind direction"}
+        */
+        if (this.name.da){
+            if (this.options.WMO_abbr)
+                i18next.addPhrase( 'parameter', this.options.WMO_abbr, this.name );
+            if (this.options.CF_SN)
+                i18next.addPhrase( 'parameter', this.options.CF_SN, this.name);
+        }
+        else
+            this.name = this.options.WMO_name;
+
+        //this.wmoUnit = the standard unit given by WMO
+        this.wmoUnit = nsUnit.getUnit(this.options.WMO_unit);
+
+    }
+    nsModel.Parameter = Parameter;
+    nsModel.Parameter.prototype = {
+        _getDomainGroup: function( data ){
+            //Find the related domain-group from the relations in data
+            var this_id = this.options.CF_SN || this.options.WMO_abbr,
+                this_group = this.options.group,
+                this_domainGroupId = null;
+
+            $.each(data, function(domainGroupId, domainGroupParameters){
+                if (domainGroupParameters.id && (domainGroupParameters.id.indexOf(this_id) > -1))
+                    this_domainGroupId = domainGroupId;
+                if (domainGroupParameters.group && (domainGroupParameters.group.indexOf(this_group) > -1))
+                    this_domainGroupId = this_domainGroupId || domainGroupId;
+            });
+
+            this.domainGroup = nsModel.domainGroupList.groups[this_domainGroupId] || null;
+        },
+
+        domainGroupAsModal: function(center, zoom){
+            if (this.domainGroup)
+                this.domainGroup.asModal(this.name, center, zoom);
+        }
+
+    };
+
+    //Allways load parameters
+    ns.promiseList.append({
+        fileName: {subDir: 'parameter-unit', fileName: 'parameter.json'},
+        resolve : function(data){
+            $.each(data, function(index, options){
+                nsParameter.list.push(new Parameter(options));
+            });
+        }
+    });
+
+
+
+    /*
+    Namespace parameter
+    Physical parameter. Using XXX codes for parameter. See http://www.nco.ncep.noaa.gov/pmb/docs/on388/table2.html
+    E.g.
+        parameter:wind = {da:"vindhastighed", en:"wind speed"}
+        parameter:wdir = {da:"vindretning", en:"wind direction"}
+    */
+/* TODO
+
+    en: {
+          'Significant wave height of combined wind waves and swell': 'Wave height',
+          'degC': '&deg;C',
+          'Temp.': 'Temperature'
+    },
+    da: {
+          'Wave height': 'Bølgehøjde',
+          'Mean wave period': 'Bølgeperiode',
+          'Vel.': 'Strømhastighed',
+          'Current speed': 'Strømhastighed',
+          'Current': 'Strømhastighed',
+          'Elevation': 'Vandstand',
+          'Temperature': 'Temperatur',
+          'Temp.': 'Temperatur',
+          'Salinity': 'Salinitet',
+          'Sea surface temperature': 'Temperatur',
+          'Sea surface salinity': 'Salinitet',
+          'Wind speed': 'Vindhastighed',
+          'Wind': 'Vindhastighed',
+          'Air temperature (2m)': '2 meter temperatur',
+          'Sea ice concentration': 'Haviskoncentration',
+          'Sea ice thickness': 'Havistykkelse',
+          'Sea ice drift speed': 'Havisdrifthastighed',
+          'Visibility': 'Sigtbarhed',
+          'Total precipitation flux': 'Nedbør',
+          '2 metre temperature': '2 meter temperatur',
+          'Total cloud cover': 'Skydække',
+          'Significant wave height of combined wind waves and swell': 'Bølgehøjde',
+          'mm/hour': 'mm/time',
+          'degC': '&deg;C',
+          'knots': 'knob',
+          'fraction': 'fraktion',
+          'meters': 'meter'
+    }
+*/
+/*
+    Namespace unit
+    Physical units.
+    E.g. unit:metre = {da:"meter", en:"metre"}
+*/
+
+
+
 }(jQuery, this.i18next, this.moment, this, document));

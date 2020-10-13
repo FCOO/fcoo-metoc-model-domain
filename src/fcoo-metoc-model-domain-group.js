@@ -13,46 +13,13 @@
 
     //Create fcoo-namespace
     var ns = window.fcoo = window.fcoo || {},
-        nsModel = ns.model = ns.model || {};
-
-
-    /****************************************************************************
-    fcoo.model.createDomainGroupList(fileName, options)
-    Load and create fcoo.model.domainGroupList
-    options = {
-        updateDuration   : 5,                  //Interval between updating the info (minutes)
-        maxAbsoluteAge   : 48,                 //Max age (=now - epoch) for a domain
-        maxParentAge     : 10,                 //Max age-different between a children-domain and its parent-domain
-        maxSiblingAge    :  8,                 //Max age-different between domains on same level with differnet priority
-        mapOptions       : defaultMapOptions,
-        mapContainerStyle: {},                  //Extra styles for the map-container
-        mapLayers        : []Leflet-layer to be added to the map. Eq. Open Street Map
-        modelList        : instance of ModelList
-        helpId           : ''
-
-
-    ****************************************************************************/
-    nsModel.createDomainGroupList = function(options){
-        nsModel.domainGroupList = new DomainGroupList(options);
-    };
+        nsModel = ns.model = ns.model || {},
+        nsModelOptions = nsModel.options = nsModel.options || {};
 
     /****************************************************************************
-    fcoo.model.showDomainGroup(id, header, mapCenter, mapZoom)
+    fcoo.model.options.domainGroupList
+    default options for fcoo.model.modelDomainGroupList
     ****************************************************************************/
-    nsModel.showDomainGroup = function(id, header, mapCenter, mapZoom){
-        var domainGroup = nsModel.domainGroupList.groups[id];
-        if (domainGroup)
-            domainGroup.asModal(header, mapCenter, mapZoom);
-    };
-
-
-
-    /****************************************************************************
-    DomainGroupList
-    ****************************************************************************/
-    var warningIcon = ['fas fa-circle _back text-warning', 'far fa-exclamation-circle'],
-        infoIcon    = $.bsHeaderIcons.info;
-
     var defaultMapOptions = {
             zoomControl         : false,
             attributionControl  : false,    //Use bsAttributionControl instead of default attribution-control
@@ -67,8 +34,32 @@
             trackResize         : false,	//true	Whether the map automatically handles browser window resize to update itself.
             minZoom             : 2,        //Minimum zoom level of the map. If not specified and at least one GridLayer or TileLayer is in the map, the lowest of their minZoom options will be used instead.
             maxZoom	            : 7        //Maximum zoom level of the map. If not specified and at least one GridLayer or TileLayer is in the map, the highest of their maxZoom options will be used instead.
-
         };
+
+    nsModelOptions = $.extend(true, nsModelOptions, {
+        domainGroupList: {
+            updateDuration   :  5,                  //Interval between updating the info (minutes)
+            maxAbsoluteAge   : 48,                  //Max age (=now - epoch) for a domain
+            maxParentAge     : 10,                  //Max age-different between a children-domain and its parent-domain
+            maxSiblingAge    :  8,                  //Max age-different between domains on same level with differnet priority
+            mapOptions       : defaultMapOptions,
+            mapContainerStyle: {},                  //Extra styles for the map-container
+            mapLayers        : [],                   //Leflet-layer to be added to the map. Eq. Open Street Map
+            modelList        : null,                //instance of ModelList
+            helpId           : '',
+
+            //data located in file under sub-dir 'static' contains all the groups
+            dataSubDir       : 'model-domain',
+            dataFileName     : 'model-domain-group.json',
+            parameterFileName: 'model-domain-group-parameter.json'
+        }
+    });
+
+    /****************************************************************************
+    Common variables for all domain-groups
+    ****************************************************************************/
+    var warningIcon = ['fas fa-circle _back text-warning', 'far fa-exclamation-circle'],
+        infoIcon    = $.bsHeaderIcons.info;
 
     //colorNameList = []COLORNAME = different colors for domains
     var colorNameList = ["red", "green", "orange", "cyan", "purple", "brown", "black", "grey", "pink", "yellow", "blue", "white"],
@@ -76,48 +67,42 @@
 
     //ns._mmd = record with current object used in displaying the status of the domain-groups and there domains
     ns._mmd = {
-            current : null,     //The current DomainGroup being shown in domainGroup.modal
-            modal   : null,     //bsModal to show status for a DomainGroup
-            header  : '',       //The latest header used
+        current : null,     //The current DomainGroup being shown in domainGroup.modal
+        modal   : null,     //bsModal to show status for a DomainGroup
+        header  : '',       //The latest header used
 
-            //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
-            map          : null,
-            $mapContainer: null,
-            $accordion   : null,
+        //Variables to hold different parts of the map inside the modal. A common map is reused for all groups
+        map          : null,
+        $mapContainer: null,
+        $accordion   : null,
 
-            layerGroup   : null, //The leaflet.layerGroup with all mpolygons
+        layerGroup   : null, //The leaflet.layerGroup with all mpolygons
 
-            //Detect device and screen-size and set
-            extraWidth   : window.fcoo.modernizrDevice.isDesktop || window.fcoo.modernizrDevice.isTablet
-        };
-        ns._mmd.megaWidth  = ns._mmd.extraWidth && (Math.min(ns.modernizrMediaquery.screen_height, ns.modernizrMediaquery.screen_width) >= 920);
-        ns._mmd.onlyExtraWidth = ns._mmd.extraWidth && !ns._mmd.megaWidth;
+        //Detect device and screen-size and set
+        extraWidth   : window.fcoo.modernizrDevice.isDesktop || window.fcoo.modernizrDevice.isTablet
+    };
+    ns._mmd.megaWidth  = ns._mmd.extraWidth && (Math.min(ns.modernizrMediaquery.screen_height, ns.modernizrMediaquery.screen_width) >= 920);
+    ns._mmd.onlyExtraWidth = ns._mmd.extraWidth && !ns._mmd.megaWidth;
 
-
+    /****************************************************************************
+    fcoo.model.showDomainGroup(id, header, mapCenter, mapZoom)
+    Show modal with info and map for specific model-group
+    ****************************************************************************/
+    nsModel.showDomainGroup = function(id, header, mapCenter, mapZoom){
+        var domainGroup = nsModel.domainGroupList.groups[id];
+        if (domainGroup)
+            domainGroup.asModal(header, mapCenter, mapZoom);
+    };
 
     /****************************************************************************
     DomainGroupList
     ****************************************************************************/
-    function DomainGroupList(options, list) {
-        this.options = $.extend(true, {
-            updateDuration: 5,      //Interval between updating the info (minutes)
-
-            maxAbsoluteAge: 48, //Max age (=now - epoch) for a domain
-            maxParentAge  : 10, //Max age-different between a children-domain and its parent-domain
-            maxSiblingAge :  8, //Max age-different between domains on same level with differnet priority
-
-            mapOptions    : defaultMapOptions,
-            mapLayers     : []  //Leaflet-layer = layers to be added to the map
-        }, options);
-
-        this.list = [];
-        this.groups = {};
-        this.modelList = options.modelList;
-        this.modelList.onResolve.push( $.proxy(this.updateAll, this) );
-
-        if (list)
-            this.resolve(list);
-
+    function DomainGroupList(options) {
+        this.options = $.extend(true, {}, nsModelOptions.domainGroupList, options || {});
+        this.list      = [];
+        this.groups    = {};
+        this.modelList = [];
+        this.onResolve = []; //[]FUNCTION(domainGroupList) to be called every time meta-data are resolved/read
     }
     nsModel.DomainGroupList = DomainGroupList;
 
@@ -127,28 +112,26 @@
         *********************************************/
         resolve: function(data){
             var _this = this;
-
             //data = []DomainGroup-options or {options, list}
-            var list = [];
+            var dataList = [];
             if ($.isPlainObject(data)){
                 this.options = $.extend(true, this.options, data.options || {});
-                list = data.list || [];
+                dataList = data.list || [];
             }
             else
-                list = data;
+                dataList = data;
 
-            $.each(list || [], function(index, domainGroupOptions){
+            this.modelList = nsModel.modelList;
+            $.each(dataList, function(index, domainGroupOptions){
                 _this.addDomainGroup(domainGroupOptions);
             });
 
-            //Update all domainGroups every updateDuration minutes, but wait for first updateAll called by this.modelList.onResolve
-            this.waitingForModelList = true;
-            window.intervals.addInterval({
-                duration: this.options.updateDuration,
-                data    : {checkForWaiting: true},
-                context : this,
-                resolve : nsModel.DomainGroupList.prototype.updateAll
-            });
+            if (nsModelOptions.staticMode)
+                this.updateAll();
+            else
+                nsModel.modelList.onResolve.push(
+                    $.proxy(nsModel.DomainGroupList.prototype.updateAll, this)
+                );
         },
 
         /*********************************************
@@ -163,11 +146,28 @@
         /*********************************************
         updateAll
         *********************************************/
-        updateAll: function(options){
-            if (options && options.checkForWaiting && this.waitingForModelList)
-                return;
-            this.waitingForModelList = false;
-            $.each(this.list, function(index, domainGroup){ domainGroup.update(); });
+        updateAll: function(){
+            var _this = this;
+
+            $.each(this.list, function(index, domainGroup){
+                domainGroup.update();
+            });
+
+            //Call onResolve
+            $.each(this.onResolve, function(index, func){
+                func(_this);
+            });
+
+            //If it is the firste time => add interval to update all domainGroups every updateDuration minutes
+            if (!nsModelOptions.staticMode && !this.intervalAdded){
+                this.intervalAdded = true;
+                window.intervals.addInterval({
+                    duration: this.options.updateDuration,
+                    data    : {},
+                    context : this,
+                    resolve : nsModel.DomainGroupList.prototype.updateAll
+                });
+            }
         },
     };
 
@@ -225,47 +225,51 @@
                     item.colorName = item.isGlobal ? globalColorName : colorNameList[nextColorNameIndex++ % colorNameList.length];
                 });
 
-            //Check all domains if they are to old compared with there parent
-            $.each(this.list, function(index, dommainGroupItem){
-                dommainGroupItem.setAgeOk();
-                _this.warning = _this.warning || !dommainGroupItem.ageOk || dommainGroupItem.domain.status.delayed;
-            });
+            //If not static-mode => update age and sort by it
+            if (!nsModelOptions.staticMode){
+                //Check all domains if they are to old compared with there parent
+                $.each(this.list, function(index, dommainGroupItem){
+                    dommainGroupItem.setAgeOk();
+                    _this.warning = _this.warning || !dommainGroupItem.ageOk || dommainGroupItem.domain.status.delayed;
+                });
 
+                //For each level: Check all domains if they are to old compared with there siblings
+                $.each(this.list, function(index, dommainGroupItem){
+                    dommainGroupItem.currentPriority = dommainGroupItem.options.priority*1000; //*1000 => make room between siblings
+                });
 
-            //For each level: Check all domains if they are to old compared with there siblings
-            $.each(this.list, function(index, dommainGroupItem){
-                dommainGroupItem.currentPriority = dommainGroupItem.options.priority*1000; //*1000 => make room between siblings
-            });
-            $.each(this.list, function(index, dommainGroupItem){
-                if (dommainGroupItem.ageOk)
-                    $.each(_this.list, function(index, sibling){
-                        if (
-                            (sibling !== dommainGroupItem) &&               //It is another item,..
-                            (sibling.level == dommainGroupItem.level) &&    //.. at same level
-                            (sibling.ageOk ) &&                             //..witch is not to old
-                            ((dommainGroupItem.age - sibling.age) > dommainGroupItem.options.maxSiblingAge) //..and this is to old compare to sibling
-                        )
-                            dommainGroupItem.currentPriority =              //Set priority below sibling
-                                Math.min(
-                                    dommainGroupItem.currentPriority,
-                                    sibling.currentPriority - 500 + dommainGroupItem.options.priority
-                                );
-                    });
-                else
-                    dommainGroupItem.currentPriority = dommainGroupItem.options.priority; //Moving the domainItem last within the level
-            });
+                $.each(this.list, function(index, dommainGroupItem){
+                    if (dommainGroupItem.ageOk)
+                        $.each(_this.list, function(index, sibling){
+                            if (
+                                (sibling !== dommainGroupItem) &&               //It is another item,..
+                                (sibling.level == dommainGroupItem.level) &&    //.. at same level
+                                (sibling.ageOk ) &&                             //..witch is not to old
+                                ((dommainGroupItem.age - sibling.age) > dommainGroupItem.options.maxSiblingAge) //..and this is to old compare to sibling
+                            )
+                                dommainGroupItem.currentPriority =              //Set priority below sibling
+                                    Math.min(
+                                        dommainGroupItem.currentPriority,
+                                        sibling.currentPriority - 500 + dommainGroupItem.options.priority
+                                    );
+                        });
+                    else
+                        dommainGroupItem.currentPriority = dommainGroupItem.options.priority; //Moving the domainItem last within the level
+                });
 
-            //Sort by level and current priority
-            this.list.sort(function(item1, item2){
-                return (item1.level - item2.level) || (item2.currentPriority - item1.currentPriority);
-            });
-
+                //Sort by level and current priority
+                this.list.sort(function(item1, item2){
+                    return (item1.level - item2.level) || (item2.currentPriority - item1.currentPriority);
+                });
+            }
 
             //If this is the domainGroup displayed in modal => update content of the modal
             if (ns._mmd.current == this)
                 this.asModal(ns._mmd.header);
 
-            $.each(this.onUpdate, function(index, func){ func(_this); });
+            $.each(this.onUpdate, function(index, func){
+                func(_this);
+            });
         },
 
         /*********************************************
@@ -334,7 +338,13 @@
                 }
 
                 if (item.polygon){
-                    item.polygon.setStyle({transparent: !selected});
+                    //Set style of selected/not-selected polygon
+                    var isOcean = this.type == 'ocean';
+                    item.polygon.setStyle({
+                        transparent    : !selected || !isOcean,
+                        weight         : selected && !isOcean ? 3 : 1,
+                        borderColorName: (selected && !isOcean) || !this.ageOk ? 'black' : this.colorName,
+                    });
                     if (selected)
                         ns._mmd.map.fitBounds(item.polygon.getBounds(), {_maxZoom: ns._mmd.map.getZoom()});
                 }
@@ -407,18 +417,23 @@
                     icons = [], //1. Status, 2. color on info-map or not-shown
                     ageOk = this.ageOk;
 
-                if (!ageOk)
-                    icons.push(['fas fa-circle text-danger', 'far fa-exclamation-circle']);
-                else
-                    if (domain.status.delayed)
-                        icons.push(warningIcon);
+                if (!nsModelOptions.staticMode){
+                    if (!ageOk)
+                        icons.push(['fas fa-circle text-danger', 'far fa-exclamation-circle']);
                     else
-                        icons.push('far fa-check-circle');
-
-                if (!ageOk)
-                    icons.push('far fa-eye-slash');
+                        if (domain.status.delayed)
+                            icons.push(warningIcon);
+                        else
+                            icons.push('far fa-check-circle');
+                }
+                if (ageOk){
+                    if (this.errorLoadingMask)
+                        icons.push(['far fa-square fa-sm', 'far fa-slash']);
+                    else
+                        icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full']);
+                }
                 else
-                    icons.push(['fas fa-square-full text-'+domainGroupItem.colorName, 'far fa-square-full']);
+                    icons.push('far fa-eye-slash');
 
                 accordionItems.push({
                     id     : 'index_'+index,
@@ -502,7 +517,11 @@
         this.domain      = domainGroup.modelList.getDomain(options.modelId, options.domainId);
         this.type        = options.type || this.domain.options.type;
         this.isGlobal    = (options.area == 'global') || this.domain.isGlobal;
+        this.ageOk       = true;
         this.mask        = this.isGlobal ? '' : options.mask || this.domain.options.mask;
+        this.errorLoadingMask = false;
+
+
         $.each(options.subdomains || [], function(index, domainItemOptions){
             domainGroup.addItem(domainItemOptions, _this, domainGroup);
         });
@@ -515,7 +534,6 @@
         *********************************************/
         setAgeOk: function(){
             var domain = this.domain;
-
             this.age   = domain.status.age;
             this.ageOk = (this.age < this.options.maxAbsoluteAge);
             this.domain.ageOk = this.ageOk;
@@ -545,8 +563,14 @@
             if (this.latLngs)
                 this.addPolygon();
             else
-                //Load polygons from json-file
-                Promise.getJSON( ns.dataFilePath({subDir:'model-domain', fileName:this.domain.options.mask}), {resolve: $.proxy(this.addPolygon, this)});
+                if (!this.errorLoadingMask)
+                    //Load polygons from json-file
+                    Promise.getJSON(
+                        ns.dataFilePath({subDir:'model-domain', fileName:this.domain.options.mask}), {
+                        useDefaultErrorHandler: false,
+                        resolve: $.proxy(this.addPolygon, this),
+                        reject : $.proxy(this.rejectPolygon, this)
+                    });
         },
 
         /*********************************************
@@ -570,7 +594,7 @@
             var isOcean = this.type == 'ocean';
             this.polygon = L.polygon(this.latLngs, {
                 borderColorName : this.ageOk ? this.colorName : 'black',
-                colorName       : this.ageOk ? this.colorName : 'white',
+                colorName       : this.ageOk ? this.colorName : 'gray',//'white',
                 transparent     : true,
                 addInteractive  : true,
                 border          : true,
@@ -583,6 +607,15 @@
                 .on('click', $.proxy(this._polygon_onClick, this) )
                 .bindTooltip(this.domain.fullNameSimple(), {sticky: true});
         },
+
+        rejectPolygon: function(){
+            this.errorLoadingMask = true;
+            //Reload the modal if this is part of current domain-group
+            if (ns._mmd.current == this.domainGroup)
+                this.domainGroup.asModal(ns._mmd.header);
+
+        },
+
 
         /*********************************************
         _polygon_onClick

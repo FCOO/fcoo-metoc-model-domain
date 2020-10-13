@@ -1,12 +1,12 @@
 {
-  "name": "fcoo-metoc-model-domain",
-  "version": "2.0.0",
-  "homepage": "https://github.com/FCOO/fcoo-metoc-model-domain",
+  "name": "fcoo-metoc-parameter-model-domain",
+  "version": "3.0.0",
+  "homepage": "https://github.com/FCOO/fcoo-metoc-parameter-model-domain",
   "author": "Niels Holt nho@fcoo.dk",
   "description": "package.json is only use for building the package. see bower.json for more info",
   "repository": {
     "type": "git",
-    "url": "git://github.com/FCOO/fcoo-metoc-model-domain.git"
+    "url": "git://github.com/FCOO/fcoo-metoc-parameter-model-domain.git"
   },
   "dependencies": {},
   "devDependencies": {
