@@ -38,8 +38,9 @@ Method to load all data regarding models, domains, domain-groups
                 ns.promiseList.append({
                     fileName: {subDir: nsModelOptions.domainGroupList.dataSubDir, fileName: nsModelOptions.domainGroupList.parameterFileName},
                     resolve : function( data ){
-                        $.each(nsParameter.list, function(index, parameter){
-                            parameter._getDomainGroup(data);
+                        $.each(nsParameter, function(index, parameter){
+                            if (parameter instanceof nsParameter.Parameter)
+                                parameter._getDomainGroup(data);
                         });
                     }
                 });

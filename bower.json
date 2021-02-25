@@ -1,6 +1,6 @@
 {
   "name": "fcoo-metoc-parameter-model-domain",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "homepage": "https://github.com/FCOO/fcoo-metoc-parameter-model-domain",
   "authors": [
     "Niels Holt"
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^11.0.0",
+    "fcoo-parameter-unit": "https://gitlab.com/FCOO/fcoo-parameter-unit.git#^1.0.0",
     "intervals": "fcoo/intervals.js#^1.1.6",
     "leaflet": "latest",
     "leaflet-bugfix": "fcoo/leaflet-bugfix#^2.0.2",

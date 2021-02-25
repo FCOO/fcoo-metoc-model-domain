@@ -17,16 +17,16 @@
 	<script src="bower_components.js"></script>
 	<script src="../src/fcoo-metoc-model-domain.js"></script>
 	<script src="../src/fcoo-metoc-model-domain-group.js"></script>
-	<script src="../src/fcoo-metoc-unit-parameter.js"></script>
 	<script src="../src/fcoo-metoc-load.js"></script>
+	<script src="../src/fcoo-parameter-unit-extend.js"></script>
 	<script>
 //        window.fcoo.LOCAL_DATA = true;
-        window.fcoo.DEMO_VERSION = true;
+//        window.fcoo.DEMO_VERSION = true;
 
         window.bsIsTouch = window.bsIsTouch || (window.location.search =='?touch');
 
         i18next.init();
-        i18next.changeLanguage('da');
+        i18next.changeLanguage('en');
         i18next.options.fallbackLng = i18next.language == 'da' ? 'en' : 'da';
 
 moment.sfSetFormat({ time: 12, timezone:'utc' } );
@@ -81,14 +81,15 @@ fcoo.promiseList_getAll();
 
 
 window.openModal = function(paramId){
-    window.fcoo.parameter.getParameter(paramId).domainGroupAsModal(/* [50,50], 3*/);
+    window.fcoo.parameter[paramId].domainGroupAsModal(/* [50,50], 3*/);
 }
+    
 </script>
 
 <a href="javascript:openModal('sea_ice_speed')">sea_ice_speed</a><br>
-<a href="javascript:openModal('sea_surface_wave_significant_height')">sea_surface_wave_significant_height (uden navn)</a><br>
+<a href="javascript:openModal('sea_surface_wave_significant_height')">sea_surface_wave_significant_height</a><br>
 <a href="javascript:openModal('sea_water_density')">sea_water_density</a><br>
-<a href="javascript:openModal('direction_of_sea_water_velocity')">direction_of_sea_water_velocity</a><br>
+<a href="javascript:openModal('sea_water_velocity_to_direction')">sea_water_velocity_to_direction</a><br>
 <a href="javascript:openModal('wind_from_direction')">wind_from_direction</a><br>
 
 </body>

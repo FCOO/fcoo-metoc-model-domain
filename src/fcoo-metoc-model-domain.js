@@ -12,7 +12,7 @@ Objects and methods to create and manage list of models
         nsModelOptions = nsModel.options = nsModel.options || {};
 
     nsModelOptions = $.extend(true, nsModelOptions, {
-        includeModel: true,     //If true all models and domain-groups are loeaded and created
+        includeModel: true,     //If true all models and domain-groups are loaded and created
         staticMode  : false,    //If true no metadata from nc-filer are loaded and no dynamic info in modal-window
         model: {
             roundEpochMomentTo  : 15 //minutes
