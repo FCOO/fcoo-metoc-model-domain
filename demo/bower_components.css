@@ -915,14 +915,16 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 ************************************************/
 /******************************************
+*******************************************
 FONTAWESOME 5
+*******************************************
 ******************************************/
 /*****************************************
-CURRENT VERSION OF FONTAWESOME PRO = 5.7.2
+CURRENT VERSION OF FONTAWESOME PRO = 5.15.3
 DIRECTORY: _fontawesome-pro-web
 *****************************************/
 /*!
- * Font Awesome Pro 5.12.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 .fa, .fai,
@@ -1125,9 +1127,6 @@ readers do not read off random characters that represent icons */
 
 .fa-adn:before {
   content: "\f170"; }
-
-.fa-adobe:before {
-  content: "\f778"; }
 
 .fa-adversal:before {
   content: "\f36a"; }
@@ -1501,6 +1500,12 @@ readers do not read off random characters that represent icons */
 .fa-bacon:before {
   content: "\f7e5"; }
 
+.fa-bacteria:before {
+  content: "\e059"; }
+
+.fa-bacterium:before {
+  content: "\e05a"; }
+
 .fa-badge:before {
   content: "\f335"; }
 
@@ -1873,6 +1878,9 @@ readers do not read off random characters that represent icons */
 .fa-box-open:before {
   content: "\f49e"; }
 
+.fa-box-tissue:before {
+  content: "\e05b"; }
+
 .fa-box-up:before {
   content: "\f49f"; }
 
@@ -2114,7 +2122,7 @@ readers do not read off random characters that represent icons */
   content: "\f8ff"; }
 
 .fa-caravan-alt:before {
-  content: "\f900"; }
+  content: "\e000"; }
 
 .fa-caret-circle-down:before {
   content: "\f32d"; }
@@ -2174,7 +2182,7 @@ readers do not read off random characters that represent icons */
   content: "\f6be"; }
 
 .fa-cat-space:before {
-  content: "\f901"; }
+  content: "\e001"; }
 
 .fa-cauldron:before {
   content: "\f6bf"; }
@@ -2497,6 +2505,9 @@ readers do not read off random characters that represent icons */
 .fa-cloud-upload-alt:before {
   content: "\f382"; }
 
+.fa-cloudflare:before {
+  content: "\e07d"; }
+
 .fa-clouds:before {
   content: "\f744"; }
 
@@ -2543,7 +2554,7 @@ readers do not read off random characters that represent icons */
   content: "\f0f4"; }
 
 .fa-coffee-pot:before {
-  content: "\f902"; }
+  content: "\e002"; }
 
 .fa-coffee-togo:before {
   content: "\f6c5"; }
@@ -2552,7 +2563,7 @@ readers do not read off random characters that represent icons */
   content: "\f6c6"; }
 
 .fa-coffin-cross:before {
-  content: "\f951"; }
+  content: "\e051"; }
 
 .fa-cog:before {
   content: "\f013"; }
@@ -2570,7 +2581,7 @@ readers do not read off random characters that represent icons */
   content: "\f0db"; }
 
 .fa-comet:before {
-  content: "\f903"; }
+  content: "\e003"; }
 
 .fa-comment:before {
   content: "\f075"; }
@@ -2867,7 +2878,7 @@ readers do not read off random characters that represent icons */
   content: "\f6cb"; }
 
 .fa-dailymotion:before {
-  content: "\f952"; }
+  content: "\e052"; }
 
 .fa-dashcube:before {
   content: "\f210"; }
@@ -2886,6 +2897,9 @@ readers do not read off random characters that represent icons */
 
 .fa-deer-rudolph:before {
   content: "\f78f"; }
+
+.fa-deezer:before {
+  content: "\e077"; }
 
 .fa-delicious:before {
   content: "\f1a5"; }
@@ -3154,6 +3168,9 @@ readers do not read off random characters that represent icons */
 .fa-edge:before {
   content: "\f282"; }
 
+.fa-edge-legacy:before {
+  content: "\e078"; }
+
 .fa-edit:before {
   content: "\f044"; }
 
@@ -3317,7 +3334,7 @@ readers do not read off random characters that represent icons */
   content: "\f863"; }
 
 .fa-fan-table:before {
-  content: "\f904"; }
+  content: "\e004"; }
 
 .fa-fantasy-flight-games:before {
   content: "\f6dc"; }
@@ -3332,10 +3349,10 @@ readers do not read off random characters that represent icons */
   content: "\f050"; }
 
 .fa-faucet:before {
-  content: "\f905"; }
+  content: "\e005"; }
 
 .fa-faucet-drip:before {
-  content: "\f906"; }
+  content: "\e006"; }
 
 .fa-fax:before {
   content: "\f1ac"; }
@@ -3512,7 +3529,7 @@ readers do not read off random characters that represent icons */
   content: "\f269"; }
 
 .fa-firefox-browser:before {
-  content: "\f907"; }
+  content: "\e007"; }
 
 .fa-fireplace:before {
   content: "\f79a"; }
@@ -3599,7 +3616,7 @@ readers do not read off random characters that represent icons */
   content: "\f07b"; }
 
 .fa-folder-download:before {
-  content: "\f953"; }
+  content: "\e053"; }
 
 .fa-folder-minus:before {
   content: "\f65d"; }
@@ -3617,7 +3634,7 @@ readers do not read off random characters that represent icons */
   content: "\f802"; }
 
 .fa-folder-upload:before {
-  content: "\f954"; }
+  content: "\e054"; }
 
 .fa-folders:before {
   content: "\f660"; }
@@ -3713,7 +3730,7 @@ readers do not read off random characters that represent icons */
   content: "\f50d"; }
 
 .fa-galaxy:before {
-  content: "\f908"; }
+  content: "\e008"; }
 
 .fa-game-board:before {
   content: "\f867"; }
@@ -3731,13 +3748,13 @@ readers do not read off random characters that represent icons */
   content: "\f8bc"; }
 
 .fa-garage:before {
-  content: "\f909"; }
+  content: "\e009"; }
 
 .fa-garage-car:before {
-  content: "\f90a"; }
+  content: "\e00a"; }
 
 .fa-garage-open:before {
-  content: "\f90b"; }
+  content: "\e00b"; }
 
 .fa-gas-pump:before {
   content: "\f52f"; }
@@ -3883,6 +3900,9 @@ readers do not read off random characters that represent icons */
 .fa-google-drive:before {
   content: "\f3aa"; }
 
+.fa-google-pay:before {
+  content: "\e079"; }
+
 .fa-google-play:before {
   content: "\f3ab"; }
 
@@ -3979,6 +3999,9 @@ readers do not read off random characters that represent icons */
 .fa-grunt:before {
   content: "\f3ad"; }
 
+.fa-guilded:before {
+  content: "\e07e"; }
+
 .fa-guitar:before {
   content: "\f7a6"; }
 
@@ -4042,6 +4065,9 @@ readers do not read off random characters that represent icons */
 .fa-hand-holding-magic:before {
   content: "\f6e5"; }
 
+.fa-hand-holding-medical:before {
+  content: "\e05c"; }
+
 .fa-hand-holding-seedling:before {
   content: "\f4bf"; }
 
@@ -4087,6 +4113,9 @@ readers do not read off random characters that represent icons */
 .fa-hand-scissors:before {
   content: "\f257"; }
 
+.fa-hand-sparkles:before {
+  content: "\e05d"; }
+
 .fa-hand-spock:before {
   content: "\f259"; }
 
@@ -4102,11 +4131,20 @@ readers do not read off random characters that represent icons */
 .fa-hands-usd:before {
   content: "\f4c5"; }
 
+.fa-hands-wash:before {
+  content: "\e05e"; }
+
 .fa-handshake:before {
   content: "\f2b5"; }
 
 .fa-handshake-alt:before {
   content: "\f4c6"; }
+
+.fa-handshake-alt-slash:before {
+  content: "\e05f"; }
+
+.fa-handshake-slash:before {
+  content: "\e060"; }
 
 .fa-hanukiah:before {
   content: "\f6e6"; }
@@ -4147,11 +4185,23 @@ readers do not read off random characters that represent icons */
 .fa-head-side-brain:before {
   content: "\f808"; }
 
+.fa-head-side-cough:before {
+  content: "\e061"; }
+
+.fa-head-side-cough-slash:before {
+  content: "\e062"; }
+
 .fa-head-side-headphones:before {
   content: "\f8c2"; }
 
+.fa-head-side-mask:before {
+  content: "\e063"; }
+
 .fa-head-side-medical:before {
   content: "\f809"; }
+
+.fa-head-side-virus:before {
+  content: "\e064"; }
 
 .fa-head-vr:before {
   content: "\f6ea"; }
@@ -4187,7 +4237,7 @@ readers do not read off random characters that represent icons */
   content: "\f21e"; }
 
 .fa-heat:before {
-  content: "\f90c"; }
+  content: "\e00c"; }
 
 .fa-helicopter:before {
   content: "\f533"; }
@@ -4215,6 +4265,9 @@ readers do not read off random characters that represent icons */
 
 .fa-history:before {
   content: "\f1da"; }
+
+.fa-hive:before {
+  content: "\e07f"; }
 
 .fa-hockey-mask:before {
   content: "\f6ee"; }
@@ -4304,28 +4357,31 @@ readers do not read off random characters that represent icons */
   content: "\f251"; }
 
 .fa-house:before {
-  content: "\f90d"; }
+  content: "\e00d"; }
 
 .fa-house-damage:before {
   content: "\f6f1"; }
 
 .fa-house-day:before {
-  content: "\f90e"; }
+  content: "\e00e"; }
 
 .fa-house-flood:before {
   content: "\f74f"; }
 
 .fa-house-leave:before {
-  content: "\f90f"; }
+  content: "\e00f"; }
 
 .fa-house-night:before {
-  content: "\f910"; }
+  content: "\e010"; }
 
 .fa-house-return:before {
-  content: "\f911"; }
+  content: "\e011"; }
 
 .fa-house-signal:before {
-  content: "\f912"; }
+  content: "\e012"; }
+
+.fa-house-user:before {
+  content: "\e065"; }
 
 .fa-houzz:before {
   content: "\f27c"; }
@@ -4373,7 +4429,7 @@ readers do not read off random characters that represent icons */
   content: "\f47f"; }
 
 .fa-ideal:before {
-  content: "\f913"; }
+  content: "\e013"; }
 
 .fa-igloo:before {
   content: "\f7ae"; }
@@ -4423,11 +4479,17 @@ readers do not read off random characters that represent icons */
 .fa-inhaler:before {
   content: "\f5f9"; }
 
+.fa-innosoft:before {
+  content: "\e080"; }
+
 .fa-instagram:before {
   content: "\f16d"; }
 
 .fa-instagram-square:before {
-  content: "\f955"; }
+  content: "\e055"; }
+
+.fa-instalod:before {
+  content: "\e081"; }
 
 .fa-integral:before {
   content: "\f667"; }
@@ -4580,10 +4642,10 @@ readers do not read off random characters that represent icons */
   content: "\f4ca"; }
 
 .fa-lamp-desk:before {
-  content: "\f914"; }
+  content: "\e014"; }
 
 .fa-lamp-floor:before {
-  content: "\f915"; }
+  content: "\e015"; }
 
 .fa-landmark:before {
   content: "\f66f"; }
@@ -4599,6 +4661,9 @@ readers do not read off random characters that represent icons */
 
 .fa-laptop-code:before {
   content: "\f5fc"; }
+
+.fa-laptop-house:before {
+  content: "\e066"; }
 
 .fa-laptop-medical:before {
   content: "\f812"; }
@@ -4679,16 +4744,16 @@ readers do not read off random characters that represent icons */
   content: "\f1cd"; }
 
 .fa-light-ceiling:before {
-  content: "\f916"; }
+  content: "\e016"; }
 
 .fa-light-switch:before {
-  content: "\f917"; }
+  content: "\e017"; }
 
 .fa-light-switch-off:before {
-  content: "\f918"; }
+  content: "\e018"; }
 
 .fa-light-switch-on:before {
-  content: "\f919"; }
+  content: "\e019"; }
 
 .fa-lightbulb:before {
   content: "\f0eb"; }
@@ -4815,6 +4880,9 @@ readers do not read off random characters that represent icons */
 
 .fa-lungs:before {
   content: "\f604"; }
+
+.fa-lungs-virus:before {
+  content: "\e067"; }
 
 .fa-lyft:before {
   content: "\f3c3"; }
@@ -4988,7 +5056,7 @@ readers do not read off random characters that represent icons */
   content: "\f753"; }
 
 .fa-microblog:before {
-  content: "\f91a"; }
+  content: "\e01a"; }
 
 .fa-microchip:before {
   content: "\f2db"; }
@@ -5015,7 +5083,7 @@ readers do not read off random characters that represent icons */
   content: "\f3ca"; }
 
 .fa-microwave:before {
-  content: "\f91b"; }
+  content: "\e01b"; }
 
 .fa-mind-share:before {
   content: "\f677"; }
@@ -5048,7 +5116,7 @@ readers do not read off random characters that represent icons */
   content: "\f289"; }
 
 .fa-mixer:before {
-  content: "\f956"; }
+  content: "\e056"; }
 
 .fa-mizuni:before {
   content: "\f3cc"; }
@@ -5215,6 +5283,9 @@ readers do not read off random characters that represent icons */
 .fa-octagon:before {
   content: "\f306"; }
 
+.fa-octopus-deploy:before {
+  content: "\e082"; }
+
 .fa-odnoklassniki:before {
   content: "\f263"; }
 
@@ -5264,10 +5335,10 @@ readers do not read off random characters that represent icons */
   content: "\f03b"; }
 
 .fa-outlet:before {
-  content: "\f91c"; }
+  content: "\e01c"; }
 
 .fa-oven:before {
-  content: "\f91d"; }
+  content: "\e01d"; }
 
 .fa-overline:before {
   content: "\f876"; }
@@ -5401,11 +5472,17 @@ readers do not read off random characters that represent icons */
 .fa-penny-arcade:before {
   content: "\f704"; }
 
+.fa-people-arrows:before {
+  content: "\e068"; }
+
 .fa-people-carry:before {
   content: "\f4ce"; }
 
 .fa-pepper-hot:before {
   content: "\f816"; }
+
+.fa-perbyte:before {
+  content: "\e083"; }
 
 .fa-percent:before {
   content: "\f295"; }
@@ -5501,7 +5578,7 @@ readers do not read off random characters that represent icons */
   content: "\f1a7"; }
 
 .fa-pied-piper-square:before {
-  content: "\f91e"; }
+  content: "\e01e"; }
 
 .fa-pig:before {
   content: "\f706"; }
@@ -5542,11 +5619,14 @@ readers do not read off random characters that represent icons */
 .fa-plane-departure:before {
   content: "\f5b0"; }
 
+.fa-plane-slash:before {
+  content: "\e069"; }
+
 .fa-planet-moon:before {
-  content: "\f91f"; }
+  content: "\e01f"; }
 
 .fa-planet-ringed:before {
-  content: "\f920"; }
+  content: "\e020"; }
 
 .fa-play:before {
   content: "\f04b"; }
@@ -5585,7 +5665,7 @@ readers do not read off random characters that represent icons */
   content: "\f758"; }
 
 .fa-police-box:before {
-  content: "\f921"; }
+  content: "\e021"; }
 
 .fa-poll:before {
   content: "\f681"; }
@@ -5609,10 +5689,10 @@ readers do not read off random characters that represent icons */
   content: "\f819"; }
 
 .fa-portal-enter:before {
-  content: "\f922"; }
+  content: "\e022"; }
 
 .fa-portal-exit:before {
-  content: "\f923"; }
+  content: "\e023"; }
 
 .fa-portrait:before {
   content: "\f3e0"; }
@@ -5661,6 +5741,12 @@ readers do not read off random characters that represent icons */
 
 .fa-projector:before {
   content: "\f8d6"; }
+
+.fa-pump-medical:before {
+  content: "\e06a"; }
+
+.fa-pump-soap:before {
+  content: "\e06b"; }
 
 .fa-pumpkin:before {
   content: "\f707"; }
@@ -5720,7 +5806,7 @@ readers do not read off random characters that represent icons */
   content: "\f45a"; }
 
 .fa-radar:before {
-  content: "\f924"; }
+  content: "\e024"; }
 
 .fa-radiation:before {
   content: "\f7b9"; }
@@ -5756,7 +5842,7 @@ readers do not read off random characters that represent icons */
   content: "\f2d9"; }
 
 .fa-raygun:before {
-  content: "\f925"; }
+  content: "\e025"; }
 
 .fa-react:before {
   content: "\f41b"; }
@@ -5810,7 +5896,7 @@ readers do not read off random characters that represent icons */
   content: "\f2f9"; }
 
 .fa-refrigerator:before {
-  content: "\f926"; }
+  content: "\e026"; }
 
 .fa-registered:before {
   content: "\f25d"; }
@@ -5882,7 +5968,7 @@ readers do not read off random characters that represent icons */
   content: "\f135"; }
 
 .fa-rocket-launch:before {
-  content: "\f927"; }
+  content: "\e027"; }
 
 .fa-rocketchat:before {
   content: "\f3e8"; }
@@ -5931,6 +6017,9 @@ readers do not read off random characters that represent icons */
 
 .fa-rupee-sign:before {
   content: "\f156"; }
+
+.fa-rust:before {
+  content: "\e07a"; }
 
 .fa-rv:before {
   content: "\f7be"; }
@@ -6065,19 +6154,19 @@ readers do not read off random characters that represent icons */
   content: "\f87f"; }
 
 .fa-sensor:before {
-  content: "\f928"; }
+  content: "\e028"; }
 
 .fa-sensor-alert:before {
-  content: "\f929"; }
+  content: "\e029"; }
 
 .fa-sensor-fire:before {
-  content: "\f92a"; }
+  content: "\e02a"; }
 
 .fa-sensor-on:before {
-  content: "\f92b"; }
+  content: "\e02b"; }
 
 .fa-sensor-smoke:before {
-  content: "\f92c"; }
+  content: "\e02c"; }
 
 .fa-server:before {
   content: "\f233"; }
@@ -6121,6 +6210,9 @@ readers do not read off random characters that represent icons */
 .fa-shield-cross:before {
   content: "\f712"; }
 
+.fa-shield-virus:before {
+  content: "\e06c"; }
+
 .fa-ship:before {
   content: "\f21a"; }
 
@@ -6140,7 +6232,7 @@ readers do not read off random characters that represent icons */
   content: "\f54b"; }
 
 .fa-shopify:before {
-  content: "\f957"; }
+  content: "\e057"; }
 
 .fa-shopping-bag:before {
   content: "\f290"; }
@@ -6241,11 +6333,14 @@ readers do not read off random characters that represent icons */
 .fa-simplybuilt:before {
   content: "\f215"; }
 
+.fa-sink:before {
+  content: "\e06d"; }
+
 .fa-siren:before {
-  content: "\f92d"; }
+  content: "\e02d"; }
 
 .fa-siren-on:before {
-  content: "\f92e"; }
+  content: "\e02e"; }
 
 .fa-sistrix:before {
   content: "\f3ee"; }
@@ -6385,6 +6480,9 @@ readers do not read off random characters that represent icons */
 .fa-snowplow:before {
   content: "\f7d2"; }
 
+.fa-soap:before {
+  content: "\e06e"; }
+
 .fa-socks:before {
   content: "\f696"; }
 
@@ -6392,7 +6490,7 @@ readers do not read off random characters that represent icons */
   content: "\f5ba"; }
 
 .fa-solar-system:before {
-  content: "\f92f"; }
+  content: "\e02f"; }
 
 .fa-sort:before {
   content: "\f0dc"; }
@@ -6425,13 +6523,13 @@ readers do not read off random characters that represent icons */
   content: "\f885"; }
 
 .fa-sort-circle:before {
-  content: "\f930"; }
+  content: "\e030"; }
 
 .fa-sort-circle-down:before {
-  content: "\f931"; }
+  content: "\e031"; }
 
 .fa-sort-circle-up:before {
-  content: "\f932"; }
+  content: "\e032"; }
 
 .fa-sort-down:before {
   content: "\f0dd"; }
@@ -6491,10 +6589,10 @@ readers do not read off random characters that represent icons */
   content: "\f197"; }
 
 .fa-space-station-moon:before {
-  content: "\f933"; }
+  content: "\e033"; }
 
 .fa-space-station-moon-alt:before {
-  content: "\f934"; }
+  content: "\e034"; }
 
 .fa-spade:before {
   content: "\f2f4"; }
@@ -6542,7 +6640,7 @@ readers do not read off random characters that represent icons */
   content: "\f5bd"; }
 
 .fa-sprinkler:before {
-  content: "\f935"; }
+  content: "\e035"; }
 
 .fa-square:before {
   content: "\f0c8"; }
@@ -6602,22 +6700,22 @@ readers do not read off random characters that represent icons */
   content: "\f621"; }
 
 .fa-star-shooting:before {
-  content: "\f936"; }
+  content: "\e036"; }
 
 .fa-starfighter:before {
-  content: "\f937"; }
+  content: "\e037"; }
 
 .fa-starfighter-alt:before {
-  content: "\f938"; }
+  content: "\e038"; }
 
 .fa-stars:before {
   content: "\f762"; }
 
 .fa-starship:before {
-  content: "\f939"; }
+  content: "\e039"; }
 
 .fa-starship-freighter:before {
-  content: "\f93a"; }
+  content: "\e03a"; }
 
 .fa-staylinked:before {
   content: "\f3f5"; }
@@ -6667,11 +6765,20 @@ readers do not read off random characters that represent icons */
 .fa-stopwatch:before {
   content: "\f2f2"; }
 
+.fa-stopwatch-20:before {
+  content: "\e06f"; }
+
 .fa-store:before {
   content: "\f54e"; }
 
 .fa-store-alt:before {
   content: "\f54f"; }
+
+.fa-store-alt-slash:before {
+  content: "\e070"; }
+
+.fa-store-slash:before {
+  content: "\e071"; }
 
 .fa-strava:before {
   content: "\f428"; }
@@ -6770,16 +6877,16 @@ readers do not read off random characters that represent icons */
   content: "\f71c"; }
 
 .fa-sword-laser:before {
-  content: "\f93b"; }
+  content: "\e03b"; }
 
 .fa-sword-laser-alt:before {
-  content: "\f93c"; }
+  content: "\e03c"; }
 
 .fa-swords:before {
   content: "\f71d"; }
 
 .fa-swords-laser:before {
-  content: "\f93d"; }
+  content: "\e03d"; }
 
 .fa-symfony:before {
   content: "\f83d"; }
@@ -6899,10 +7006,10 @@ readers do not read off random characters that represent icons */
   content: "\f3fe"; }
 
 .fa-telescope:before {
-  content: "\f93e"; }
+  content: "\e03e"; }
 
 .fa-temperature-down:before {
-  content: "\f93f"; }
+  content: "\e03f"; }
 
 .fa-temperature-frigid:before {
   content: "\f768"; }
@@ -6917,7 +7024,7 @@ readers do not read off random characters that represent icons */
   content: "\f76b"; }
 
 .fa-temperature-up:before {
-  content: "\f940"; }
+  content: "\e040"; }
 
 .fa-tencent-weibo:before {
   content: "\f1d5"; }
@@ -7012,6 +7119,9 @@ readers do not read off random characters that represent icons */
 .fa-ticket-alt:before {
   content: "\f3ff"; }
 
+.fa-tiktok:before {
+  content: "\e07b"; }
+
 .fa-tilde:before {
   content: "\f69f"; }
 
@@ -7066,6 +7176,9 @@ readers do not read off random characters that represent icons */
 .fa-toilet-paper-alt:before {
   content: "\f71f"; }
 
+.fa-toilet-paper-slash:before {
+  content: "\e072"; }
+
 .fa-tombstone:before {
   content: "\f720"; }
 
@@ -7118,7 +7231,7 @@ readers do not read off random characters that represent icons */
   content: "\f63a"; }
 
 .fa-trailer:before {
-  content: "\f941"; }
+  content: "\e041"; }
 
 .fa-train:before {
   content: "\f238"; }
@@ -7133,19 +7246,19 @@ readers do not read off random characters that represent icons */
   content: "\f225"; }
 
 .fa-transporter:before {
-  content: "\f942"; }
+  content: "\e042"; }
 
 .fa-transporter-1:before {
-  content: "\f943"; }
+  content: "\e043"; }
 
 .fa-transporter-2:before {
-  content: "\f944"; }
+  content: "\e044"; }
 
 .fa-transporter-3:before {
-  content: "\f945"; }
+  content: "\e045"; }
 
 .fa-transporter-empty:before {
-  content: "\f946"; }
+  content: "\e046"; }
 
 .fa-trash:before {
   content: "\f1f8"; }
@@ -7292,10 +7405,10 @@ readers do not read off random characters that represent icons */
   content: "\f7df"; }
 
 .fa-ufo:before {
-  content: "\f947"; }
+  content: "\e047"; }
 
 .fa-ufo-beam:before {
-  content: "\f948"; }
+  content: "\e048"; }
 
 .fa-uikit:before {
   content: "\f403"; }
@@ -7308,6 +7421,9 @@ readers do not read off random characters that represent icons */
 
 .fa-umbrella-beach:before {
   content: "\f5ca"; }
+
+.fa-uncharted:before {
+  content: "\e084"; }
 
 .fa-underline:before {
   content: "\f0cd"; }
@@ -7328,7 +7444,7 @@ readers do not read off random characters that represent icons */
   content: "\f404"; }
 
 .fa-unity:before {
-  content: "\f949"; }
+  content: "\e049"; }
 
 .fa-universal-access:before {
   content: "\f29a"; }
@@ -7344,6 +7460,9 @@ readers do not read off random characters that represent icons */
 
 .fa-unlock-alt:before {
   content: "\f13e"; }
+
+.fa-unsplash:before {
+  content: "\e07c"; }
 
 .fa-untappd:before {
   content: "\f405"; }
@@ -7370,7 +7489,7 @@ readers do not read off random characters that represent icons */
   content: "\f007"; }
 
 .fa-user-alien:before {
-  content: "\f94a"; }
+  content: "\e04a"; }
 
 .fa-user-alt:before {
   content: "\f406"; }
@@ -7445,7 +7564,7 @@ readers do not read off random characters that represent icons */
   content: "\f234"; }
 
 .fa-user-robot:before {
-  content: "\f94b"; }
+  content: "\e04b"; }
 
 .fa-user-secret:before {
   content: "\f21b"; }
@@ -7466,10 +7585,10 @@ readers do not read off random characters that represent icons */
   content: "\f235"; }
 
 .fa-user-unlock:before {
-  content: "\f958"; }
+  content: "\e058"; }
 
 .fa-user-visor:before {
-  content: "\f94c"; }
+  content: "\e04c"; }
 
 .fa-users:before {
   content: "\f0c0"; }
@@ -7485,6 +7604,9 @@ readers do not read off random characters that represent icons */
 
 .fa-users-medical:before {
   content: "\f830"; }
+
+.fa-users-slash:before {
+  content: "\e073"; }
 
 .fa-usps:before {
   content: "\f7e1"; }
@@ -7511,10 +7633,10 @@ readers do not read off random characters that represent icons */
   content: "\f408"; }
 
 .fa-vacuum:before {
-  content: "\f94d"; }
+  content: "\e04d"; }
 
 .fa-vacuum-robot:before {
-  content: "\f94e"; }
+  content: "\e04e"; }
 
 .fa-value-absolute:before {
   content: "\f6a6"; }
@@ -7530,6 +7652,12 @@ readers do not read off random characters that represent icons */
 
 .fa-venus-mars:before {
   content: "\f228"; }
+
+.fa-vest:before {
+  content: "\e085"; }
+
+.fa-vest-patches:before {
+  content: "\e086"; }
 
 .fa-vhs:before {
   content: "\f8ec"; }
@@ -7578,6 +7706,15 @@ readers do not read off random characters that represent icons */
 
 .fa-violin:before {
   content: "\f8ed"; }
+
+.fa-virus:before {
+  content: "\e074"; }
+
+.fa-virus-slash:before {
+  content: "\e075"; }
+
+.fa-viruses:before {
+  content: "\e076"; }
 
 .fa-vk:before {
   content: "\f189"; }
@@ -7662,6 +7799,9 @@ readers do not read off random characters that represent icons */
 
 .fa-watch-fitness:before {
   content: "\f63e"; }
+
+.fa-watchman-monitoring:before {
+  content: "\e087"; }
 
 .fa-water:before {
   content: "\f773"; }
@@ -7766,10 +7906,10 @@ readers do not read off random characters that represent icons */
   content: "\f410"; }
 
 .fa-window-frame:before {
-  content: "\f94f"; }
+  content: "\e04f"; }
 
 .fa-window-frame-open:before {
-  content: "\f950"; }
+  content: "\e050"; }
 
 .fa-window-maximize:before {
   content: "\f2d0"; }
@@ -7800,6 +7940,9 @@ readers do not read off random characters that represent icons */
 
 .fa-wizards-of-the-coast:before {
   content: "\f730"; }
+
+.fa-wodu:before {
+  content: "\e088"; }
 
 .fa-wolf-pack-battalion:before {
   content: "\f514"; }
@@ -7901,14 +8044,14 @@ readers do not read off random characters that represent icons */
   width: auto; }
 
 /*!
- * Font Awesome Pro 5.12.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Pro';
   font-style: normal;
   font-weight: 900;
-  font-display: auto;
+  font-display: block;
   src: url("fonts/fa-solid-900.eot");
   src: url("fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("fonts/fa-solid-900.woff2") format("woff2"), url("fonts/fa-solid-900.woff") format("woff"), url("fonts/fa-solid-900.ttf") format("truetype"), url("fonts/fa-solid-900.svg#fontawesome") format("svg"); }
 
@@ -7918,14 +8061,14 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 
 /*!
- * Font Awesome Pro 5.12.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Pro';
   font-style: normal;
   font-weight: 400;
-  font-display: auto;
+  font-display: block;
   src: url("fonts/fa-regular-400.eot");
   src: url("fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("fonts/fa-regular-400.woff2") format("woff2"), url("fonts/fa-regular-400.woff") format("woff"), url("fonts/fa-regular-400.ttf") format("truetype"), url("fonts/fa-regular-400.svg#fontawesome") format("svg"); }
 
@@ -7934,14 +8077,14 @@ readers do not read off random characters that represent icons */
   font-weight: 400; }
 
 /*!
- * Font Awesome Pro 5.12.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Pro';
   font-style: normal;
   font-weight: 300;
-  font-display: auto;
+  font-display: block;
   src: url("fonts/fa-light-300.eot");
   src: url("fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("fonts/fa-light-300.woff2") format("woff2"), url("fonts/fa-light-300.woff") format("woff"), url("fonts/fa-light-300.ttf") format("truetype"), url("fonts/fa-light-300.svg#fontawesome") format("svg"); }
 
@@ -7950,14 +8093,14 @@ readers do not read off random characters that represent icons */
   font-weight: 300; }
 
 /*!
- * Font Awesome Pro 5.12.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
   font-weight: 400;
-  font-display: auto;
+  font-display: block;
   src: url("fonts/fa-brands-400.eot");
   src: url("fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("fonts/fa-brands-400.woff2") format("woff2"), url("fonts/fa-brands-400.woff") format("woff"), url("fonts/fa-brands-400.ttf") format("truetype"), url("fonts/fa-brands-400.svg#fontawesome") format("svg"); }
 
@@ -7966,10 +8109,12 @@ readers do not read off random characters that represent icons */
   font-weight: 400; }
 
 /******************************************
+*******************************************
 ICOMOON
 Using
     icomoon/package/variables.scss to get all variable-names and
     icomoon.scss to get the classes and icons
+*******************************************
 ******************************************/
 @font-face {
   font-family: 'FCOO IcoMoon';
@@ -7982,54 +8127,991 @@ Using
   font-family: 'FCOO IcoMoon';
   font-weight: 400; }
 
-.fa-mouse-left:before {
+.fai-slipway:before {
+  content: ""; }
+
+.fai-barbecue:before {
+  content: ""; }
+
+.fai-barbecue2:before {
+  content: ""; }
+
+.fai-barbecue3:before {
+  content: ""; }
+
+.fai-child:before {
+  content: ""; }
+
+.fai-gas-cylinder:before {
+  content: ""; }
+
+.fai-ferry:before {
+  content: ""; }
+
+.fai-ferry2:before {
+  content: ""; }
+
+.fai-gas-cylinder2:before {
+  content: ""; }
+
+.fai-gas-cylinder3:before {
+  content: ""; }
+
+.fai-gas-cylinder4:before {
+  content: ""; }
+
+.fai-hook:before {
+  content: ""; }
+
+.fai-hook2:before {
+  content: ""; }
+
+.fai-liquified-natural:before {
+  content: ""; }
+
+.fai-playground:before {
+  content: ""; }
+
+.fai-wind-surfing:before {
+  content: ""; }
+
+.fai-surfing-board:before {
+  content: ""; }
+
+.fai-playground2:before {
+  content: ""; }
+
+.fai-surfing-board2:before {
+  content: ""; }
+
+.fai-sailboat4:before {
+  content: ""; }
+
+.fai-sailboat5:before {
+  content: ""; }
+
+.fai-sailboat6:before {
+  content: ""; }
+
+.fai-kayak:before {
+  content: ""; }
+
+.fai-motorboat:before {
+  content: ""; }
+
+.fai-sailboat2-black:before {
+  content: ""; }
+
+.fai-sailboat-black:before {
+  content: ""; }
+
+.fai-sailboat:before {
+  content: ""; }
+
+.fai-boat:before {
+  content: ""; }
+
+.fai-sailboat3-black:before {
+  content: ""; }
+
+.fai-boat2-black:before {
+  content: ""; }
+
+.fai-bridge:before {
+  content: ""; }
+
+.fai-bridge2:before {
+  content: ""; }
+
+.fai-bridge6:before {
+  content: ""; }
+
+.fai-bridge3:before {
+  content: ""; }
+
+.fai-bridge4:before {
+  content: ""; }
+
+.fai-bridge5:before {
+  content: ""; }
+
+.fai-route:before {
+  content: ""; }
+
+.fai-ship3-black:before {
+  content: ""; }
+
+.fai-sailboat4-black:before {
+  content: ""; }
+
+.fai-ship-black:before {
+  content: ""; }
+
+.fai-ship:before {
+  content: ""; }
+
+.fai-ship2:before {
+  content: ""; }
+
+.fai-mouse-left:before {
   content: ""; }
 
-.fa-mouse-right:before {
+.fai-mouse-right:before {
   content: ""; }
 
-.fa-rotate:before {
+.fai-rotate:before {
   content: ""; }
 
-.fa-label-center-black:before {
+.fai-label-center-black:before {
   content: ""; }
 
-.fa-label-center:before {
+.fai-label-center:before {
   content: ""; }
 
-.fa-tab:before {
+.fai-tab:before {
   content: ""; }
 
-.fa-digital-0:before {
+.fai-digital-0:before {
   content: ""; }
 
-.fa-digital-1:before {
+.fai-digital-1:before {
   content: ""; }
 
-.fa-digital-2:before {
+.fai-digital-2:before {
   content: ""; }
 
-.fa-digital-3:before {
+.fai-digital-3:before {
   content: ""; }
 
-.fa-digital-4:before {
+.fai-digital-4:before {
   content: ""; }
 
-.fa-digital-5:before {
+.fai-digital-5:before {
   content: ""; }
 
-.fa-digital-6:before {
+.fai-digital-6:before {
   content: ""; }
 
-.fa-digital-7:before {
+.fai-digital-7:before {
   content: ""; }
 
-.fa-digital-8:before {
+.fai-digital-8:before {
   content: ""; }
 
-.fa-digital-9:before {
+.fai-digital-9:before {
   content: ""; }
 
+/******************************************
+*******************************************
+WEATHER ICONS
+https://erikflowers.github.io/weather-icons/
+*******************************************
+******************************************/
+@font-face {
+  font-family: "weathericons";
+  src: url("fonts/weathericons-regular-webfont.eot");
+  src: url("fonts/weathericons-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/weathericons-regular-webfont.woff2") format("woff2"), url("fonts/weathericons-regular-webfont.woff") format("woff"), url("fonts/weathericons-regular-webfont.ttf") format("truetype"), url("fonts/weathericons-regular-webfont.svg#weather_iconsregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.wi {
+  display: inline-block;
+  font-family: "weathericons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.wi-fw {
+  width: 1.4em;
+  text-align: center; }
+
+.wi-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg); }
+
+.wi-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg); }
+
+.wi-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg); }
+
+.wi-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1); }
+
+.wi-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1); }
+
+.wi-day-sunny:before {
+  content: ""; }
+
+.wi-day-cloudy:before {
+  content: ""; }
+
+.wi-day-cloudy-gusts:before {
+  content: ""; }
+
+.wi-day-cloudy-windy:before {
+  content: ""; }
+
+.wi-day-fog:before {
+  content: ""; }
+
+.wi-day-hail:before {
+  content: ""; }
+
+.wi-day-haze:before {
+  content: ""; }
+
+.wi-day-lightning:before {
+  content: ""; }
+
+.wi-day-rain:before {
+  content: ""; }
+
+.wi-day-rain-mix:before {
+  content: ""; }
+
+.wi-day-rain-wind:before {
+  content: ""; }
+
+.wi-day-showers:before {
+  content: ""; }
+
+.wi-day-sleet:before {
+  content: ""; }
+
+.wi-day-sleet-storm:before {
+  content: ""; }
+
+.wi-day-snow:before {
+  content: ""; }
+
+.wi-day-snow-thunderstorm:before {
+  content: ""; }
+
+.wi-day-snow-wind:before {
+  content: ""; }
+
+.wi-day-sprinkle:before {
+  content: ""; }
+
+.wi-day-storm-showers:before {
+  content: ""; }
+
+.wi-day-sunny-overcast:before {
+  content: ""; }
+
+.wi-day-thunderstorm:before {
+  content: ""; }
+
+.wi-day-windy:before {
+  content: ""; }
+
+.wi-solar-eclipse:before {
+  content: ""; }
+
+.wi-hot:before {
+  content: ""; }
+
+.wi-day-cloudy-high:before {
+  content: ""; }
+
+.wi-day-light-wind:before {
+  content: ""; }
+
+.wi-night-clear:before {
+  content: ""; }
+
+.wi-night-alt-cloudy:before {
+  content: ""; }
+
+.wi-night-alt-cloudy-gusts:before {
+  content: ""; }
+
+.wi-night-alt-cloudy-windy:before {
+  content: ""; }
+
+.wi-night-alt-hail:before {
+  content: ""; }
+
+.wi-night-alt-lightning:before {
+  content: ""; }
+
+.wi-night-alt-rain:before {
+  content: ""; }
+
+.wi-night-alt-rain-mix:before {
+  content: ""; }
+
+.wi-night-alt-rain-wind:before {
+  content: ""; }
+
+.wi-night-alt-showers:before {
+  content: ""; }
+
+.wi-night-alt-sleet:before {
+  content: ""; }
+
+.wi-night-alt-sleet-storm:before {
+  content: ""; }
+
+.wi-night-alt-snow:before {
+  content: ""; }
+
+.wi-night-alt-snow-thunderstorm:before {
+  content: ""; }
+
+.wi-night-alt-snow-wind:before {
+  content: ""; }
+
+.wi-night-alt-sprinkle:before {
+  content: ""; }
+
+.wi-night-alt-storm-showers:before {
+  content: ""; }
+
+.wi-night-alt-thunderstorm:before {
+  content: ""; }
+
+.wi-night-cloudy:before {
+  content: ""; }
+
+.wi-night-cloudy-gusts:before {
+  content: ""; }
+
+.wi-night-cloudy-windy:before {
+  content: ""; }
+
+.wi-night-fog:before {
+  content: ""; }
+
+.wi-night-hail:before {
+  content: ""; }
+
+.wi-night-lightning:before {
+  content: ""; }
+
+.wi-night-partly-cloudy:before {
+  content: ""; }
+
+.wi-night-rain:before {
+  content: ""; }
+
+.wi-night-rain-mix:before {
+  content: ""; }
+
+.wi-night-rain-wind:before {
+  content: ""; }
+
+.wi-night-showers:before {
+  content: ""; }
+
+.wi-night-sleet:before {
+  content: ""; }
+
+.wi-night-sleet-storm:before {
+  content: ""; }
+
+.wi-night-snow:before {
+  content: ""; }
+
+.wi-night-snow-thunderstorm:before {
+  content: ""; }
+
+.wi-night-snow-wind:before {
+  content: ""; }
+
+.wi-night-sprinkle:before {
+  content: ""; }
+
+.wi-night-storm-showers:before {
+  content: ""; }
+
+.wi-night-thunderstorm:before {
+  content: ""; }
+
+.wi-lunar-eclipse:before {
+  content: ""; }
+
+.wi-stars:before {
+  content: ""; }
+
+.wi-storm-showers:before {
+  content: ""; }
+
+.wi-thunderstorm:before {
+  content: ""; }
+
+.wi-night-alt-cloudy-high:before {
+  content: ""; }
+
+.wi-night-cloudy-high:before {
+  content: ""; }
+
+.wi-night-alt-partly-cloudy:before {
+  content: ""; }
+
+.wi-cloud:before {
+  content: ""; }
+
+.wi-cloudy:before {
+  content: ""; }
+
+.wi-cloudy-gusts:before {
+  content: ""; }
+
+.wi-cloudy-windy:before {
+  content: ""; }
+
+.wi-fog:before {
+  content: ""; }
+
+.wi-hail:before {
+  content: ""; }
+
+.wi-rain:before {
+  content: ""; }
+
+.wi-rain-mix:before {
+  content: ""; }
+
+.wi-rain-wind:before {
+  content: ""; }
+
+.wi-showers:before {
+  content: ""; }
+
+.wi-sleet:before {
+  content: ""; }
+
+.wi-snow:before {
+  content: ""; }
+
+.wi-sprinkle:before {
+  content: ""; }
+
+.wi-storm-showers:before {
+  content: ""; }
+
+.wi-thunderstorm:before {
+  content: ""; }
+
+.wi-snow-wind:before {
+  content: ""; }
+
+.wi-snow:before {
+  content: ""; }
+
+.wi-smog:before {
+  content: ""; }
+
+.wi-smoke:before {
+  content: ""; }
+
+.wi-lightning:before {
+  content: ""; }
+
+.wi-raindrops:before {
+  content: ""; }
+
+.wi-raindrop:before {
+  content: ""; }
+
+.wi-dust:before {
+  content: ""; }
+
+.wi-snowflake-cold:before {
+  content: ""; }
+
+.wi-windy:before {
+  content: ""; }
+
+.wi-strong-wind:before {
+  content: ""; }
+
+.wi-sandstorm:before {
+  content: ""; }
+
+.wi-earthquake:before {
+  content: ""; }
+
+.wi-fire:before {
+  content: ""; }
+
+.wi-flood:before {
+  content: ""; }
+
+.wi-meteor:before {
+  content: ""; }
+
+.wi-tsunami:before {
+  content: ""; }
+
+.wi-volcano:before {
+  content: ""; }
+
+.wi-hurricane:before {
+  content: ""; }
+
+.wi-tornado:before {
+  content: ""; }
+
+.wi-small-craft-advisory:before {
+  content: ""; }
+
+.wi-gale-warning:before {
+  content: ""; }
+
+.wi-storm-warning:before {
+  content: ""; }
+
+.wi-hurricane-warning:before {
+  content: ""; }
+
+.wi-wind-direction:before {
+  content: ""; }
+
+.wi-alien:before {
+  content: ""; }
+
+.wi-celsius:before {
+  content: ""; }
+
+.wi-fahrenheit:before {
+  content: ""; }
+
+.wi-degrees:before {
+  content: ""; }
+
+.wi-thermometer:before {
+  content: ""; }
+
+.wi-thermometer-exterior:before {
+  content: ""; }
+
+.wi-thermometer-internal:before {
+  content: ""; }
+
+.wi-cloud-down:before {
+  content: ""; }
+
+.wi-cloud-up:before {
+  content: ""; }
+
+.wi-cloud-refresh:before {
+  content: ""; }
+
+.wi-horizon:before {
+  content: ""; }
+
+.wi-horizon-alt:before {
+  content: ""; }
+
+.wi-sunrise:before {
+  content: ""; }
+
+.wi-sunset:before {
+  content: ""; }
+
+.wi-moonrise:before {
+  content: ""; }
+
+.wi-moonset:before {
+  content: ""; }
+
+.wi-refresh:before {
+  content: ""; }
+
+.wi-refresh-alt:before {
+  content: ""; }
+
+.wi-umbrella:before {
+  content: ""; }
+
+.wi-barometer:before {
+  content: ""; }
+
+.wi-humidity:before {
+  content: ""; }
+
+.wi-na:before {
+  content: ""; }
+
+.wi-train:before {
+  content: ""; }
+
+.wi-moon-new:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-1:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-2:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-3:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-4:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-5:before {
+  content: ""; }
+
+.wi-moon-waxing-crescent-6:before {
+  content: ""; }
+
+.wi-moon-first-quarter:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-1:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-2:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-3:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-4:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-5:before {
+  content: ""; }
+
+.wi-moon-waxing-gibbous-6:before {
+  content: ""; }
+
+.wi-moon-full:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-1:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-2:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-3:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-4:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-5:before {
+  content: ""; }
+
+.wi-moon-waning-gibbous-6:before {
+  content: ""; }
+
+.wi-moon-third-quarter:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-1:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-2:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-3:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-4:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-5:before {
+  content: ""; }
+
+.wi-moon-waning-crescent-6:before {
+  content: ""; }
+
+.wi-moon-alt-new:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-1:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-2:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-3:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-4:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-5:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-crescent-6:before {
+  content: ""; }
+
+.wi-moon-alt-first-quarter:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-1:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-2:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-3:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-4:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-5:before {
+  content: ""; }
+
+.wi-moon-alt-waxing-gibbous-6:before {
+  content: ""; }
+
+.wi-moon-alt-full:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-1:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-2:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-3:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-4:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-5:before {
+  content: ""; }
+
+.wi-moon-alt-waning-gibbous-6:before {
+  content: ""; }
+
+.wi-moon-alt-third-quarter:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-1:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-2:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-3:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-4:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-5:before {
+  content: ""; }
+
+.wi-moon-alt-waning-crescent-6:before {
+  content: ""; }
+
+.wi-moon-0:before {
+  content: ""; }
+
+.wi-moon-1:before {
+  content: ""; }
+
+.wi-moon-2:before {
+  content: ""; }
+
+.wi-moon-3:before {
+  content: ""; }
+
+.wi-moon-4:before {
+  content: ""; }
+
+.wi-moon-5:before {
+  content: ""; }
+
+.wi-moon-6:before {
+  content: ""; }
+
+.wi-moon-7:before {
+  content: ""; }
+
+.wi-moon-8:before {
+  content: ""; }
+
+.wi-moon-9:before {
+  content: ""; }
+
+.wi-moon-10:before {
+  content: ""; }
+
+.wi-moon-11:before {
+  content: ""; }
+
+.wi-moon-12:before {
+  content: ""; }
+
+.wi-moon-13:before {
+  content: ""; }
+
+.wi-moon-14:before {
+  content: ""; }
+
+.wi-moon-15:before {
+  content: ""; }
+
+.wi-moon-16:before {
+  content: ""; }
+
+.wi-moon-17:before {
+  content: ""; }
+
+.wi-moon-18:before {
+  content: ""; }
+
+.wi-moon-19:before {
+  content: ""; }
+
+.wi-moon-20:before {
+  content: ""; }
+
+.wi-moon-21:before {
+  content: ""; }
+
+.wi-moon-22:before {
+  content: ""; }
+
+.wi-moon-23:before {
+  content: ""; }
+
+.wi-moon-24:before {
+  content: ""; }
+
+.wi-moon-25:before {
+  content: ""; }
+
+.wi-moon-26:before {
+  content: ""; }
+
+.wi-moon-27:before {
+  content: ""; }
+
+.wi-time-1:before {
+  content: ""; }
+
+.wi-time-2:before {
+  content: ""; }
+
+.wi-time-3:before {
+  content: ""; }
+
+.wi-time-4:before {
+  content: ""; }
+
+.wi-time-5:before {
+  content: ""; }
+
+.wi-time-6:before {
+  content: ""; }
+
+.wi-time-7:before {
+  content: ""; }
+
+.wi-time-8:before {
+  content: ""; }
+
+.wi-time-9:before {
+  content: ""; }
+
+.wi-time-10:before {
+  content: ""; }
+
+.wi-time-11:before {
+  content: ""; }
+
+.wi-time-12:before {
+  content: ""; }
+
+.wi-direction-up:before {
+  content: ""; }
+
+.wi-direction-up-right:before {
+  content: ""; }
+
+.wi-direction-right:before {
+  content: ""; }
+
+.wi-direction-down-right:before {
+  content: ""; }
+
+.wi-direction-down:before {
+  content: ""; }
+
+.wi-direction-down-left:before {
+  content: ""; }
+
+.wi-direction-left:before {
+  content: ""; }
+
+.wi-direction-up-left:before {
+  content: ""; }
+
+.wi-wind-beaufort-0:before {
+  content: ""; }
+
+.wi-wind-beaufort-1:before {
+  content: ""; }
+
+.wi-wind-beaufort-2:before {
+  content: ""; }
+
+.wi-wind-beaufort-3:before {
+  content: ""; }
+
+.wi-wind-beaufort-4:before {
+  content: ""; }
+
+.wi-wind-beaufort-5:before {
+  content: ""; }
+
+.wi-wind-beaufort-6:before {
+  content: ""; }
+
+.wi-wind-beaufort-7:before {
+  content: ""; }
+
+.wi-wind-beaufort-8:before {
+  content: ""; }
+
+.wi-wind-beaufort-9:before {
+  content: ""; }
+
+.wi-wind-beaufort-10:before {
+  content: ""; }
+
+.wi-wind-beaufort-11:before {
+  content: ""; }
+
+.wi-wind-beaufort-12:before {
+  content: ""; }
+
+/******************************************
+*******************************************
+COMMON
+*******************************************
+******************************************/
 /******************************************
 Special class to adjust overlaying icons
 ******************************************/
@@ -8939,6 +10021,7 @@ Class ps__rail added by jquery-scroll-container
 .scroll-at-end .jq-scroll-shadow.bottom-right {
   display: none; }
 
+@charset "UTF-8";
 /***********************************************
 	jquery-bootstrap.scss,
 
@@ -8956,11 +10039,27 @@ SET AND ADJUST BOOTSTRAP DEFAULT VALUES
 BOOTSTRAP-VARIABLES
 ************************************************************/
 /***********************************************
+FUNCTIONS TO CONVETRT FROM PX TO REM
+To make it easier to design and calculate dimensions
+the function rem defined
+************************************************/
+/***********************************************
 ADJUST BOOTSTRAP DEFAULT VALUES
+************************************************/
+/***********************************************
+Adjust bootstrap-variables to only have dimensions
+in integer px from rem
 ************************************************/
 /*Not used. No lg-buttons
 $input-btn-padding-y-lg: .75rem;
 $input-btn-padding-x-lg: $input-btn-padding-y-lg;
+*/
+/* VERSION 1.x
+//$font-size-sm = .875rem; // = 14px
+$font-size-sm: rem(13px); //<= TODO MANGLER. Skal muligvis sættes til 14px og så skal padding for buttons rettes tilsvarrende
+
+$input-btn-padding-y-sm: rem(4px);
+$input-btn-padding-x-sm: $input-btn-padding-y-sm;
 */
 /************************************************************
 Including "size" xs as in Bootstrap 3
@@ -9403,7 +10502,7 @@ code {
     color: inherit; }
 
 kbd {
-  padding: 0.2rem 0.4rem;
+  padding: 0.1875rem 0.375rem;
   font-size: 87.5%;
   color: #fff;
   background-color: #212529;
@@ -10130,7 +11229,7 @@ pre {
 
 .table-sm th,
 .table-sm td {
-  padding: 0.3rem; }
+  padding: 0.3125rem; }
 
 .table-bordered {
   border: 1px solid #dee2e6; }
@@ -10436,9 +11535,9 @@ select.form-control:focus::-ms-value {
   line-height: 1.5; }
 
 .col-form-label-sm {
-  padding-top: calc(0.25rem + 1px);
-  padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.8125rem;
+  padding-top: calc(0.1875rem + 1px);
+  padding-bottom: calc(0.1875rem + 1px);
+  font-size: 0.875rem;
   line-height: 1.5; }
 
 .form-control-plaintext {
@@ -10457,9 +11556,9 @@ select.form-control:focus::-ms-value {
     padding-left: 0; }
 
 .form-control-sm, .input-group-sm > label.has-float-label > .form-control {
-  height: calc(1.5em + 0.5rem + 2px);
-  padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  height: calc(1.5em + 0.375rem + 2px);
+  padding: 0.1875rem 0.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem; }
 
@@ -10468,7 +11567,7 @@ select.form-control:focus::-ms-value {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem; }
+  border-radius: 0.3125rem; }
 
 select.form-control[size], select.form-control[multiple] {
   height: auto; }
@@ -10536,7 +11635,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(40, 167, 69, 0.9);
@@ -10620,7 +11719,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(220, 53, 69, 0.9);
@@ -11187,11 +12286,11 @@ fieldset:disabled a.btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem; }
+  border-radius: 0.3125rem; }
 
 .btn-sm, .btn-group-sm > .btn {
-  padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  padding: 0.1875rem 0.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem; }
 
@@ -11427,7 +12526,7 @@ input[type="button"].btn-block {
   display: block;
   padding: 0 1.5rem;
   margin-bottom: 0;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: #495057;
   white-space: nowrap; }
 
@@ -11641,11 +12740,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem; }
+  border-radius: 0.3125rem; }
 
 .input-group-sm > .form-control:not(textarea),
 .input-group-sm > .custom-select {
-  height: calc(1.5em + 0.5rem + 2px); }
+  height: calc(1.5em + 0.375rem + 2px); }
 
 .input-group-sm > .form-control,
 .input-group-sm > .custom-select,
@@ -11653,8 +12752,8 @@ input[type="button"].btn-block {
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
-  padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  padding: 0.1875rem 0.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem; }
 
@@ -11835,11 +12934,11 @@ input[type="button"].btn-block {
     text-shadow: 0 0 0 #495057; }
 
 .custom-select-sm {
-  height: calc(1.5em + 0.5rem + 2px);
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  height: calc(1.5em + 0.375rem + 2px);
+  padding-top: 0.1875rem;
+  padding-bottom: 0.1875rem;
   padding-left: 0.25rem;
-  font-size: 0.8125rem; }
+  font-size: 0.875rem; }
 
 .custom-select-lg {
   height: calc(1.5em + 1rem + 2px);
@@ -12613,16 +13712,16 @@ input[type="button"].btn-block {
   line-height: 1.5; }
 
 .pagination-lg .page-item:first-child .page-link {
-  border-top-left-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem; }
+  border-top-left-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem; }
 
 .pagination-lg .page-item:last-child .page-link {
-  border-top-right-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem; }
+  border-top-right-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem; }
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5; }
 
 .pagination-sm .page-item:first-child .page-link {
@@ -12745,7 +13844,7 @@ input[type="button"].btn-block {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #e9ecef;
-  border-radius: 0.3rem; }
+  border-radius: 0.3125rem; }
   @media (min-width: 576px) {
     .jumbotron {
       padding: 4rem 2rem; } }
@@ -13256,7 +14355,7 @@ a.close.disabled {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #868e96;
-  border-radius: 0.3rem;
+  border-radius: 0.3125rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
   outline: 0; }
 
@@ -13279,8 +14378,8 @@ a.close.disabled {
   justify-content: space-between;
   padding: 1rem 1rem;
   border-bottom: 1px solid #9aa1a8;
-  border-top-left-radius: calc(0.3rem - 1px);
-  border-top-right-radius: calc(0.3rem - 1px); }
+  border-top-left-radius: calc(0.3125rem - 1px);
+  border-top-right-radius: calc(0.3125rem - 1px); }
   .modal-header .close {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto; }
@@ -13301,8 +14400,8 @@ a.close.disabled {
   justify-content: flex-end;
   padding: 0.75rem;
   border-top: 1px solid #9aa1a8;
-  border-bottom-right-radius: calc(0.3rem - 1px);
-  border-bottom-left-radius: calc(0.3rem - 1px); }
+  border-bottom-right-radius: calc(0.3125rem - 1px);
+  border-bottom-left-radius: calc(0.3125rem - 1px); }
   .modal-footer > * {
     margin: 0.25rem; }
 
@@ -13359,7 +14458,7 @@ a.close.disabled {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -13367,8 +14466,8 @@ a.close.disabled {
   .tooltip .arrow {
     position: absolute;
     display: block;
-    width: 0.8rem;
-    height: 0.4rem; }
+    width: 0.8125rem;
+    height: 0.375rem; }
     .tooltip .arrow::before {
       position: absolute;
       content: "";
@@ -13376,43 +14475,43 @@ a.close.disabled {
       border-style: solid; }
 
 .bs-tooltip-top, .bs-tooltip-auto[x-placement^="top"] {
-  padding: 0.4rem 0; }
+  padding: 0.375rem 0; }
   .bs-tooltip-top .arrow, .bs-tooltip-auto[x-placement^="top"] .arrow {
     bottom: 0; }
     .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
       top: 0;
-      border-width: 0.4rem 0.4rem 0;
+      border-width: 0.375rem 0.40625rem 0;
       border-top-color: #000; }
 
 .bs-tooltip-right, .bs-tooltip-auto[x-placement^="right"] {
-  padding: 0 0.4rem; }
+  padding: 0 0.375rem; }
   .bs-tooltip-right .arrow, .bs-tooltip-auto[x-placement^="right"] .arrow {
     left: 0;
-    width: 0.4rem;
-    height: 0.8rem; }
+    width: 0.375rem;
+    height: 0.8125rem; }
     .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
       right: 0;
-      border-width: 0.4rem 0.4rem 0.4rem 0;
+      border-width: 0.40625rem 0.375rem 0.40625rem 0;
       border-right-color: #000; }
 
 .bs-tooltip-bottom, .bs-tooltip-auto[x-placement^="bottom"] {
-  padding: 0.4rem 0; }
+  padding: 0.375rem 0; }
   .bs-tooltip-bottom .arrow, .bs-tooltip-auto[x-placement^="bottom"] .arrow {
     top: 0; }
     .bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
       bottom: 0;
-      border-width: 0 0.4rem 0.4rem;
+      border-width: 0 0.40625rem 0.375rem;
       border-bottom-color: #000; }
 
 .bs-tooltip-left, .bs-tooltip-auto[x-placement^="left"] {
-  padding: 0 0.4rem; }
+  padding: 0 0.375rem; }
   .bs-tooltip-left .arrow, .bs-tooltip-auto[x-placement^="left"] .arrow {
     right: 0;
-    width: 0.4rem;
-    height: 0.8rem; }
+    width: 0.375rem;
+    height: 0.8125rem; }
     .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {
       left: 0;
-      border-width: 0.4rem 0 0.4rem 0.4rem;
+      border-width: 0.40625rem 0 0.40625rem 0.375rem;
       border-left-color: #000; }
 
 .tooltip-inner {
@@ -13444,19 +14543,19 @@ a.close.disabled {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #868e96;
-  border-radius: 0.3rem;
+  border-radius: 0.3125rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); }
   .popover .arrow {
     position: absolute;
     display: block;
     width: 1rem;
     height: 0.5rem;
-    margin: 0 0.3rem; }
+    margin: 0 0.3125rem; }
     .popover .arrow::before, .popover .arrow::after {
       position: absolute;
       display: block;
@@ -13483,7 +14582,7 @@ a.close.disabled {
     left: calc(-0.5rem - 1px);
     width: 0.5rem;
     height: 1rem;
-    margin: 0.3rem 0; }
+    margin: 0.3125rem 0; }
     .bs-popover-right > .arrow::before, .bs-popover-auto[x-placement^="right"] > .arrow::before {
       left: 0;
       border-width: 0.5rem 0.5rem 0.5rem 0;
@@ -13521,7 +14620,7 @@ a.close.disabled {
     right: calc(-0.5rem - 1px);
     width: 0.5rem;
     height: 1rem;
-    margin: 0.3rem 0; }
+    margin: 0.3125rem 0; }
     .bs-popover-left > .arrow::before, .bs-popover-auto[x-placement^="left"] > .arrow::before {
       right: 0;
       border-width: 0.5rem 0 0.5rem 0.5rem;
@@ -13537,8 +14636,8 @@ a.close.disabled {
   font-size: 1rem;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
-  border-top-left-radius: calc(0.3rem - 1px);
-  border-top-right-radius: calc(0.3rem - 1px); }
+  border-top-left-radius: calc(0.3125rem - 1px);
+  border-top-right-radius: calc(0.3125rem - 1px); }
   .popover-header:empty {
     display: none; }
 
@@ -13935,7 +15034,7 @@ button.bg-dark:focus {
   border-bottom-left-radius: 0.25rem !important; }
 
 .rounded-lg {
-  border-radius: 0.3rem !important; }
+  border-radius: 0.3125rem !important; }
 
 .rounded-circle {
   border-radius: 50% !important; }
@@ -16379,7 +17478,7 @@ select.selectpicker {
   border-radius: inherit; }
 
 .bootstrap-select.form-control-sm .dropdown-toggle, .input-group-sm > label.has-float-label > .bootstrap-select.form-control .dropdown-toggle {
-  padding: 0.25rem 0.25rem; }
+  padding: 0.1875rem 0.25rem; }
 
 
 .bootstrap-select.form-control-lg .dropdown-toggle,
@@ -16656,7 +17755,7 @@ HEADER
 Font-sizes for headers are one 'size' smaller than normal font
 $font-size-lg  : 1.25rem    20px
 $font-size-base: 1rem       16px
-$font-size-sm  : .8125rem   13px
+$font-size-sm  : .875rem;   14px
 $font-size-xs  : .75rem     12px
 ************************************************************/
 /************************************************************
@@ -17250,7 +18349,7 @@ Bootstrap allready have the following classes
 .container-icon-and-text:not(.fa-stack) > a:not(:last-child),
 .container-icon-and-text:not(.fa-stack) > .container-stacked-icons:not(:last-child):not(.fa-no-margin),
 .container-icon-and-text:not(.fa-stack) > i:not(:last-child):not(.fa-no-margin) {
-  margin-right: .4em; }
+  margin-right: 5px; }
 
 .container-icon-and-text:not(.fa-stack) > span.inline-block,
 .container-icon-and-text:not(.fa-stack) > span.d-block {
@@ -17329,8 +18428,8 @@ div.btn, div.list-group-item {
   outline: none !important;
   /************************************************************
     Special version to have transparent button
-    Default is light color on dark background
-    TODO: Add transparent-on-light to have dark color og light background
+    transparent = normal/dark color og light background
+    transparent-on-dark = Light color on dark background
     ************************************************************/
   /************************************************************
     Special version to have square buttons (with only icon)
@@ -17417,23 +18516,25 @@ div.btn, div.list-group-item {
   .btn.btn-standard > span.fa-stack {
     width: 1em;
     height: 1em;
-    line-height: 1.21875rem;
+    line-height: 1.3125rem;
     vertical-align: top; }
   .btn.btn-standard.disabled.show-as-normal, .btn.btn-standard.show-as-normal:disabled {
     opacity: 1; }
+  .btn.btn-standard.no-border {
+    border-color: transparent !important; }
   .btn.btn-standard.transparent {
     background: none;
-    color: #D4D4D4;
+    color: #515961;
     background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x;
     border: 1px solid rgba(0, 0, 0, 0.1);
     outline: none !important; }
     .mouse-hover .hover .btn.btn-standard.transparent:not(:active):not(:disabled):not(.disabled),
     .mouse-hover .btn.btn-standard.transparent.hover:not(:active):not(:disabled):not(.disabled),
     .mouse-hover .btn.btn-standard.transparent:hover:not(:active):not(:disabled):not(.disabled) {
-      color: #e1e1e1;
+      color: #454c53;
       background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
     .btn.btn-standard.transparent:active {
-      color: #e7e7e7;
+      color: #40464c;
       background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
     .btn.btn-standard.transparent:active, .btn.btn-standard.transparent.active {
       border-color: rgba(0, 0, 0, 0.1); }
@@ -17463,6 +18564,51 @@ div.btn, div.list-group-item {
         color: rgba(255, 255, 255, 0.65);
         background: #007bff linear-gradient(180deg, #268fff, #007bff) repeat-x; }
     .btn.btn-standard.transparent.disabled:not(.show-as-normal), .btn.btn-standard.transparent:disabled:not(.show-as-normal) {
+      opacity: 1 !important;
+      color: rgba(81, 89, 97, 0.65);
+      background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
+  .btn.btn-standard.transparent-on-dark {
+    background: none;
+    color: #D4D4D4;
+    background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none !important; }
+    .mouse-hover .hover .btn.btn-standard.transparent-on-dark:not(:active):not(:disabled):not(.disabled),
+    .mouse-hover .btn.btn-standard.transparent-on-dark.hover:not(:active):not(:disabled):not(.disabled),
+    .mouse-hover .btn.btn-standard.transparent-on-dark:hover:not(:active):not(:disabled):not(.disabled) {
+      color: #e1e1e1;
+      background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
+    .btn.btn-standard.transparent-on-dark:active {
+      color: #e7e7e7;
+      background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
+    .btn.btn-standard.transparent-on-dark:active, .btn.btn-standard.transparent-on-dark.active {
+      border-color: rgba(0, 0, 0, 0.1); }
+    .btn.btn-standard.transparent-on-dark:focus, .btn.btn-standard.transparent-on-dark.focus {
+      border-color: #80bdff; }
+    .btn.btn-standard.transparent-on-dark.disabled:not(.show-as-normal), .btn.btn-standard.transparent-on-dark:disabled:not(.show-as-normal) {
+      border-color: rgba(0, 0, 0, 0.1); }
+    .btn.btn-standard.transparent-on-dark.focus:not(:disabled):not(.disabled):not(.no-hover), .btn.btn-standard.transparent-on-dark:focus:not(:disabled):not(.disabled):not(.no-hover),
+    .mouse-hover .btn.btn-standard.transparent-on-dark:hover:not(:disabled):not(.disabled):not(.no-hover) {
+      position: relative;
+      z-index: 4; }
+    .mouse-hover .btn.btn-standard.transparent-on-dark:hover:not(:focus):not(:disabled):not(.disabled):not(.no-hover) {
+      border-color: rgba(0, 0, 0, 0.15); }
+    .btn.btn-standard.transparent-on-dark.active {
+      color: #fff;
+      background: #007bff linear-gradient(180deg, #268fff, #007bff) repeat-x; }
+      .mouse-hover .hover .btn.btn-standard.transparent-on-dark.active:not(:active):not(:disabled):not(.disabled),
+      .mouse-hover .btn.btn-standard.transparent-on-dark.active.hover:not(:active):not(:disabled):not(.disabled),
+      .mouse-hover .btn.btn-standard.transparent-on-dark.active:hover:not(:active):not(:disabled):not(.disabled) {
+        color: #f2f2f2;
+        background: #006fe6 linear-gradient(180deg, #2684e9, #006fe6) repeat-x; }
+      .btn.btn-standard.transparent-on-dark.active:active {
+        color: #ececec;
+        background: #0069d9 linear-gradient(180deg, #267fde, #0069d9) repeat-x; }
+      .btn.btn-standard.transparent-on-dark.active.disabled:not(.show-as-normal), .btn.btn-standard.transparent-on-dark.active:disabled:not(.show-as-normal) {
+        opacity: 1 !important;
+        color: rgba(255, 255, 255, 0.65);
+        background: #007bff linear-gradient(180deg, #268fff, #007bff) repeat-x; }
+    .btn.btn-standard.transparent-on-dark.disabled:not(.show-as-normal), .btn.btn-standard.transparent-on-dark:disabled:not(.show-as-normal) {
       opacity: 1 !important;
       color: rgba(212, 212, 212, 0.65);
       background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0)) repeat-x; }
@@ -17505,12 +18651,12 @@ div.btn, div.list-group-item {
     height: 2.25rem;
     width: 2.25rem; }
     .btn.btn-standard.square.btn-sm, .btn-group-sm > .btn.btn-standard.square {
-      height: 1.84375rem;
-      width: 1.84375rem; }
+      height: 1.8125rem;
+      width: 1.8125rem; }
     .btn.btn-standard.square.big-icon {
       font-size: 1.625rem; }
     .btn.btn-standard.square.btn-sm.big-icon, .btn-group-sm > .btn.btn-standard.square.big-icon {
-      font-size: 1.3125rem; }
+      font-size: 1.375rem; }
     .btn.btn-standard.square > i.fa {
       width: 1.25em;
       height: 1em;
@@ -17603,7 +18749,7 @@ BUTTON-GROUP
   align-items: center;
   cursor: default;
   padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: inherit;
   line-height: 1.3; }
@@ -17640,9 +18786,9 @@ BUTTON-GROUP
 .btn-group-vertical + .btn-group-vertical {
   margin-top: 0.3125rem; }
   .btn-group-vertical + .btn-group-vertical.btn-group-sm {
-    margin-top: 0.25rem; }
+    margin-top: 0.1875rem; }
   .btn-group-vertical + .btn-group-vertical.btn-group-xs {
-    margin-top: 0.25rem; }
+    margin-top: 0.1875rem; }
 
 /************************************************************
 MENU (BUTTON-GROUP)
@@ -17654,6 +18800,25 @@ MENU (BUTTON-GROUP)
 
 .bs-menu-container hr.first.before, .bs-menu-container hr.last.after, .bs-menu-container hr + hr {
   display: none; }
+
+/************************************************************
+btn-shadow and btn-shadow-sm
+classes to create "shadow-buttons"
+************************************************************/
+.btn-shadow, .btn-shadow-sm {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  visibility: hidden; }
+
+.btn-shadow {
+  width: 2.25rem;
+  height: 2.25rem; }
+
+.btn-shadow-sm {
+  width: 1.8125rem;
+  height: 1.8125rem; }
 
 /************************************************************
 POPOVER
@@ -17669,7 +18834,7 @@ POPOVER
   align-items: center;
   cursor: default;
   padding: 0.3125rem 0.3125rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: inherit;
   border-bottom: 1px solid #9aa1a8;
@@ -17698,7 +18863,7 @@ POPOVER
   align-items: center;
   cursor: default;
   padding: 0.3125rem 0.3125rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: inherit;
   color: #495057;
@@ -17903,56 +19068,62 @@ div.radio input + label::before {
 @mixin checkbox-radio-size-variant
 ***************************************************************************/
 div.checkbox, div.radio {
-  height: 2rem;
+  height: 2.125rem;
   font-size: 1rem; }
   div.checkbox input + label, div.radio input + label {
-    padding-left: 1.45rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-left: 1.375rem;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
     font-size: 1rem; }
     div.checkbox input + label::before, div.radio input + label::before {
-      margin-top: 0.15rem;
-      width: 1.2rem;
-      height: 1.2rem; }
+      margin-top: 0.1875rem;
+      width: 1.125rem;
+      height: 1.125rem; }
     div.checkbox input + label i, div.radio input + label i {
-      font-size: 0.8rem;
-      width: 0.8rem;
-      height: 0.8rem;
-      margin-top: 0.35rem;
-      margin-left: 0.2rem; }
+      font-size: 0.875rem;
+      width: 0.875rem;
+      height: 0.875rem;
+      margin-top: 0.3125rem !important;
+      margin-left: 0.125rem !important; }
 
 div.checkbox input label::before {
   border-radius: 0.25rem; }
 
 div.radio input + label i {
-  font-size: 0.4rem;
-  margin-top: 0.55rem; }
+  font-size: 0.375rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: 0.5625rem !important;
+  margin-left: 0.375rem !important; }
 
 div.checkbox-sm, div.radio-sm {
-  height: 1.46875rem;
-  font-size: 0.8125rem; }
+  height: 1.6875rem;
+  font-size: 0.875rem; }
   div.checkbox-sm input + label, div.radio-sm input + label {
-    padding-left: 1.1625rem;
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-    font-size: 0.8125rem; }
+    padding-left: 1.1875rem;
+    padding-top: 0.1875rem;
+    padding-bottom: 0.1875rem;
+    font-size: 0.875rem; }
     div.checkbox-sm input + label::before, div.radio-sm input + label::before {
-      margin-top: 0.121875rem;
-      width: 0.975rem;
-      height: 0.975rem; }
+      margin-top: 0.15625rem;
+      width: 1rem;
+      height: 1rem; }
     div.checkbox-sm input + label i, div.radio-sm input + label i {
-      font-size: 0.65rem;
-      width: 0.65rem;
-      height: 0.65rem;
-      margin-top: 0.284375rem;
-      margin-left: 0.1625rem; }
+      font-size: 0.75rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-top: 0.28125rem !important;
+      margin-left: 0.125rem !important; }
 
 div.checkbox-sm input label::before {
   border-radius: 0.1875rem; }
 
 div.radio-sm input + label i {
-  font-size: 0.325rem;
-  margin-top: 0.446875rem; }
+  font-size: 0.375rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: 0.46875rem !important;
+  margin-left: 0.3125rem !important; }
 
 /***************************************************************************
 checkbox-inline, radio-inline,
@@ -18041,12 +19212,12 @@ bsSelectList
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     background-color: #fff;
     color: #515961;
-    line-height: 1.8461538462; }
+    line-height: 1.7142857143; }
     .dropdown-menu .dropdown-header span, .selectList .dropdown-header span {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -18056,8 +19227,8 @@ bsSelectList
       word-break: keep-all; }
 
 .selectList.selectList-sm .dropdown-item, .dropdown-menu.dropdown-menu-sm .dropdown-item {
-  padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  padding: 0.1875rem 0.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem; }
 
@@ -18070,7 +19241,7 @@ bsSelectList
   font-size: 0.75rem;
   line-height: 1.5;
   border-radius: inherit;
-  line-height: 1.625; }
+  line-height: 1.75; }
   .selectList.selectList-sm .dropdown-header span, .dropdown-menu.dropdown-menu-sm .dropdown-header span {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -18287,7 +19458,7 @@ body.modal-open .modal {
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     border-bottom: 1px solid #9aa1a8;
@@ -18331,7 +19502,7 @@ body.modal-open .modal {
     flex-grow: 1;
     padding: 0.3125rem 0.3125rem;
     font-size: 1rem;
-    border-radius: calc( 0.3rem - 1px); }
+    border-radius: calc( 0.3125rem - 1px); }
     .modal-dialog .modal-content .modal-body.modal-type-alert {
       background-color: #cce5ff;
       color: #004085; }
@@ -18358,7 +19529,7 @@ body.modal-open .modal {
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     color: #495057;
@@ -18397,10 +19568,10 @@ body.modal-open .modal {
     background: none; }
     .modal-dialog .modal-content.modal-minimized.modal-minimized-semi-transparent .modal-body, .modal-dialog .modal-content.modal-minimized.modal-minimized-semi-transparent .modal-body-fixed, .modal-dialog .modal-content.modal-minimized.modal-minimized-semi-transparent .modal-footer, .modal-dialog .modal-content.modal-normal.modal-normal-semi-transparent .modal-body, .modal-dialog .modal-content.modal-normal.modal-normal-semi-transparent .modal-body-fixed, .modal-dialog .modal-content.modal-normal.modal-normal-semi-transparent .modal-footer, .modal-dialog .modal-content.modal-extended.modal-extended-semi-transparent .modal-body, .modal-dialog .modal-content.modal-extended.modal-extended-semi-transparent .modal-body-fixed, .modal-dialog .modal-content.modal-extended.modal-extended-semi-transparent .modal-footer {
       background: rgba(255, 255, 255, 0.5); }
-  .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body:hover, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body.hover, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body-fixed:hover, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body-fixed.hover, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body:hover, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body.hover, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body-fixed:hover, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body-fixed.hover, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body:hover, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body.hover, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body-fixed:hover, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body-fixed.hover {
+  .mouse-hover .modal-dialog .modal-content:hover.modal-minimized.modal-minimized-clickable .modal-body, .mouse-hover .modal-dialog .modal-content:hover.modal-minimized.modal-minimized-clickable .modal-body-fixed, .mouse-hover .modal-dialog .modal-content:hover.modal-normal.modal-normal-clickable .modal-body, .mouse-hover .modal-dialog .modal-content:hover.modal-normal.modal-normal-clickable .modal-body-fixed, .mouse-hover .modal-dialog .modal-content:hover.modal-extended.modal-extended-clickable .modal-body, .mouse-hover .modal-dialog .modal-content:hover.modal-extended.modal-extended-clickable .modal-body-fixed {
     cursor: default;
     background: #e9ecef linear-gradient(180deg, #eceff2, #e9ecef) repeat-x; }
-    .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body.hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body-fixed:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-minimized.modal-minimized-clickable .modal-body-fixed.hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body.hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body-fixed:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-normal.modal-normal-clickable .modal-body-fixed.hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body.hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body-fixed:hover.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content.modal-extended.modal-extended-clickable .modal-body-fixed.hover.modal-body-semi-transparent {
+    .mouse-hover .modal-dialog .modal-content:hover.modal-minimized.modal-minimized-clickable .modal-body.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content:hover.modal-minimized.modal-minimized-clickable .modal-body-fixed.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content:hover.modal-normal.modal-normal-clickable .modal-body.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content:hover.modal-normal.modal-normal-clickable .modal-body-fixed.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content:hover.modal-extended.modal-extended-clickable .modal-body.modal-body-semi-transparent, .mouse-hover .modal-dialog .modal-content:hover.modal-extended.modal-extended-clickable .modal-body-fixed.modal-body-semi-transparent {
       background: rgba(255, 255, 255, 0.75); }
   .modal-dialog.modal-dialog-sm .modal-content .modal-header {
     font-weight: 400;
@@ -18424,7 +19595,7 @@ body.modal-open .modal {
   .modal-dialog.modal-dialog-sm .modal-content .modal-body,
   .modal-dialog.modal-dialog-sm .modal-content .modal-body-fixed {
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem; }
+    font-size: 0.875rem; }
   .modal-dialog.modal-dialog-sm .modal-content .modal-footer-header {
     font-weight: 400;
     display: flex;
@@ -18516,8 +19687,8 @@ body.modal-open .modal {
 
 .modal-dialog.modal-dialog-xs .modal-body-with-vertical-padding,
 .modal-dialog.modal-dialog-sm .modal-body-with-vertical-padding {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem; }
+  padding-top: 0.1875rem;
+  padding-bottom: 0.1875rem; }
 
 .modal-content .modal-body-fixed.no-vertical-padding,
 .modal-content .modal-body.no-vertical-padding {
@@ -18562,7 +19733,7 @@ Style for elements used to display any file in a modal-window
 
 .file-view-content {
   padding: 0.3125rem 0.3125rem;
-  font-size: 0.8125rem; }
+  font-size: 0.875rem; }
 
 /************************************************************
 MODAL-BACKDROP
@@ -18707,12 +19878,12 @@ The default bootstrap structure used for elements in a form is
       margin-bottom: 0; }
 
 .form-group.form-group-sm {
-  padding-top: 0.25rem;
-  padding-bottom: 0.5rem; }
+  padding-top: 0.1875rem;
+  padding-bottom: 0.375rem; }
   .form-group.form-group-sm.small-bottom-padding {
-    padding-bottom: 0.25rem; }
+    padding-bottom: 0.1875rem; }
   .form-group.form-group-sm hr.above-label {
-    margin-bottom: 0.75rem; }
+    margin-bottom: 0.5625rem; }
 
 .form-group.form-group-xs {
   padding-top: 0.125rem;
@@ -18728,7 +19899,7 @@ form-group inside a <form class="form-validation"> gets special style for valida
 ************************************************************/
 form.form-validation .form-group {
   padding-top: 0.3125rem;
-  padding-bottom: 1.4375rem; }
+  padding-bottom: 1.5rem; }
   form.form-validation .form-group .form-control-feedback {
     line-height: 1;
     padding-top: 0;
@@ -18738,22 +19909,22 @@ form.form-validation .form-group {
   form.form-validation .form-group.no-validation {
     padding-bottom: 0.3125rem; }
   form.form-validation .form-group .form-control-feedback {
-    height: 1.4375rem;
-    font-size: 0.8125rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
     color: #dc3545;
     padding-left: 0.3125rem;
     vertical-align: top; }
   form.form-validation .form-group.has-warning .form-control-feedback[data-fv-result="INVALID"] {
     display: inline-block !important; }
   form.form-validation .form-group.form-group-sm {
-    padding-top: 0.25rem;
-    padding-bottom: 1.25rem; }
+    padding-top: 0.1875rem;
+    padding-bottom: 1.125rem; }
     form.form-validation .form-group.form-group-sm.has-warning {
       padding-bottom: 0px; }
     form.form-validation .form-group.form-group-sm.no-validation {
-      padding-bottom: 0.25rem; }
+      padding-bottom: 0.1875rem; }
     form.form-validation .form-group.form-group-sm .form-control-feedback {
-      height: 1.25rem;
+      height: 1.125rem;
       font-size: 0.75rem;
       color: #dc3545;
       padding-left: 0.25rem;
@@ -18809,8 +19980,10 @@ form.form-validation .form-group {
   padding: 0.3125rem 0.3125rem;
   border: 1px solid #ced4da;
   border-radius: 0.25rem; }
+  .input-group-border.input-group-border-dark {
+    border-color: black; }
   .input-group-border.input-group-sm, .input-group-border.input-group-xs {
-    padding: 0.25rem 0.25rem;
+    padding: 0.1875rem 0.25rem;
     border-radius: 0.1875rem; }
   .input-group-border.input-group-border-with-label {
     margin-top: 0.25em; }
@@ -18851,7 +20024,7 @@ Only supports the html-structure
     color: #495057;
     padding: 0 2px;
     margin-left: 1px;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     left: 0.3125rem; }
     .input-group .has-float-label > span::after {
       display: block;
@@ -18908,8 +20081,8 @@ Only supports the html-structure
 
 .input-group-sm.input-group .has-float-label .form-control-with-label.show-label-as-placeholder + *,
 .input-group-sm.input-group .has-float-label .form-control-with-label:placeholder-shown:not(:focus) + * {
-  font-size: 0.8125rem;
-  top: calc(0.25rem + 1px); }
+  font-size: 0.875rem;
+  top: calc(0.1875rem + 1px); }
 
 .input-group-xs.input-group .has-float-label > span {
   font-size: 0.65625rem;
@@ -18937,7 +20110,7 @@ Style for
   color: #495057;
   padding: 0;
   margin-left: 1px;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   left: 0.3125rem; }
   .input-group.input-group-border .has-fixed-label::after {
     display: block;
@@ -19096,7 +20269,7 @@ Adjustmernt to Bootstrap table
     display: none; }
   .table tbody tr td {
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem; }
+    font-size: 0.875rem; }
     .table tbody tr td.no-horizontal-padding {
       padding-left: 0;
       padding-right: 0; }
@@ -19114,7 +20287,7 @@ Adjustmernt to Bootstrap table
   align-items: center;
   cursor: default;
   padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: inherit; }
   .modal-dialog-sm .table thead tr th span,
@@ -19218,7 +20391,7 @@ Using Bootstrap Collapse to create accordion
       content: "\f054"; }
   .accordion .card-block {
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     border-radius: 0.25rem; }
   .accordion .card-footer {
     font-weight: 400;
@@ -19226,7 +20399,7 @@ Using Bootstrap Collapse to create accordion
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     color: #495057;
@@ -19271,7 +20444,7 @@ Using Bootstrap Collapse to create accordion
   align-items: center;
   cursor: default;
   padding: 0.25rem 0.25rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: inherit; }
   .modal-dialog-sm .accordion .card-header span,
@@ -19290,7 +20463,7 @@ Using Bootstrap Collapse to create accordion
 .modal-dialog-xs .accordion .card-block,
 .accordion-sm .card-block {
   padding: 0.3125rem 0.3125rem;
-  font-size: 0.8125rem; }
+  font-size: 0.875rem; }
 
 .modal-dialog-sm .accordion .card-footer,
 .modal-dialog-xs .accordion .card-footer,
@@ -19418,15 +20591,15 @@ for noty is copyed and modified
     margin: 4px 0;
     overflow: hidden;
     position: relative;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     border: 1px solid #868e96;
-    border-radius: 0.3rem;
+    border-radius: 0.3125rem;
     -webkit-box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5); }
     .noty_bar.noty_theme__jquery-bootstrap .noty_body {
       padding: 0.3125rem 0.3125rem;
       font-size: 1rem;
-      font-size: 0.8125rem; }
+      font-size: 0.875rem; }
       .noty_bar.noty_theme__jquery-bootstrap .noty_body * {
         white-space: pre-wrap;
         -ms-word-break: break-word;
@@ -19439,7 +20612,7 @@ for noty is copyed and modified
       margin-top: 0.3125rem;
       margin-right: 0.3125rem; }
       .noty_bar.noty_theme__jquery-bootstrap.no-header .header-icon-container.header-icon-container-sm {
-        margin-top: 0.25rem;
+        margin-top: 0.1875rem;
         margin-right: 0.25rem; }
   .noty_bar .noty-header {
     color: #495057;
@@ -19449,7 +20622,7 @@ for noty is copyed and modified
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     border-bottom: 1px solid #9aa1a8;
@@ -19639,7 +20812,7 @@ TABS
 Adjustment to Bootstrap tabs
 ************************************************************/
 .nav-tabs {
-  margin-top: 0.25rem;
+  margin-top: 0.1875rem;
   padding-left: 0.625rem;
   border-bottom-color: #6c757d; }
   .tab-inner-content .nav-tabs {
@@ -19740,8 +20913,8 @@ Adjustment to Bootstrap tabs
   .nav-tabs.hide-not-selected-text a.nav-item.nav-link:not(.active) span:last-child:not(:first-child) {
     display: none; }
   .nav-tabs.nav-tabs-sm a.nav-item.nav-link {
-    padding: 0.25rem 0.25rem;
-    font-size: 0.8125rem;
+    padding: 0.1875rem 0.25rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: 0.1875rem;
     border-bottom-left-radius: 0px;
@@ -19777,7 +20950,7 @@ Adjustment to Bootstrap tabs
     background-color: #fff;
     padding: 0.3125rem 0.3125rem;
     font-size: 1rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     padding-left: 0.625rem;
     padding-right: 0.625rem; }
     .tab-content .tab-pane.active .tab-inner-content.scrollbar-vertical, .tab-content .tab-content .tab-pane.active .tab-inner-content {
@@ -19790,7 +20963,7 @@ Adjustment to Bootstrap tabs
     align-items: center;
     cursor: default;
     padding: 0.3125rem 0.3125rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     border-radius: inherit;
     color: #495057;
@@ -21191,6 +22364,7 @@ class="hide-for-global-setting-timezone-utc show-for-global-setting-showutc"
 .no-global-setting-timezone-local .show-for-global-setting-timezone-local {
   display: none !important; }
 
+@charset "UTF-8";
 /***********************************************
     fcoo-application.scss,
 
@@ -21209,11 +22383,27 @@ adjustments to Bootstrap from fcoo/jquery-bootstrap
 BOOTSTRAP-VARIABLES
 ************************************************************/
 /***********************************************
+FUNCTIONS TO CONVETRT FROM PX TO REM
+To make it easier to design and calculate dimensions
+the function rem defined
+************************************************/
+/***********************************************
 ADJUST BOOTSTRAP DEFAULT VALUES
+************************************************/
+/***********************************************
+Adjust bootstrap-variables to only have dimensions
+in integer px from rem
 ************************************************/
 /*Not used. No lg-buttons
 $input-btn-padding-y-lg: .75rem;
 $input-btn-padding-x-lg: $input-btn-padding-y-lg;
+*/
+/* VERSION 1.x
+//$font-size-sm = .875rem; // = 14px
+$font-size-sm: rem(13px); //<= TODO MANGLER. Skal muligvis sættes til 14px og så skal padding for buttons rettes tilsvarrende
+
+$input-btn-padding-y-sm: rem(4px);
+$input-btn-padding-x-sm: $input-btn-padding-y-sm;
 */
 /************************************************************
 Including "size" xs as in Bootstrap 3
@@ -21261,7 +22451,7 @@ HEADER
 Font-sizes for headers are one 'size' smaller than normal font
 $font-size-lg  : 1.25rem    20px
 $font-size-base: 1rem       16px
-$font-size-sm  : .8125rem   13px
+$font-size-sm  : .875rem;   14px
 $font-size-xs  : .75rem     12px
 ************************************************************/
 /************************************************************
@@ -21605,7 +22795,7 @@ confussions another name is used
 .top-menu-container .top-menu {
   margin-top: 0px;
   padding: 0.25rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; }
   .touchevents .top-menu-container .top-menu {
     font-size: 1rem; }
@@ -21646,7 +22836,7 @@ confussions another name is used
       display: block;
       visibility: hidden; }
   .top-menu-container .top-menu .form-inline .form-control {
-    padding: 0.25rem 0.25rem;
+    padding: 0.1875rem 0.25rem;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-right: none;
@@ -21854,8 +23044,8 @@ Style for 'About FCOO' modal-content
     margin: 0;
     padding: 0.25rem;
     text-align: center;
-    font-size: 1.21875rem;
-    line-height: 1.21875rem;
+    font-size: 1.3125rem;
+    line-height: 1.3125rem;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     overflow: hidden;
     text-overflow: ellipsis;
