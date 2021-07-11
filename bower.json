@@ -1,41 +1,41 @@
 {
-    "name": "fcoo-metoc-parameter-model-domain",
-    "version": "3.1.0",
-    "homepage": "https://github.com/FCOO/fcoo-metoc-parameter-model-domain",
-    "authors": [
-        "Niels Holt"
-    ],
-    "description": "",
-    "main": [
-        "dist/fcoo-metoc-parameter-model-domain.js",
-        "dist/fcoo-metoc-parameter-model-domain.css"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/FCOO/fcoo-metoc-parameter-model-domain.git"
-    },
-    "dependencies": {
-        "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^12.0.0",
-        "fcoo-parameter-unit": "https://gitlab.com/FCOO/fcoo-parameter-unit.git#^1.0.0",
-        "intervals": "fcoo/intervals.js#^1.1.6",
-        "leaflet": "latest",
-        "leaflet-bugfix": "fcoo/leaflet-bugfix#^2.0.2",
-        "leaflet-polyline": "fcoo/leaflet-polyline#^2.5.1"
-    },
-    "devDependencies": {
-        "bourbon": "latest",
-        "modernizr-mixin": "latest",
-        "mathsass": "latest"
-    },
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "moduleType": [
-        "es6"
-    ]
+  "name": "fcoo-metoc-parameter-model-domain",
+  "version": "4.0.0",
+  "homepage": "https://github.com/FCOO/fcoo-metoc-parameter-model-domain",
+  "authors": [
+    "Niels Holt"
+  ],
+  "description": "",
+  "main": [
+    "dist/fcoo-metoc-parameter-model-domain.js",
+    "dist/fcoo-metoc-parameter-model-domain.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/fcoo-metoc-parameter-model-domain.git"
+  },
+  "dependencies": {
+    "fcoo-application": "https://gitlab.com/FCOO/fcoo-application.git#^12.0.0",
+    "fcoo-parameter-unit": "https://gitlab.com/FCOO/fcoo-parameter-unit.git#^1.0.0",
+    "intervals": "fcoo/intervals.js#^1.1.6",
+    "leaflet": "latest",
+    "leaflet-bugfix": "fcoo/leaflet-bugfix#^2.0.2",
+    "leaflet-polyline": "fcoo/leaflet-polyline#^2.5.1"
+  },
+  "devDependencies": {
+    "bourbon": "latest",
+    "modernizr-mixin": "latest",
+    "mathsass": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "es6"
+  ]
 }

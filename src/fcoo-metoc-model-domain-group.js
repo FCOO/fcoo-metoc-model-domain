@@ -352,6 +352,16 @@
         },
 
         /*********************************************
+        _sortPolygons - Sort the order of the lists polygons
+        *********************************************/
+        _sortPolygons: function(){
+            $.each(this.list, function(index, item){
+                if (item.polygon)
+                    item.polygon.bringToFront();
+            });
+        },
+
+        /*********************************************
         _modalContent - Return the modal content for all domains
         *********************************************/
         _modalContent: function(header, accordionStatus){
@@ -606,6 +616,8 @@
             this.polygon
                 .on('click', $.proxy(this._polygon_onClick, this) )
                 .bindTooltip(this.domain.fullNameSimple(), {sticky: true});
+
+            this.domainGroup._sortPolygons();
         },
 
         rejectPolygon: function(){
